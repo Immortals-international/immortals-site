@@ -2,21 +2,37 @@
   const {styles, scenes} = sceneCatalog;
   let sceneIndex=0, styleIndex=0, zoom=1, returnFocus=null;
   const imageAt=(style, index=sceneIndex)=>styles[style].images[index];
-  const picture=(im,thumb=false)=>`<img src="${thumb?im.thumbnail:im.src}" alt="${thumb?'':im.alt}" width="${im.width}" height="${im.height}" loading="lazy" decoding="async">`;
+  let pairIndex=0;
+  const pairs=[['lounge','suite'],...Array.from({length:3},(_,i)=>scenes.slice(i*2,i*2+2).map(s=>s.id))];
   const galleries=styles.map((style,i)=>{
-    const el=document.createElement('section');
-    el.className='room-gallery';
-    el.setAttribute('aria-label',`${style.title} room gallery`);
-    el.innerHTML=`<div class="room-gallery-heading"><div><p class="eyebrow">EXPLORE THE CLINIC</p><h3>From arrival to treatment.</h3></div><a class="scene-compare-link" href="#compare">Compare this room across directions ↗</a></div><button class="room-gallery-image" aria-label="Enlarge Main entrance - ${style.title}">${picture(imageAt(i))}<span class="enlarge-label">Enlarge ↗</span></button><div class="room-gallery-caption"><button data-scene-step="-1" aria-label="Previous room">←</button><p aria-live="polite"><span class="room-gallery-label">${scenes[0].label}</span><span class="room-gallery-count">01 / 06</span></p><button data-scene-step="1" aria-label="Next room">→</button></div><div class="room-thumbnails" role="group" aria-label="Choose a room">${style.images.map((im,n)=>`<button data-scene-index="${n}" aria-pressed="${n===0}">${picture(im,true)}<span>${im.label}</span></button>`).join('')}</div><p class="room-gallery-note">Room studies use the Gallery layout. Club and Salon remain available in the floor-plan explorer.</p>`;
-    document.querySelector(`#${style.id} .story-details`).before(el);
-    el.querySelector('.room-gallery-image').addEventListener('click',()=>openScene(i,scenes[sceneIndex].id));
-    el.querySelectorAll('[data-scene-index]').forEach(b=>b.addEventListener('click',()=>selectScene(Number(b.dataset.sceneIndex))));
-    el.querySelectorAll('[data-scene-step]').forEach(b=>b.addEventListener('click',()=>selectScene(sceneIndex+Number(b.dataset.sceneStep))));
-    el.querySelector('.scene-compare-link').addEventListener('click',()=>document.querySelector(`[data-room="${scenes[sceneIndex].id}"]`).click());
-    el.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();selectScene(sceneIndex+(e.key==='ArrowRight'?1:-1));}});
-    bindSwipe(el.querySelector('.room-gallery-image'),d=>selectScene(sceneIndex+d));
+    const el=document.querySelector(`#${style.id} .story-gallery`);
+    el.setAttribute('role','region');
+    el.setAttribute('aria-roledescription','carousel');
+    el.setAttribute('aria-label',`${style.title} images`);
+    const main=el.firstElementChild;
+    main.classList.add('story-carousel-main');
+    const controls=document.createElement('div');
+    controls.className='story-carousel-controls';
+    controls.innerHTML=`<button data-pair-step="-1" aria-label="Previous images for ${style.title}">←</button><span class="story-carousel-count" aria-live="polite">01 / 04</span><button data-pair-step="1" aria-label="Next images for ${style.title}">→</button>`;
+    main.append(controls);
+    controls.querySelectorAll('[data-pair-step]').forEach(b=>b.addEventListener('click',()=>selectPair(pairIndex+Number(b.dataset.pairStep))));
+    el.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();selectPair(pairIndex+(e.key==='ArrowRight'?1:-1));}});
+    el.querySelectorAll('.image-button').forEach(b=>bindSwipe(b,d=>selectPair(pairIndex+d)));
     return el;
   });
+  function selectPair(index){
+    pairIndex=(index+pairs.length)%pairs.length;
+    galleries.forEach((el,i)=>{
+      el.querySelectorAll('.image-button').forEach((button,n)=>{
+        const view=pairs[pairIndex][n],im=styles[i].images.find(image=>image.id===view);
+        const label=im?im.label:view==='lounge'?'Public lounge + coffee bar':'Private patient suite';
+        button.dataset.view=view;
+        button.setAttribute('aria-label',`Enlarge ${label} - ${styles[i].title}`);
+        button.innerHTML=(im?`<div class="story-room" style="aspect-ratio:${im.width}/${im.height}"><img src="${im.src}" alt="${im.alt}" width="${im.width}" height="${im.height}" decoding="async"></div>`:scene(concepts[i],view))+`<span class="image-caption"><span>${label}</span><span>Enlarge ↗</span></span>`;
+      });
+      el.querySelector('.story-carousel-count').textContent=`0${pairIndex+1} / 04`;
+    });
+  }
   const dialog=document.createElement('dialog');
   dialog.id='scene-dialog';dialog.setAttribute('aria-labelledby','scene-dialog-title');
   dialog.innerHTML=`<div class="scene-dialog-head"><div><p class="eyebrow" id="scene-dialog-style"></p><h2 id="scene-dialog-title"></h2></div><button class="close" id="scene-close" autofocus aria-label="Close room image">Close ×</button></div><div class="scene-style-tabs" role="group" aria-label="Architectural direction">${styles.map((s,i)=>`<button data-scene-style="${i}" aria-pressed="false">0${i+1} / ${s.title}</button>`).join('')}</div><div class="scene-room-tabs" role="group" aria-label="Room">${scenes.map((s,i)=>`<button data-lightbox-scene="${i}" aria-pressed="false">${s.label}</button>`).join('')}</div><div class="scene-viewport" tabindex="0" aria-label="Room image. Use zoom controls and scroll to explore."><div class="scene-image-size"><img id="scene-full-image" alt="" decoding="async"></div></div><div class="scene-dialog-controls"><button id="scene-previous" aria-label="Previous room">← Previous room</button><span id="scene-position" aria-live="polite"></span><div class="scene-zoom"><button id="scene-zoom-out" aria-label="Zoom out">−</button><span id="scene-zoom-level">100%</span><button id="scene-zoom-in" aria-label="Zoom in">+</button><button id="scene-fit">Fit</button></div><button id="scene-next" aria-label="Next room">Next room →</button></div>`;
@@ -24,14 +40,6 @@
   const viewport=dialog.querySelector('.scene-viewport');
   function selectScene(index){
     sceneIndex=(index+scenes.length)%scenes.length;
-    galleries.forEach((el,i)=>{
-      const im=imageAt(i),img=el.querySelector('.room-gallery-image img');
-      img.src=im.src;img.alt=im.alt;img.width=im.width;img.height=im.height;
-      el.querySelector('.room-gallery-image').setAttribute('aria-label',`Enlarge ${im.label} - ${styles[i].title}`);
-      el.querySelector('.room-gallery-label').textContent=im.label;
-      el.querySelector('.room-gallery-count').textContent=`0${sceneIndex+1} / 06`;
-      el.querySelectorAll('[data-scene-index]').forEach((b,n)=>b.setAttribute('aria-pressed',String(n===sceneIndex)));
-    });
     if(dialog.open)renderLightbox();
   }
   function setZoom(value){
