@@ -2,8 +2,7 @@
   const {styles, scenes} = sceneCatalog;
   let sceneIndex=0, styleIndex=0, zoom=1, returnFocus=null;
   const imageAt=(style, index=sceneIndex)=>styles[style].images[index];
-  let pairIndex=0;
-  const pairs=Array.from({length:3},(_,i)=>scenes.slice(i*2,i*2+2).map(s=>s.id));
+  let activeImage=0;
   const galleries=styles.map((style,i)=>{
     const el=document.querySelector(`#${style.id} .story-gallery`);
     el.setAttribute('role','region');
@@ -11,29 +10,36 @@
     el.setAttribute('aria-label',`${style.title} images`);
     const main=el.firstElementChild;
     main.classList.add('story-carousel-main');
+    // The side image advances the carousel; only the main image opens the viewer.
+    const oldSide=el.querySelector('.story-secondary .image-button');
+    const preview=document.createElement('button');
+    preview.className='image-button story-preview';
+    preview.type='button';
+    oldSide.replaceWith(preview);
+    preview.addEventListener('click',()=>selectImage(activeImage+1));
     const controls=document.createElement('div');
     controls.className='story-carousel-controls';
-    controls.innerHTML=`<button data-pair-step="-1" aria-label="Previous images for ${style.title}">←</button><span class="story-carousel-count" aria-live="polite">01 / 03</span><button data-pair-step="1" aria-label="Next images for ${style.title}">→</button>`;
+    controls.innerHTML=`<button data-image-step="-1" aria-label="Previous image for ${style.title}">←</button><span class="story-carousel-count" aria-live="polite">01 / 06</span><button data-image-step="1" aria-label="Next image for ${style.title}">→</button>`;
     main.append(controls);
-    controls.querySelectorAll('[data-pair-step]').forEach(b=>b.addEventListener('click',()=>selectPair(pairIndex+Number(b.dataset.pairStep))));
-    el.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();selectPair(pairIndex+(e.key==='ArrowRight'?1:-1));}});
-    el.querySelectorAll('.image-button').forEach(b=>bindSwipe(b,d=>selectPair(pairIndex+d)));
+    controls.querySelectorAll('[data-image-step]').forEach(b=>b.addEventListener('click',()=>selectImage(activeImage+Number(b.dataset.imageStep))));
+    el.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();selectImage(activeImage+(e.key==='ArrowRight'?1:-1));}});
+    el.querySelectorAll('.image-button').forEach(b=>bindSwipe(b,d=>selectImage(activeImage+d)));
     return el;
   });
-  function selectPair(index){
-    pairIndex=(index+pairs.length)%pairs.length;
+  function selectImage(index){
+    activeImage=(index+scenes.length)%scenes.length;
     galleries.forEach((el,i)=>{
-      el.querySelectorAll('.image-button').forEach((button,n)=>{
-        const view=pairs[pairIndex][n],im=styles[i].images.find(image=>image.id===view);
-        const label=im.label;
-        button.dataset.view=view;
-        button.setAttribute('aria-label',`Enlarge ${label} - ${styles[i].title}`);
-        button.innerHTML=`<div class="story-room"><img src="${im.src}" alt="${im.alt}" width="${im.width}" height="${im.height}" loading="lazy" decoding="async"></div><span class="image-caption"><span>${label}</span><span>Enlarge ↗</span></span>`;
-      });
-      el.querySelector('.story-carousel-count').textContent=`0${pairIndex+1} / 03`;
+      const im=styles[i].images[activeImage],next=styles[i].images[(activeImage+1)%scenes.length];
+      const main=el.querySelector('.story-carousel-main .image-button'),preview=el.querySelector('.story-preview');
+      main.dataset.view=im.id;
+      main.setAttribute('aria-label',`Enlarge ${im.label} - ${styles[i].title}`);
+      main.innerHTML=`<div class="story-room"><img src="${im.src}" alt="${im.alt}" width="${im.width}" height="${im.height}" loading="lazy" decoding="async"></div><span class="image-caption"><span>${im.label}</span><span>Enlarge ↗</span></span>`;
+      preview.setAttribute('aria-label',`Show next image: ${next.label} - ${styles[i].title}`);
+      preview.innerHTML=`<span class="preview-label">UP NEXT</span><span class="story-room"><img src="${next.src}" alt="${next.alt}" width="${next.width}" height="${next.height}" loading="lazy" decoding="async"></span><span class="image-caption"><span>${next.label}</span><span aria-hidden="true">→</span></span>`;
+      el.querySelector('.story-carousel-count').textContent=`0${activeImage+1} / 06`;
     });
   }
-  selectPair(0);
+  selectImage(0);
   const dialog=document.createElement('dialog');
   dialog.id='scene-dialog';dialog.setAttribute('aria-labelledby','scene-dialog-title');
   dialog.innerHTML=`<div class="scene-dialog-head"><div><p class="eyebrow" id="scene-dialog-style"></p><h2 id="scene-dialog-title"></h2></div><button class="close" id="scene-close" autofocus aria-label="Close room image">Close ×</button></div><div class="scene-style-tabs" role="group" aria-label="Architectural direction">${styles.map((s,i)=>`<button data-scene-style="${i}" aria-pressed="false">0${i+1} / ${s.title}</button>`).join('')}</div><div class="scene-room-tabs" role="group" aria-label="Room">${scenes.map((s,i)=>`<button data-lightbox-scene="${i}" aria-pressed="false">${s.label}</button>`).join('')}</div><div class="scene-viewport" tabindex="0" aria-label="Room image. Use zoom controls and scroll to explore."><div class="scene-image-size"><img id="scene-full-image" alt="" decoding="async"></div></div><div class="scene-dialog-controls"><button id="scene-previous" aria-label="Previous room">← Previous room</button><span id="scene-position" aria-live="polite"></span><div class="scene-zoom"><button id="scene-zoom-out" aria-label="Zoom out">−</button><span id="scene-zoom-level">100%</span><button id="scene-zoom-in" aria-label="Zoom in">+</button><button id="scene-fit">Fit</button></div><button id="scene-next" aria-label="Next room">Next room →</button></div>`;
