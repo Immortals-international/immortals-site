@@ -35,7 +35,7 @@
       main.setAttribute('aria-label',`Enlarge ${im.label} - ${styles[i].title}`);
       main.innerHTML=`<div class="story-room"><img src="${im.src}" alt="${im.alt}" width="${im.width}" height="${im.height}" loading="lazy" decoding="async"></div><span class="image-caption"><span>${im.label}</span><span>Enlarge ↗</span></span>`;
       preview.setAttribute('aria-label',`Show next image: ${next.label} - ${styles[i].title}`);
-      preview.innerHTML=`<span class="preview-label">UP NEXT</span><span class="story-room"><img src="${next.src}" alt="${next.alt}" width="${next.width}" height="${next.height}" loading="lazy" decoding="async"></span><span class="image-caption"><span>${next.label}</span><span aria-hidden="true">→</span></span>`;
+      preview.innerHTML=`<span class="story-room"><img src="${next.src}" alt="${next.alt}" width="${next.width}" height="${next.height}" loading="lazy" decoding="async"></span><span class="image-caption"><span>${next.label}</span><span aria-hidden="true">→</span></span>`;
       el.querySelector('.story-carousel-count').textContent=`0${activeImage+1} / 06`;
     });
   }
