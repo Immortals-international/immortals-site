@@ -20,3 +20,9 @@ The default base is `/immortals-site/`. Set `SITE_URL=https://immortals.internat
 ## Feedback
 
 The presentation links to the existing [team feedback form](https://immortals-macau-visual-concepts.immortals-in-8490.chatgpt.site/#discussion). Saved responses and authentication remain on that service. Keep it running. A standalone feedback migration needs verified authentication and database hosting; GitHub Pages cannot provide them. No submitted feedback records are included here.
+
+## Room scene galleries
+
+Each architectural direction has six matching room scenes, synchronized room selection, thumbnails and a full-screen viewer. The comparison section also offers all six rooms. Original lounge/suite studies, floor plans and feedback remain available.
+
+Display WebP files and thumbnails are generated with `node scripts/prepare-scenes.mjs /path/to/extracted-pack/public` after installing the Astro dependencies. The original PNG masters are retained in the supplied `Immortals-Macau-24-Scene-Pack.zip` archive and in the local ignored `verification/scene-pack/` extraction. `public/assets/scenes/manifest.json` records both source and display hashes. Generated display files are committed; production builds do not need the private handoff folder. Images keep their full proportions, with no crops or upscaling.
