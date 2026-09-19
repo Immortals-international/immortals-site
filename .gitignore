@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+verification/
+HANDOFF.md
+astro-site/migration/
+astro-site/.github/
