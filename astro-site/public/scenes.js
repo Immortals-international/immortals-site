@@ -3,7 +3,7 @@
   let sceneIndex=0, styleIndex=0, zoom=1, returnFocus=null;
   const imageAt=(style, index=sceneIndex)=>styles[style].images[index];
   let pairIndex=0;
-  const pairs=[['lounge','suite'],...Array.from({length:3},(_,i)=>scenes.slice(i*2,i*2+2).map(s=>s.id))];
+  const pairs=Array.from({length:3},(_,i)=>scenes.slice(i*2,i*2+2).map(s=>s.id));
   const galleries=styles.map((style,i)=>{
     const el=document.querySelector(`#${style.id} .story-gallery`);
     el.setAttribute('role','region');
@@ -13,7 +13,7 @@
     main.classList.add('story-carousel-main');
     const controls=document.createElement('div');
     controls.className='story-carousel-controls';
-    controls.innerHTML=`<button data-pair-step="-1" aria-label="Previous images for ${style.title}">←</button><span class="story-carousel-count" aria-live="polite">01 / 04</span><button data-pair-step="1" aria-label="Next images for ${style.title}">→</button>`;
+    controls.innerHTML=`<button data-pair-step="-1" aria-label="Previous images for ${style.title}">←</button><span class="story-carousel-count" aria-live="polite">01 / 03</span><button data-pair-step="1" aria-label="Next images for ${style.title}">→</button>`;
     main.append(controls);
     controls.querySelectorAll('[data-pair-step]').forEach(b=>b.addEventListener('click',()=>selectPair(pairIndex+Number(b.dataset.pairStep))));
     el.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();selectPair(pairIndex+(e.key==='ArrowRight'?1:-1));}});
@@ -25,14 +25,15 @@
     galleries.forEach((el,i)=>{
       el.querySelectorAll('.image-button').forEach((button,n)=>{
         const view=pairs[pairIndex][n],im=styles[i].images.find(image=>image.id===view);
-        const label=im?im.label:view==='lounge'?'Public lounge + coffee bar':'Private patient suite';
+        const label=im.label;
         button.dataset.view=view;
         button.setAttribute('aria-label',`Enlarge ${label} - ${styles[i].title}`);
-        button.innerHTML=(im?`<div class="story-room" style="aspect-ratio:${im.width}/${im.height}"><img src="${im.src}" alt="${im.alt}" width="${im.width}" height="${im.height}" decoding="async"></div>`:scene(concepts[i],view))+`<span class="image-caption"><span>${label}</span><span>Enlarge ↗</span></span>`;
+        button.innerHTML=`<div class="story-room"><img src="${im.src}" alt="${im.alt}" width="${im.width}" height="${im.height}" loading="lazy" decoding="async"></div><span class="image-caption"><span>${label}</span><span>Enlarge ↗</span></span>`;
       });
-      el.querySelector('.story-carousel-count').textContent=`0${pairIndex+1} / 04`;
+      el.querySelector('.story-carousel-count').textContent=`0${pairIndex+1} / 03`;
     });
   }
+  selectPair(0);
   const dialog=document.createElement('dialog');
   dialog.id='scene-dialog';dialog.setAttribute('aria-labelledby','scene-dialog-title');
   dialog.innerHTML=`<div class="scene-dialog-head"><div><p class="eyebrow" id="scene-dialog-style"></p><h2 id="scene-dialog-title"></h2></div><button class="close" id="scene-close" autofocus aria-label="Close room image">Close ×</button></div><div class="scene-style-tabs" role="group" aria-label="Architectural direction">${styles.map((s,i)=>`<button data-scene-style="${i}" aria-pressed="false">0${i+1} / ${s.title}</button>`).join('')}</div><div class="scene-room-tabs" role="group" aria-label="Room">${scenes.map((s,i)=>`<button data-lightbox-scene="${i}" aria-pressed="false">${s.label}</button>`).join('')}</div><div class="scene-viewport" tabindex="0" aria-label="Room image. Use zoom controls and scroll to explore."><div class="scene-image-size"><img id="scene-full-image" alt="" decoding="async"></div></div><div class="scene-dialog-controls"><button id="scene-previous" aria-label="Previous room">← Previous room</button><span id="scene-position" aria-live="polite"></span><div class="scene-zoom"><button id="scene-zoom-out" aria-label="Zoom out">−</button><span id="scene-zoom-level">100%</span><button id="scene-zoom-in" aria-label="Zoom in">+</button><button id="scene-fit">Fit</button></div><button id="scene-next" aria-label="Next room">Next room →</button></div>`;

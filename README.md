@@ -23,6 +23,6 @@ The presentation links to the existing [team feedback form](https://immortals-ma
 
 ## Room scene galleries
 
-Each architectural direction keeps its original large lounge image and smaller patient-suite image as the first carousel slide. Arrows and swipes cycle that same composition through three additional pairs: entrances, blood draw/DEXA and VO2 max/hyperbaric. The six new scenes retain fullscreen zoom and side-by-side comparison. Floor plans and feedback remain available.
+Each architectural direction uses only the six new room renders in its original large-image / smaller-image carousel. Arrows and swipes cycle through three pairs: entrances, blood draw/DEXA and VO2 max/hyperbaric. All slides use fixed 16:9 frames with contained images so the layout stays stable without cropping. The six scenes retain fullscreen zoom and side-by-side comparison. Original concept boards, floor plans and feedback remain available.
 
 Display WebP files and thumbnails are generated with `node scripts/prepare-scenes.mjs /path/to/extracted-pack/public` after installing the Astro dependencies. The original PNG masters are retained in the supplied `Immortals-Macau-24-Scene-Pack.zip` archive and in the local ignored `verification/scene-pack/` extraction. `public/assets/scenes/manifest.json` records both source and display hashes. Generated display files are committed; production builds do not need the private handoff folder. Images keep their full proportions, with no crops or upscaling.
