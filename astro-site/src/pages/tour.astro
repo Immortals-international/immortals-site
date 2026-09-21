@@ -1,0 +1,47 @@
+---
+import '../styles/clinic-tour.css';
+import { scenes } from '../data/clinic-tour';
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Explore the clinic | Immortals</title>
+    <meta name="description" content="Step inside the Immortals Macau concept. Explore six spaces in a 360° tour of warm sculptural futurism." />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#0c1220" />
+    <link rel="icon" href={`${base}assets/favicon.png`} />
+    <link rel="preload" href={`${base}assets/mori-regular.woff2`} as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href={`${base}style.css?v=5`} />
+  </head>
+  <body class="tour-page">
+    <header class="tour-header">
+      <a class="brand" href={base} aria-label="Immortals home"><img src={`${base}assets/wordmark.png`} alt="Immortals" width="180" height="16" /></a>
+      <span class="tour-header-caption">MACAU / THE CLINIC IN 360°</span>
+      <a class="tour-return" href={base}>← <span>Back to the vision</span></a>
+    </header>
+    <main id="clinic-tour" class="tour-stage" aria-label="Explore the clinic">
+      <canvas id="tour-canvas" tabindex="0" aria-label="360 degree clinic view. Drag or swipe to look around. Arrow keys look around, plus and minus zoom, Home resets." aria-describedby="tour-help"></canvas>
+      <div class="tour-heading">
+        <div class="tour-room-title"><p class="tour-eyebrow"><span id="scene-count">01 / 06</span> <span>WARM SCULPTURAL FUTURISM</span></p><h1 id="room-name">Main entrance</h1></div>
+        <div class="tour-picker"><label for="room-select">EXPLORE THE CLINIC</label><select id="room-select">{scenes.map((scene, i) => <option value={i}>{String(i + 1).padStart(2, '0')} · {scene.name}</option>)}</select></div>
+      </div>
+      <button id="next-marker" class="tour-marker" hidden><span class="tour-disc" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m7 21 9-10 9 10M7 28l9-10 9 10" /></svg></span><span class="tour-marker-label"><small>Jump to</small><span id="next-name"></span></span></button>
+      <button id="back-marker" class="tour-marker" hidden><span class="tour-disc" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m7 21 9-10 9 10M7 28l9-10 9 10" /></svg></span><span class="tour-marker-label"><small>Back to</small><span id="back-name"></span></span></button>
+      <div id="tour-status" class="tour-status" role="status"><span class="tour-spinner" aria-hidden="true"></span><p id="status-message">Entering the main entrance…</p><button id="retry-room" hidden>Try again</button></div>
+      <div class="tour-bottom">
+        <p id="tour-help" class="tour-help"><span class="tour-drag-icon" aria-hidden="true">↔</span> Drag to look around <span class="tour-help-divider">/</span> <span>Follow the arrows to explore</span></p>
+        <div class="tour-toolbar">
+          <nav class="tour-room-nav" aria-label="Room navigation"><button id="previous-room" aria-label="Previous room"><span aria-hidden="true">←</span><span><small>PREVIOUS ROOM</small><span id="previous-label">Hyperbaric</span></span></button><button id="next-room" aria-label="Next room"><span><small>NEXT ROOM</small><span id="next-label">Private entrance</span></span><span aria-hidden="true">→</span></button></nav>
+          <div class="tour-view-controls" role="group" aria-label="View controls"><button id="zoom-out" aria-label="Zoom out" title="Zoom out">−</button><button id="zoom-in" aria-label="Zoom in" title="Zoom in">+</button><button id="reset" aria-label="Reset view" title="Reset view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6" /></svg></button><span class="tour-control-separator"></span><button id="fullscreen" aria-label="Enter fullscreen" title="Fullscreen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" /></svg></button></div>
+        </div>
+        <p class="tour-note">Concept preview · One viewpoint per room · Room jumps skip connecting corridors</p>
+      </div>
+      <p id="tour-announcer" class="tour-sr-only" aria-live="polite"></p>
+      <noscript><p class="tour-status">Enable JavaScript to explore the 360° clinic tour. <a href={base}>Return to the presentation</a>.</p></noscript>
+    </main>
+    <script>import '../scripts/clinic-tour.js';</script>
+  </body>
+</html>

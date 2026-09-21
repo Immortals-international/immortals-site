@@ -1,0 +1,61 @@
+{
+  "sourcePackage": "Immortals-Six-Room-360",
+  "conversion": "WebP quality 90, original dimensions, no crop or upscaling",
+  "images": [
+    {
+      "room": "main-entrance",
+      "source": "assets/main-entrance.png",
+      "sourceSha256": "9c1e53cc2fe1440d2c4e8c29d10baeeacd9fc8ca95b7b15f3fe5344888f8b3f2",
+      "display": "main-entrance.webp",
+      "displaySha256": "d3d25492ad76844f73beaa2c46728c5d15dc378f22a6c713c6a183fe3057b1d1",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 2083429,
+      "displayBytes": 237756
+    },
+    {
+      "room": "private-entrance",
+      "source": "assets/private-entrance.png",
+      "sourceSha256": "ae2933da46750142737a080f2011049c718426aaf2608cde024ec2af694af869",
+      "display": "private-entrance.webp",
+      "displaySha256": "dd67506101bacbff3e4d57812a345caf1fb88b17b9859f5ecec1e9c5cce346c6",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1957123,
+      "displayBytes": 160336
+    },
+    {
+      "room": "patient-suite",
+      "source": "assets/patient-suite.png",
+      "sourceSha256": "1d42e65a6f492367e39c671e8efbf9f23f0d31766ceb35622bc61190037a98b8",
+      "display": "patient-suite.webp",
+      "displaySha256": "8c4c9f5551f06e3e1f7bf0e36bd69197ab00ca11cc1302bb3082be4ab6efaa7a",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 2336779,
+      "displayBytes": 280444
+    },
+    {
+      "room": "dexa",
+      "source": "assets/dexa.png",
+      "sourceSha256": "a04cf8484afe81a9c0fb2244551bda5a909d26e1c21a26b5d0c24b7c49a28b2a",
+      "display": "dexa.webp",
+      "displaySha256": "1376112acd29714b38b095376e68f09e31abe77e44b1d12f11edd617e370c7d1",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 2121596,
+      "displayBytes": 211876
+    },
+    {
+      "room": "vo2-max",
+      "source": "assets/vo2-max.png",
+      "sourceSha256": "3e5d188da8497ca58d301771109c573bb9981682e75b89903d4f5bc8f5035adc",
+      "display": "vo2-max.webp",
+      "displaySha256": "219930202e7c12b9a806eb0f1f2161599518b39e9d44d840e9a2475caac41195",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 2133119,
+      "displayBytes": 205328
+    }
+  ]
+}
