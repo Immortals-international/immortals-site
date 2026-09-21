@@ -1,5 +1,7 @@
 ---
 import '../../styles/beat-the-dealer.css';
+import '../../styles/dealer-challenge.css';
+import DealerChallenge from '../../components/DealerChallenge.astro';
 const base = import.meta.env.BASE_URL;
 ---
 <!doctype html>
@@ -19,13 +21,13 @@ const base = import.meta.env.BASE_URL;
   <a class="dealer-skip" href="#experience">Skip to the experience</a>
   <header class="dealer-header">
     <a class="brand" href={base} aria-label="Immortals presentation"><img src={`${base}assets/wordmark.png`} alt="Immortals" width="180" height="16" /></a>
-    <nav aria-label="Experience chapters"><a href="#rounds">The three rounds</a><a href="#play">Try a round</a><a href="#takeaway">Your scorecard</a></nav>
+    <nav aria-label="Experience chapters"><a href="#rounds">The three rounds</a><a href="#play">Play the three rounds</a><a href="#takeaway">Your scorecard</a></nav>
     <a class="dealer-back" href={`${base}#experiences`}><span aria-hidden="true">↖</span> The presentation</a>
   </header>
   <main id="experience">
     <section class="dealer-hero">
       <div class="dealer-hero-top"><p class="dealer-kicker">MACAU / EXPERIENCE 01</p><span class="dealer-preview"><span></span> Concept preview</span></div>
-      <div class="dealer-hero-copy"><h1>Beat the<br /><span>Dealer.</span></h1><div class="dealer-invitation"><p class="dealer-tagline">Three challenges.<br />Win two. Make it personal.</p><p>Take a seat with our host. Test your reactions, grip and balance. Leave with a little more insight into yourself.</p><a class="dealer-button dealer-button-light" href="#play">Try a round <span aria-hidden="true">↗</span></a></div></div>
+      <div class="dealer-hero-copy"><h1>Beat the<br /><span>Dealer.</span></h1><div class="dealer-invitation"><p class="dealer-tagline">Three challenges.<br />Win two. Make it personal.</p><p>Take a seat with our host. Test your reactions, grip and balance. Leave with a little more insight into yourself.</p><a class="dealer-button dealer-button-light" href="#play">Play the three rounds <span aria-hidden="true">↗</span></a></div></div>
       <div class="dealer-hero-image"><img src={`${base}assets/experiences/beat-the-dealer.webp`} alt="A guest taps a reaction pad at a sculptural stone table while an Immortals host guides him and his companion watches." width="1672" height="941" fetchpriority="high" /><div class="dealer-image-note"><span>THE DISCOVERY FLOOR</span><span>A little competition. A different kind of discovery.</span></div></div>
       <div class="dealer-facts"><div><span>THE FORMAT</span><strong>Paid, hosted experience</strong></div><div><span>THE VISIT</span><strong>15–20 minutes</strong></div><div><span>THE CHALLENGE</span><strong>Three rounds. Best of three.</strong></div><div><span>THE TAKEAWAY</span><strong>Your personal scorecard</strong></div></div>
     </section>
@@ -41,22 +43,11 @@ const base = import.meta.env.BASE_URL;
       <p class="dealer-small">Two rounds won beats the dealer. Challenge targets define the game; they are separate from any clinical reference ranges.</p>
     </section>
 
-    <section id="play" class="dealer-play-section">
-      <div class="dealer-play-intro"><p class="dealer-kicker">02 / A TASTE OF THE EXPERIENCE</p><h2>Your move.</h2><p>Try the reaction round right here.<br />Three attempts. One target.</p><ol><li>Start an attempt and wait for the signal.</li><li>When the circle lights up and says <strong>NOW</strong>, tap it or press Space.</li><li>Your middle time decides this round.</li></ol><p class="dealer-small">Browser game only. Screen, device and input delays affect the result. This is a demonstration, not a clinical measurement.</p><a class="dealer-text-link" href="#takeaway">Skip to the guest scorecard <span aria-hidden="true">↓</span></a></div>
-      <div id="reaction-game" class="dealer-game" data-state="idle">
-        <div class="dealer-game-top"><span>ROUND 01 / REACTION</span><span class="dealer-target">DEMO TARGET <strong>300 <small>ms</small></strong></span></div>
-        <div class="dealer-game-field"><div class="dealer-game-rings" aria-hidden="true"><i></i><i></i><i></i></div><button id="reaction-pad" class="dealer-reaction-pad" aria-describedby="reaction-guidance"><span id="reaction-symbol" aria-hidden="true">↗</span><span id="reaction-label">Start attempt 1</span></button></div>
-        <p id="reaction-guidance" class="dealer-game-guidance" role="status" aria-live="polite">Wait for NOW before responding.</p>
-        <div class="dealer-attempts" aria-label="Your three attempts"><div><span>ATTEMPT 01</span><strong id="attempt-0">—</strong></div><div><span>ATTEMPT 02</span><strong id="attempt-1">—</strong></div><div><span>ATTEMPT 03</span><strong id="attempt-2">—</strong></div></div>
-        <div id="reaction-summary" class="dealer-game-summary" hidden><div><span>YOUR MIDDLE TIME</span><strong id="reaction-median"></strong></div><p id="reaction-verdict"></p></div>
-        <div class="dealer-game-bottom"><span>Target chosen for this demo.</span><button id="reaction-reset" type="button">Start over ↻</button></div>
-        <noscript><p class="dealer-small">Enable JavaScript to play. You can still explore the experience below.</p></noscript>
-      </div>
-    </section>
+    <DealerChallenge />
 
     <section id="takeaway" class="dealer-section dealer-takeaway">
       <div class="dealer-section-label"><span>03 / MORE THAN THE FINAL SCORE</span><span>SOMETHING TO TAKE WITH YOU</span></div>
-      <div class="dealer-takeaway-grid"><div class="dealer-takeaway-copy"><h2>A good story.<br /><span>Your own numbers.</span></h2><p>The competition starts the conversation. Your scorecard gives you something personal to take away.</p><p>Your host explains each result, answers your questions and helps you decide whether you want to explore further. Every guest receives the full experience.</p><button id="reveal-scorecard" class="dealer-button dealer-button-outline" aria-expanded="false" aria-controls="example-scorecard">Reveal an example scorecard <span aria-hidden="true">↗</span></button><p class="dealer-small">All scorecard values below are fictional examples. Your browser-game result stays separate.</p></div>
+      <div class="dealer-takeaway-grid"><div class="dealer-takeaway-copy"><h2>A good story.<br /><span>Your own numbers.</span></h2><p>The competition starts the conversation. Your scorecard gives you something personal to take away.</p><p>Your host explains each result, answers your questions and helps you decide whether you want to explore further. Every guest receives the full experience.</p><button id="reveal-scorecard" class="dealer-button dealer-button-outline" aria-expanded="false" aria-controls="example-scorecard">Reveal an example scorecard <span aria-hidden="true">↗</span></button><p class="dealer-small">All scorecard values below are fictional examples. Your browser-game results stay separate.</p></div>
       <div id="example-scorecard" class="dealer-scorecard" data-revealed="false">
         <div class="scorecard-heading"><span>IMMORTALS / MACAU</span><span>EXAMPLE GUEST</span></div><h3>Beat the Dealer.</h3><p class="scorecard-subtitle">Three rounds. One personal record.</p>
         <div class="scorecard-cover" id="scorecard-cover"><span class="scorecard-emblem" aria-hidden="true">03</span><p>A little more<br />insight into you.</p><span>REVEAL THE EXAMPLE TO EXPLORE</span></div>

@@ -10,6 +10,18 @@ Built from main at `863f2b23755888eedc25ffa79d08e0cfaedbefea` for review before 
 - The browser game uses three attempts and their median against a clearly labelled 300 ms demo target. It handles early responses, retries, reset, held keys, loss of focus and signal timeout. No results are stored or sent.
 - Browser measurements are kept separate from the fictional clinic scorecard. The scorecard's grip, balance, reaction values and targets are illustrative, not clinical reference ranges.
 
+## Three-round interactive update
+
+The presentation now includes a connected three-round game, selectable round progress, retry/skip controls and a final scorecard based on the visitor's actual browser inputs. The fictional in-clinic scorecard remains separate.
+
+- **Reaction:** three attempts, median response time, 300 ms demo target.
+- **Grip control:** hold the button or Space to raise a virtual gauge; release to lower it. Hold the green zone for three continuous seconds within 15 seconds. The animated dynamometer is illustrative; the result measures control-game time, not strength.
+- **Balance:** use left/right arrow keys or hold the on-screen phone buttons to counter a board's tilt and momentum. Accumulate ten seconds near level in a fifteen-second round. The result measures virtual-board control, not physical balance.
+- **Outcome:** all three rounds must be played before declaring an overall winner; two or more wins beat the dealer. Skipped and unplayed rounds have no invented values. Retrying clears only that round; restarting clears the match.
+- Focus loss, hidden pages and leaving the game pause active rounds and release held inputs. Pausing grip breaks its continuous-hold streak while preserving the best prior hold. Touch cancellation and lost pointer capture release controls.
+
+Verification for this update: seven deterministic game-logic tests pass, including achievable wins, idle/constant-input losses, frame-rate consistency, score bounds, completed-state stability and skip semantics. Headless Chromium checks passed for the complete three-round journey, keyboard holds, pause/resume, real result propagation, retries, skipped rounds, two-of-three outcomes, match reset, mobile touch/cancellation and layout at 390/375 px. Desktop and phone screenshots were reviewed. Physical-device testing is still outstanding. Run `npm run test:dealer` from `astro-site/`.
+
 ## Local review
 
 From `astro-site/`, run `npm ci`, `npm run build`, then `npm run preview`. Default path: `/immortals-site/experiences/beat-the-dealer/`. With `SITE_URL=https://immortals.international`, the path is `/experiences/beat-the-dealer/`.
