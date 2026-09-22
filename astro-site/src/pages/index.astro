@@ -17,7 +17,7 @@ import { url, styles, sceneImage, feedback } from '../data/site';
 </section>
 <section class="home-vision" id="vision" aria-labelledby="vision-title">
   <div class="home-width home-vision-grid">
-    <h2 id="vision-title">Make people want<br />to walk in.<br /><span>Give them a reason<br />to return.</span></h2>
+    <h2 id="vision-title">Make people want to walk in.<br /><span>Give them a reason to return.</span></h2>
     <p>An inviting public floor brings discovery and hospitality together. Beyond it, a quieter clinic offers personal care. A first encounter in Macau can become the start of a longer relationship.</p>
   </div>
 </section>
@@ -78,15 +78,16 @@ import { url, styles, sceneImage, feedback } from '../data/site';
 .home-intro h1 span{color:#bbc6d6}
 .home-intro-bottom{display:flex;align-items:center;justify-content:space-between;gap:48px;margin-top:46px}
 .home-intro-bottom>p{font-size:17px;line-height:1.6;color:#bbc6d6;max-width:350px}
-.home-intro-links{display:flex;align-items:center;gap:36px}
-.home-intro-tour{display:inline-flex;align-items:center;gap:22px;font-size:15px;min-height:56px;white-space:nowrap}
-.home-intro-tour>span{display:grid;place-items:center;width:56px;height:56px;border:1px solid #7c8ca2;border-radius:50%;font-size:25px;transition:background .15s,color .15s}
-.home-intro-tour:hover>span{background:#f7f5ec;color:#111c35}
-.home-intro-vision{display:inline-flex;align-items:center;gap:20px;font-size:13px;color:#bbc6d6;min-height:44px;white-space:nowrap}
-.home-intro-vision:hover{color:#f7f5ec}
-@media(max-width:1000px){.home-intro{min-height:calc(100svh - 72px);padding:85px 24px 100px}.home-intro h1{font-size:clamp(58px,7.6vw,90px)}.home-intro-bottom{align-items:flex-start;gap:32px}.home-intro-links{align-items:flex-start;flex-direction:column;gap:12px}.home-intro-bottom>p{font-size:15px;max-width:290px}}
-@media(max-width:700px){.home-intro{padding:70px 20px 80px}.home-intro h1{font-size:clamp(48px,10vw,66px);line-height:1.07;letter-spacing:-.05em}.home-intro-bottom{flex-direction:column;gap:32px;margin-top:28px}.home-intro-bottom>p{font-size:15px;max-width:280px}.home-intro-links{gap:15px}.home-intro-tour{font-size:14px;gap:24px}.home-intro-tour>span{width:50px;height:50px;font-size:23px}}
-@media(prefers-reduced-motion:reduce){.home-intro-tour>span{transition:none}}
+.home-intro-links{display:flex;align-items:center;gap:14px}
+.home-intro-tour,.home-intro-vision{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;padding:15px 22px;min-height:54px;border:1px solid #bbc6d6;border-radius:3px;font-size:14px;line-height:1.5;white-space:nowrap;transition:background .15s,color .15s}
+.home-intro-tour{background:#f7f5ec;color:#0c1220}
+.home-intro-tour:hover{background:#dce4ee;border-color:#dce4ee}
+.home-intro-vision{background:transparent;color:#f7f5ec}
+.home-intro-vision:hover{background:#ffffff12;border-color:#f7f5ec}
+.home-intro-tour>span,.home-intro-vision>span{font-size:18px;line-height:1}
+@media(max-width:1000px){.home-intro{min-height:calc(100svh - 72px);padding:85px 24px 100px}.home-intro h1{font-size:clamp(58px,7.6vw,90px)}.home-intro-bottom{align-items:flex-start;gap:32px}.home-intro-links{align-items:stretch;flex-direction:column;gap:12px}.home-intro-bottom>p{font-size:15px;max-width:290px}}
+@media(max-width:700px){.home-intro{padding:70px 20px 80px}.home-intro h1{font-size:clamp(48px,10vw,66px);line-height:1.07;letter-spacing:-.05em}.home-intro-bottom{flex-direction:column;gap:32px;margin-top:28px}.home-intro-bottom>p{font-size:15px;max-width:280px}.home-intro-links{gap:12px;width:100%;max-width:350px}.home-intro-tour,.home-intro-vision{font-size:14px;gap:24px}}
+@media(prefers-reduced-motion:reduce){.home-intro-tour,.home-intro-vision{transition:none}}
 
 .home-width{width:90%;max-width:1600px;margin:0 auto}
 .home-section{padding:110px 0}
@@ -99,7 +100,8 @@ import { url, styles, sceneImage, feedback } from '../data/site';
 .home-link>span{font-size:19px}
 .home-vision{padding:115px 0 125px;background:#0c1220}
 .home-vision-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:8vw;align-items:center}
-.home-vision h2{font-size:clamp(42px,4.9vw,76px)}
+.home-vision h2{font-size:clamp(32px,3.4vw,54px)}
+@media(min-width:1001px){.home-vision h2{white-space:nowrap}}
 .home-vision-grid>p{font-size:18px;line-height:1.75;color:#bbc6d6;max-width:455px}
 .home-layout{background:radial-gradient(ellipse at 80% 50%,#1c2e46,transparent 70%),#101a2b}
 .home-layout-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw;align-items:center}
