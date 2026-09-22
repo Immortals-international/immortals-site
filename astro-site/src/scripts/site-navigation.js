@@ -26,11 +26,13 @@ if (header) {
     if (!opening) close();
   });
   items.forEach(item => {
+    item.addEventListener('pointerenter',()=>clearTimeout(closeTimer));
     item.querySelector('.clinic-menu-toggle').addEventListener('click',()=>current===item?close():open(item));
     item.querySelector('.clinic-nav-label > a').addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&matchMedia('(min-width:1001px)').matches)open(item)});
     item.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&matchMedia('(min-width:1001px)').matches)closeTimer=setTimeout(()=>{if(!item.contains(document.activeElement))close()},180)});
     item.addEventListener('focusout',()=>setTimeout(()=>{if(current===item&&!item.contains(document.activeElement))close()},0));
   });
+  header.querySelector('.clinic-nav-direct').addEventListener('pointerenter',()=>close());
   document.addEventListener('keydown', e=>{if(e.key==='Escape'){if(current)close(true);else if(header.classList.contains('nav-open')){closeMobile();mobile.focus();}}});
   document.addEventListener('click',e=>{if(!header.contains(e.target)){close();closeMobile();}});
   header.querySelectorAll('.clinic-mega a').forEach(a=>a.addEventListener('click',()=>closeMobile()));
