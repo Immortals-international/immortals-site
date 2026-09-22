@@ -1,0 +1,27 @@
+---
+import { url, styles } from '../data/site';
+import { experiences, experienceGroups } from '../data/experiences';
+import '../styles/site-shell.css';
+const { active = '', skipTarget = 'main-content' } = Astro.props;
+const menus = [
+  { id:'layout', name:'Layout', path:'layout/', eyebrow:'01 / THE SPATIAL PLAN', title:'One footprint.\nThree possibilities.', copy:'Explore the public floor, private suites and the way a visit moves through the clinic.', groups:[{ name:'Explore the plan', links:[{name:'Layout overview', path:'layout/'},{name:'Club · A lounge-led welcome',path:'layout/#club'},{name:'Gallery · An open discovery floor',path:'layout/#gallery'},{name:'Salon · A flexible hosted space',path:'layout/#salon'}]}] },
+  { id:'interior-design', name:'Interior Design', path:'interior-design/', eyebrow:'02 / THE ATMOSPHERE', title:'Four ways to\nfeel Immortals.', copy:'Compare the same rooms, then explore each architectural direction in detail.', groups:[{name:'Four design directions',links:styles.map(s=>({name:s.name,path:`interior-design/${s.slug}/`}))}] },
+  { id:'experiences', name:'Experiences', path:'experiences/', eyebrow:'03 / THE GUEST EXPERIENCE', title:'A reason to visit.\nA reason to return.', copy:'From an intriguing first encounter to a personal conversation that continues.', groups:experienceGroups.map(g=>({name:g,links:experiences.filter(e=>e.group===g).map(e=>({name:e.name,path:`experiences/${e.slug}/`}))})) },
+];
+---
+<a class="clinic-skip" href={`#${skipTarget}`}>Skip to content</a>
+<header class="clinic-header">
+  <a class="clinic-brand" href={url()} aria-label="Immortals Macau home"><img src={url('assets/wordmark.png')} alt="Immortals" width="180" height="16" /><span>MACAU / THE FLAGSHIP</span></a>
+  <button class="clinic-mobile-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="clinic-navigation"><span>Menu</span><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 3h22M0 13h22" /></svg></button>
+  <nav id="clinic-navigation" class="clinic-navigation" aria-label="Main navigation">
+    {menus.map(m=><div class="clinic-nav-item" data-menu={m.id}>
+      <div class="clinic-nav-label"><a class:list={{'is-current':active===m.id}} href={url(m.path)} aria-current={active===m.id?'true':undefined}>{m.name}</a><button class="clinic-menu-toggle" aria-label={`Explore ${m.name}`} aria-expanded="false" aria-controls={`mega-${m.id}`}><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="m3 6 5 5 5-5" /></svg></button></div>
+      <div class="clinic-mega" id={`mega-${m.id}`} hidden>
+        <div class="clinic-mega-intro"><span>{m.eyebrow}</span><h2>{m.title.split('\n').map((t,i)=><>{i>0&&<br />}{t}</>)}</h2><p>{m.copy}</p><a href={url(m.path)}>View overview <span aria-hidden="true">↗</span></a></div>
+        <div class:list={['clinic-mega-links',{'many-groups':m.id==='experiences'}]}>{m.groups.map(g=><div><p>{g.name}</p>{g.links.map(l=><a href={url(l.path)}>{l.name}<span aria-hidden="true">↗</span></a>)}</div>)}</div>
+      </div>
+    </div>)}
+    <a class="clinic-tour-link" href={url('tour/')}>Step inside <span>360° ↗</span></a>
+  </nav>
+</header>
+<script>import '../scripts/site-navigation.js';</script>

@@ -1,6 +1,8 @@
 ---
 import '../../styles/beat-the-dealer.css';
 import '../../styles/dealer-challenge.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
 import DealerChallenge from '../../components/DealerChallenge.astro';
 const base = import.meta.env.BASE_URL;
 ---
@@ -17,14 +19,10 @@ const base = import.meta.env.BASE_URL;
   <link rel="preload" href={`${base}assets/mori-regular.woff2`} as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href={`${base}style.css?v=5`} />
 </head>
-<body class="dealer-page">
+<body class="dealer-page" id="top">
   <a class="dealer-skip" href="#experience">Skip to the experience</a>
-  <header class="dealer-header">
-    <a class="brand" href={base} aria-label="Immortals presentation"><img src={`${base}assets/wordmark.png`} alt="Immortals" width="180" height="16" /></a>
-    <nav aria-label="Experience chapters"><a href="#rounds">The three rounds</a><a href="#play">Play the three rounds</a><a href="#takeaway">Your scorecard</a></nav>
-    <a class="dealer-back" href={`${base}#experiences`}><span aria-hidden="true">↖</span> The presentation</a>
-  </header>
-  <main id="experience">
+  <SiteHeader active="experiences" />
+  <main id="main-content"><div id="experience"></div>
     <section class="dealer-hero">
       <div class="dealer-hero-top"><p class="dealer-kicker">MACAU / EXPERIENCE 01</p><span class="dealer-preview"><span></span> Concept preview</span></div>
       <div class="dealer-hero-copy"><h1>Beat the<br /><span>Dealer.</span></h1><div class="dealer-invitation"><p class="dealer-tagline">Three challenges.<br />Win two. Make it personal.</p><p>Take a seat with our host. Test your reactions, grip and balance. Leave with a little more insight into yourself.</p><a class="dealer-button dealer-button-light" href="#play">Play the three rounds <span aria-hidden="true">↗</span></a></div></div>
@@ -69,9 +67,9 @@ const base = import.meta.env.BASE_URL;
       <div class="dealer-visit-grid"><div><span class="dealer-step-number">01</span><h3>A personal welcome</h3><p>Meet your host on the discovery floor. Understand the three rounds and the targets before you begin.</p></div><div><span class="dealer-step-number">02</span><h3>Your time at the table</h3><p>Take part in all three challenges, with guidance and your results explained along the way.</p></div><div><span class="dealer-step-number">03</span><h3>Something to keep</h3><p>Receive your scorecard. Ask questions, explore a relevant next step, or plan a return visit.</p></div></div>
       <details class="dealer-operating"><summary><span>Behind the experience</span><span>THE OPERATING CONCEPT <b aria-hidden="true">+</b></span></summary><div class="dealer-operating-body"><div class="dealer-operating-facts"><p><span>VISIT LENGTH</span><strong>15–20 minutes</strong></p><p><span>HOSTING</span><strong>One dedicated host</strong></p><p><span>INDICATIVE FOOTPRINT</span><strong>20–30 m²</strong></p><p><span>ENTRY</span><strong>Paid · price to be set</strong></p></div><p>A visible first encounter with Immortals for short-stay visitors. The ticket covers the experience and scorecard; further assessment or membership is optional. Scores are private by default.</p><p class="dealer-small">Concept assumptions for discussion. Equipment, test protocols, challenge targets, staffing and final placement need validation. The image illustrates a proposed setting rather than a measured layout.</p></div></details>
     </section>
-    <section class="dealer-closing"><p class="dealer-kicker">THE EXPERIENCE HAS AN ADDRESS.</p><h2>Picture it in Macau.</h2><div><a class="dealer-button dealer-button-light" href={`${base}tour/#main-entrance`}>Step inside the clinic <span aria-hidden="true">↗</span></a><a class="dealer-text-link" href={`${base}#experiences`}>Back to the presentation <span aria-hidden="true">↖</span></a></div></section>
+    <section class="dealer-closing"><p class="dealer-kicker">THE EXPERIENCE HAS AN ADDRESS.</p><h2>Picture it in Macau.</h2><div><a class="dealer-button dealer-button-light" href={`${base}tour/#main-entrance`}>Step inside the clinic <span aria-hidden="true">↗</span></a><a class="dealer-text-link" href={`${base}experiences/`}>All experiences <span aria-hidden="true">↖</span></a></div></section>
   </main>
-  <footer class="dealer-footer"><span>IMMORTALS / MACAU</span><p>Internal experience concept · AI-generated setting · Paid entry confirmed; pricing and operating details under development.</p><a href="#experience">Back to top ↑</a></footer>
+  <SiteFooter />
   <script>import '../../scripts/beat-the-dealer.js';</script>
 </body>
 </html>
