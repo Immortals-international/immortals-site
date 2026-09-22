@@ -3,7 +3,18 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import { url, styles, sceneImage, feedback } from '../data/site';
 ---
 <SiteLayout title="A different kind of destination" description="Explore the vision for Immortals Macau: the spatial plan, four interior directions and a new kind of guest experience.">
-<section class="home-hero"><img src={sceneImage('futurism')} alt="A double-height Immortals entrance with sculptural pale architecture, warm stone and blue seating." width="1672" height="941" fetchpriority="high" /><p class="eyebrow">IMMORTALS / THE MACAU FLAGSHIP</p><h1>A new perspective.<br /><span>A different destination.</span></h1><div class="home-hero-bottom"><p>A longevity clinic with an open invitation.<br />Come for the experience. Discover more about yourself.</p><a class="button" href={url('tour/')}>Explore the clinic <span>360° ↗</span></a></div><nav class="home-chapters" aria-label="Explore the presentation"><a href={url('layout/')}><small>01 / THE SPACE</small> Layout <b>↗</b></a><a href={url('interior-design/')}><small>02 / THE ATMOSPHERE</small> Interior Design <b>↗</b></a><a href={url('experiences/')}><small>03 / THE INVITATION</small> Experiences <b>↗</b></a></nav></section>
+<section class="home-intro" aria-labelledby="home-intro-title">
+  <div class="home-intro-content">
+    <h1 id="home-intro-title">A longevity clinic.<br /><span>A flagship destination.</span></h1>
+    <div class="home-intro-bottom">
+      <p>Discovery, hospitality and personal care in Macau.</p>
+      <div class="home-intro-links">
+        <a class="home-intro-tour" href={url('tour/')}>Explore the clinic <span aria-hidden="true">↗</span></a>
+        <a class="home-intro-vision" href="#vision">Discover the vision <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="cream" id="vision"><div class="wrap section"><div class="chapter-line"><span>01 / THE VISION</span><span>MACAU, SEEN DIFFERENTLY</span></div><div class="vision-grid"><h2>A place to discover.<br />A reason to stay<br />connected.</h2><div><p>Macau knows how to create an occasion. Immortals brings that instinct to a more personal kind of discovery.</p><p>An inviting public floor introduces the clinic through hospitality and memorable experiences. Beyond it, a quieter clinical world gives each guest the space and attention to explore further.</p><a class="text-link" href={url('experiences/')}>Discover the experiences <span>↗</span></a></div></div><div class="pillars"><article class="pillar"><span>01</span><h3>An easy first step.</h3><p>An intriguing encounter that fits into a short stay. A clear invitation, a host and something worth taking away.</p></article><article class="pillar"><span>02</span><h3>A personal conversation.</h3><p>Private suites and dedicated assessment rooms create the space to move from curiosity to an individual question.</p></article><article class="pillar"><span>03</span><h3>A longer relationship.</h3><p>A relevant follow-up gives the visit a life beyond Macau. Ongoing care and membership become a natural next conversation.</p></article></div></div></section>
 <section class="feature-split" id="experiences"><figure><img src={url('assets/experiences/beat-the-dealer.webp')} loading="lazy" alt="A guest and host at the Beat the Dealer challenge table." width="1672" height="941" /></figure><div><p class="eyebrow">THE EXPERIENCES / START WITH CURIOSITY</p><h2>Not every visit<br />begins with<br />an appointment.</h2><p>A challenge. A tasting. A portrait of yourself. Thirteen proposed experiences offer different ways into the same conversation.</p><div class="actions"><a class="button solid" href={url('experiences/')}>Explore the experiences <span>↗</span></a><a class="text-link" href={url('experiences/beat-the-dealer/#play')}>Play Beat the Dealer <span>↗</span></a></div></div></section>
 <section id="directions" class="wrap section"><div class="chapter-line"><span>02 / THE INTERIOR DESIGN</span><span>FOUR DIRECTIONS / ONE AMBITION</span></div><div class="section-heading"><h2>How should<br />Immortals feel?</h2><p>Four distinct architectural languages. Explore the same entrances, suites and treatment rooms in each, then consider the atmosphere that best expresses the clinic.</p></div><div class="style-grid">{styles.map((s,i)=><a class="style-card" href={url(`interior-design/${s.slug}/`)}><div class="style-card-image"><img src={sceneImage(s.id,'main-entrance',true)} alt={`${s.name} main entrance concept`} loading="lazy" width="600" height="338" /></div><div class="style-card-line"><span>0{i+1} / {s.character}</span><span>↗</span></div><h3>{s.name}</h3><p>{s.summary}</p><div class="swatch-line" aria-hidden="true">{s.swatches.map(c=><span style={`background:${c}`}></span>)}</div></a>)}</div><div class="actions"><a class="text-link" href={url('interior-design/')}>Compare all four directions <span>↗</span></a></div></section>
@@ -11,3 +22,21 @@ import { url, styles, sceneImage, feedback } from '../data/site';
 <section class="tour-banner"><img src={sceneImage('futurism','private-entrance')} loading="lazy" alt="Warm stone and sculptural architecture at the private entrance." width="1672" height="941" /><p class="eyebrow">ONE VIEWPOINT. A DIFFERENT PERSPECTIVE.</p><h2>Step inside<br />the possibility.</h2><p>Look around six proposed rooms in our 360° concept tour, then follow the arrows to the next space.</p><div class="actions"><a class="button solid" href={url('tour/')}>Enter the 360° tour <span>↗</span></a></div></section>
 <section class="closing" id="discussion"><p class="eyebrow">THE NEXT CONVERSATION</p><h2>Let’s shape the flagship.</h2><p>Which atmosphere feels right? Which experiences would make someone cross the threshold? This presentation brings those choices into view.</p><div class="actions"><a class="button" href={feedback} target="_blank" rel="noopener">Share your thoughts <span>↗</span></a></div></section>
 </SiteLayout>
+
+<style>
+.home-intro{min-height:calc(100svh - 88px);display:flex;align-items:center;padding:100px 5vw 120px;background:radial-gradient(ellipse at 85% 80%,#263c5a 0,rgba(17,28,53,.2) 50%,transparent 80%),#080e19;color:#f7f5ec}
+.home-intro-content{width:100%;max-width:1600px;margin:0 auto}
+.home-intro h1{font-size:clamp(62px,7.2vw,116px);line-height:1.04;letter-spacing:-.055em;font-weight:400}
+.home-intro h1 span{color:#bbc6d6}
+.home-intro-bottom{display:flex;align-items:center;justify-content:space-between;gap:48px;margin-top:46px}
+.home-intro-bottom>p{font-size:17px;line-height:1.6;color:#bbc6d6;max-width:350px}
+.home-intro-links{display:flex;align-items:center;gap:36px}
+.home-intro-tour{display:inline-flex;align-items:center;gap:22px;font-size:15px;min-height:56px;white-space:nowrap}
+.home-intro-tour>span{display:grid;place-items:center;width:56px;height:56px;border:1px solid #7c8ca2;border-radius:50%;font-size:25px;transition:background .15s,color .15s}
+.home-intro-tour:hover>span{background:#f7f5ec;color:#111c35}
+.home-intro-vision{display:inline-flex;align-items:center;gap:20px;font-size:13px;color:#bbc6d6;min-height:44px;white-space:nowrap}
+.home-intro-vision:hover{color:#f7f5ec}
+@media(max-width:1000px){.home-intro{min-height:calc(100svh - 72px);padding:85px 24px 100px}.home-intro h1{font-size:clamp(58px,7.6vw,90px)}.home-intro-bottom{align-items:flex-start;gap:32px}.home-intro-links{align-items:flex-start;flex-direction:column;gap:12px}.home-intro-bottom>p{font-size:15px;max-width:290px}}
+@media(max-width:700px){.home-intro{padding:70px 20px 80px}.home-intro h1{font-size:clamp(48px,10vw,66px);line-height:1.07;letter-spacing:-.05em}.home-intro-bottom{flex-direction:column;gap:32px;margin-top:28px}.home-intro-bottom>p{font-size:15px;max-width:280px}.home-intro-links{gap:15px}.home-intro-tour{font-size:14px;gap:24px}.home-intro-tour>span{width:50px;height:50px;font-size:23px}}
+@media(prefers-reduced-motion:reduce){.home-intro-tour>span{transition:none}}
+</style>
