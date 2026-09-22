@@ -1,6 +1,6 @@
 # Immortals Macau
 
-The existing architectural presentation, deployed from `astro-site/` using Astro 7.3.3 and Node.js 24. All four directions have equal prominence. The original images, fonts, three distinct floor plans, room comparisons and enlarged views are preserved.
+The Macau flagship presentation, built in `astro-site/` using Astro 7.3.3 and Node.js 24. A shared mega-menu navigation connects the homepage, Layout, Interior Design and Experiences. The site has 22 static pages, including four design directions, thirteen experience concepts and the six-room 360° tour. See `astro-site/MACAU_PRESENTATION.md` for the sitemap, content decisions and validation.
 
 ## Run locally
 
@@ -23,6 +23,11 @@ The presentation links to the existing [team feedback form](https://immortals-ma
 
 ## Room scene galleries
 
-Each architectural direction has one large active image and a smaller, clickable preview of the next image. Arrows, preview clicks and swipes advance one of the six new room renders at a time: the preview becomes the main image and the following image becomes the preview. Fixed 16:9 frames contain the full images. Clicking the main image opens fullscreen zoom; side-by-side comparison, original concept boards, floor plans and feedback remain available.
+Each architectural direction has its own page, with the six room studies, material palette and original lounge/suite board. Room images open in a full-image dialog. The Interior Design overview compares any of the six rooms across all four directions; full room views retain their proportions. Navigation thumbnails and atmospheric homepage hero images may crop for composition. The single Layout page contains all three original floor plans and the zoomable drawing explorer.
 
 Display WebP files and thumbnails are generated with `node scripts/prepare-scenes.mjs /path/to/extracted-pack/public` after installing the Astro dependencies. The original PNG masters are retained in the supplied `Immortals-Macau-24-Scene-Pack.zip` archive and in the local ignored `verification/scene-pack/` extraction. `public/assets/scenes/manifest.json` records both source and display hashes. Generated display files are committed; production builds do not need the private handoff folder. Images keep their full proportions, with no crops or upscaling.
+
+
+## Offline presentation preview
+
+After building the site, run `python3 scripts/build-presentation-preview.py /absolute/path/Immortals-Macau-Presentation-Preview.html`. The generated HTML embeds the compiled pages and assets, with local navigation, comparison controls, the game and the 360° tour. It is a review artifact; generating it does not publish the website.

@@ -10,7 +10,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test:tour": "node --test ../scripts/test-tour.mjs"
+    "test:tour": "node --test ../scripts/test-tour.mjs",
+    "test:dealer": "node --test ../scripts/test-dealer.mjs"
   },
   "dependencies": {
     "astro": "7.3.3"

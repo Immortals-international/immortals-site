@@ -1,0 +1,46 @@
+<section id="play" class="dealer-play-section dealer-full-game">
+  <div class="dealer-demo-progress" aria-label="Choose a demo round">
+    <button type="button" data-round="0" aria-pressed="true" aria-controls="reaction-game"><span class="demo-step-index">01</span><span>Reaction<small id="progress-0">Ready to play</small></span><span class="demo-step-mark" id="mark-0" aria-hidden="true">↗</span></button>
+    <button type="button" data-round="1" aria-pressed="false" aria-controls="grip-game"><span class="demo-step-index">02</span><span>Grip control<small id="progress-1">Ready to play</small></span><span class="demo-step-mark" id="mark-1" aria-hidden="true">○</span></button>
+    <button type="button" data-round="2" aria-pressed="false" aria-controls="balance-game"><span class="demo-step-index">03</span><span>Balance<small id="progress-2">Ready to play</small></span><span class="demo-step-mark" id="mark-2" aria-hidden="true">○</span></button>
+  </div>
+  <div class="dealer-play-intro"><p class="dealer-kicker">02 / PLAY THE THREE-ROUND DEMO</p><h2 id="demo-title">Your move.</h2><p id="demo-description">Three attempts. One target.<br />See how quickly you respond.</p><ol id="demo-instructions"><li>Start an attempt and wait for the signal.</li><li>When the circle says NOW, tap it or press Space.</li><li>Your middle time decides this round. Beat 300 ms.</li></ol><div class="demo-match-status"><span id="match-count">0 / 3 rounds played</span><strong id="match-wins">Win two to beat the dealer.</strong></div><p class="dealer-small">Browser demonstrations, not clinical measurements. Reaction timing depends on your device. Grip and balance are control games; they do not measure physical strength or balance.</p><button class="dealer-text-link demo-card-link" id="show-game-card" type="button" disabled>My game scorecard <span aria-hidden="true">↗</span></button><a class="dealer-text-link" href="#takeaway">See the in-clinic takeaway <span aria-hidden="true">↓</span></a></div>
+  <div class="dealer-game-stack">
+    <div id="reaction-game" class="dealer-game" data-state="idle" aria-labelledby="reaction-title">
+      <div class="dealer-game-top"><span id="reaction-title">ROUND 01 / REACTION</span><span class="dealer-target">DEMO TARGET <strong>300 <small>ms</small></strong></span></div>
+      <div class="dealer-game-field"><div class="dealer-game-rings" aria-hidden="true"><i></i><i></i><i></i></div><button id="reaction-pad" class="dealer-reaction-pad" aria-describedby="reaction-guidance"><span id="reaction-symbol" aria-hidden="true">↗</span><span id="reaction-label">Start attempt 1</span></button></div>
+      <p id="reaction-guidance" class="dealer-game-guidance" role="status" aria-live="polite">Wait for NOW before responding.</p>
+      <div class="dealer-attempts" aria-label="Your three attempts"><div><span>ATTEMPT 01</span><strong id="attempt-0">—</strong></div><div><span>ATTEMPT 02</span><strong id="attempt-1">—</strong></div><div><span>ATTEMPT 03</span><strong id="attempt-2">—</strong></div></div>
+      <div id="reaction-summary" class="dealer-game-summary" hidden><div><span>YOUR MIDDLE TIME</span><strong id="reaction-median"></strong></div><p id="reaction-verdict"></p></div>
+      <p class="demo-target-note">Game target selected for this demo.</p>
+    </div>
+
+    <div id="grip-game" class="dealer-game dealer-control-game" data-state="idle" aria-labelledby="grip-title" hidden>
+      <div class="dealer-game-top"><span id="grip-title">ROUND 02 / GRIP CONTROL</span><span class="dealer-target">HOLD IN THE ZONE <strong>3 <small>sec</small></strong></span></div>
+      <div class="grip-device-stage" aria-hidden="true"><svg class="grip-device" viewBox="0 0 220 190" fill="none"><path d="M72 35h61c23 0 41 18 41 41v77c0 13-10 23-23 23h-17" stroke="#778ba0" stroke-width="15" stroke-linecap="round"/><rect x="59" y="20" width="88" height="58" rx="15" fill="#21334a" stroke="#8a9bac" stroke-width="2"/><rect x="73" y="32" width="60" height="29" rx="5" fill="#0a1421"/><text id="grip-device-value" x="103" y="53" text-anchor="middle" fill="#d9c3a2" font-size="21" font-family="sans-serif">0</text><path d="M72 86v75" stroke="#d9c3a2" stroke-width="17" stroke-linecap="round"/><g id="grip-moving-handle"><path d="M131 91v69" stroke="#85d7e6" stroke-width="17" stroke-linecap="round"/><path d="M98 78l-8 10 12 10-12 10 12 10-12 10 8 8" stroke="#92a7bc" stroke-width="2"/></g></svg><span class="grip-device-caption">VIRTUAL GRIP DEVICE</span></div>
+      <div class="grip-meter-labels"><span>CONTROL LEVEL</span><span>TARGET ZONE</span></div><div id="grip-meter" class="grip-meter" role="progressbar" aria-label="Simulated grip control level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="grip-meter-zone" aria-hidden="true"></span><span id="grip-meter-fill" class="grip-meter-fill"></span><span id="grip-meter-pointer" class="grip-meter-pointer"></span></div>
+      <div class="control-round-metrics"><div><span>CONTINUOUS HOLD</span><strong id="grip-streak">0.0 <small>/ 3 sec</small></strong></div><div><span>TIME LEFT</span><strong id="grip-time">15.0 <small>sec</small></strong></div></div>
+      <button type="button" id="grip-hold" class="grip-hold-button" aria-pressed="false" disabled><span aria-hidden="true">↕</span><span>Hold to squeeze<small>Release to ease · or hold Space</small></span></button>
+      <p id="grip-guidance" class="dealer-game-guidance" role="status" aria-live="polite">Start the round. Keep the gauge in the green zone for three continuous seconds.</p>
+      <button type="button" id="grip-start" class="control-start">Start grip round <span aria-hidden="true">↗</span></button>
+    </div>
+
+    <div id="balance-game" class="dealer-game dealer-control-game" data-state="idle" aria-labelledby="balance-title" hidden>
+      <div class="dealer-game-top"><span id="balance-title">ROUND 03 / BALANCE</span><span class="dealer-target">STAY LEVEL FOR <strong>10 <small>/ 15 sec</small></strong></span></div>
+      <div id="balance-stage" class="balance-board-stage" tabindex="0" role="group" aria-label="Virtual balance board. Use left and right arrow keys to counter the tilt." aria-describedby="balance-guidance"><div class="board-level-reference" aria-hidden="true"></div><span class="board-level-label" id="balance-level">FIND YOUR CENTRE</span><div class="board-tilt" id="balance-board" aria-hidden="true"><span class="board-deck"></span><span class="board-foot board-foot-left"></span><span class="board-foot board-foot-right"></span><span class="board-centre-mark"></span></div><div class="board-fulcrum" aria-hidden="true"></div><div class="board-floor" aria-hidden="true"></div></div>
+      <div class="control-round-metrics"><div><span>TIME IN BALANCE</span><strong id="balance-score">0.0 <small>sec</small></strong></div><div><span>TIME LEFT</span><strong id="balance-time">15.0 <small>sec</small></strong></div></div>
+      <div class="balance-controls"><button type="button" id="balance-left" aria-label="Lean left. Hold to counter a right tilt." aria-pressed="false" disabled><span aria-hidden="true">←</span><span>Lean left</span></button><button type="button" id="balance-right" aria-label="Lean right. Hold to counter a left tilt." aria-pressed="false" disabled><span>Lean right</span><span aria-hidden="true">→</span></button></div>
+      <p id="balance-guidance" class="dealer-game-guidance" role="status" aria-live="polite">Start the round. Counter the tilt with small left and right corrections.</p>
+      <button type="button" id="balance-start" class="control-start">Start balance round <span aria-hidden="true">↗</span></button>
+    </div>
+
+    <div id="game-scorecard" class="dealer-game dealer-final-card" tabindex="-1" hidden>
+      <div class="dealer-game-top"><span>IMMORTALS / YOUR BROWSER GAME</span><span class="final-card-badge">THREE ROUNDS</span></div><div class="game-card-seal" id="game-card-seal" aria-hidden="true">03</div><h3 id="game-card-title">Your game, so far.</h3><p id="game-card-description">Play all three rounds to complete your card.</p>
+      <div class="game-card-results">{['Reaction','Grip control','Balance'].map((name,i)=><button type="button" data-card-round={i}><span><small>{`0${i+1} / ${name.toUpperCase()}`}</small><strong id={`card-value-${i}`}>Not played</strong></span><span id={`card-status-${i}`}>Play round ↗</span></button>)}</div>
+      <p class="dealer-small">Your actual game results, kept on this page only. Grip scores describe gauge control; balance scores describe the virtual board.</p><button type="button" id="restart-match" class="dealer-button dealer-button-light">Play all three again <span aria-hidden="true">↻</span></button><a href="#takeaway" class="dealer-text-link">Discover the in-clinic scorecard <span aria-hidden="true">↓</span></a>
+    </div>
+
+    <div class="dealer-round-navigation" id="round-navigation"><div><button type="button" id="round-retry">Retry round ↻</button><button type="button" id="round-skip">Skip round</button></div><button type="button" id="round-next" disabled>Next: grip control →</button></div>
+    <noscript><p class="dealer-small">Enable JavaScript to play the three rounds. The guest journey and illustrative clinic scorecard remain available below.</p></noscript>
+  </div>
+</section>

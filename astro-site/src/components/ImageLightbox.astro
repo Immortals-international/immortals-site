@@ -1,0 +1,9 @@
+<dialog class="clinic-lightbox" id="image-lightbox" aria-labelledby="lightbox-caption"><div><p id="lightbox-caption"></p><button type="button" data-lightbox-close aria-label="Close image">Close ×</button></div><img id="lightbox-image" alt="" /></dialog>
+<script>
+ const dialog=document.querySelector('#image-lightbox') as HTMLDialogElement;
+ let previous: HTMLElement|null=null;
+ document.addEventListener('click',e=>{const trigger=(e.target as HTMLElement).closest('[data-lightbox]') as HTMLElement;if(!trigger)return;previous=trigger;const img=dialog.querySelector('img')!;img.src=trigger.dataset.lightbox!;img.alt=trigger.dataset.caption||'';dialog.querySelector('#lightbox-caption')!.textContent=img.alt;dialog.showModal();document.body.style.overflow='hidden';});
+ dialog.querySelector('[data-lightbox-close]')?.addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+ dialog.addEventListener('close',()=>{document.body.style.overflow='';previous?.focus({preventScroll:true})});
+</script>
