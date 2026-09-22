@@ -1,24 +1,27 @@
 ---
-import { url, styles } from '../data/site';
+import { url, styles, sceneImage } from '../data/site';
 import { experiences } from '../data/experiences';
 import '../styles/site-shell.css';
 const { active = '', skipTarget = 'main-content' } = Astro.props;
 const menus = [
-  { id:'interior-design', name:'Interior Design', path:'interior-design/', overview:'Overview & comparison', links:styles.map(s=>({name:s.name,path:`interior-design/${s.slug}/`})) },
+  { id:'interior-design', name:'Interior Design', path:'interior-design/', overview:'Overview & comparison', links:styles.map(s=>({name:s.name,path:`interior-design/${s.slug}/`,image:sceneImage(s.id,'main-entrance',true)})) },
   { id:'experiences', name:'Experiences', path:'experiences/', overview:'Explore all experiences', links:experiences.map(e=>({name:e.name,path:`experiences/${e.slug}/`})) },
 ];
 ---
 <a class="clinic-skip" href={`#${skipTarget}`}>Skip to content</a>
 <header class="clinic-header">
-  <a class="clinic-brand" href={url()} aria-label="Immortals Macau home"><img src={url('assets/wordmark.png')} alt="Immortals" width="180" height="16" /><span>MACAU / THE FLAGSHIP</span></a>
+  <a class="clinic-brand" href={url()} aria-label="Immortals Macau home"><img src={url('assets/wordmark.png')} alt="Immortals" width="180" height="16" /></a>
   <button class="clinic-mobile-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="clinic-navigation"><span>Menu</span><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 3h22M0 13h22" /></svg></button>
   <nav id="clinic-navigation" class="clinic-navigation" aria-label="Main navigation">
     <div class="clinic-nav-direct"><a class:list={{'is-current':active==='layout'}} href={url('layout/')} aria-current={active==='layout'?'page':undefined}>Layout</a></div>
     {menus.map(m=><div class="clinic-nav-item" data-menu={m.id}>
       <div class="clinic-nav-label"><a class:list={{'is-current':active===m.id}} href={url(m.path)} aria-current={active===m.id?'true':undefined}>{m.name}</a><button class="clinic-menu-toggle" aria-label={`Explore ${m.name}`} aria-expanded="false" aria-controls={`mega-${m.id}`}><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="m3 6 5 5 5-5" /></svg></button></div>
       <div class:list={['clinic-mega',{'clinic-mega-wide':m.id==='experiences'}]} id={`mega-${m.id}`} hidden>
-        <a class="clinic-menu-overview" href={url(m.path)}>{m.overview}<span aria-hidden="true">↗</span></a>
-        <div class="clinic-mega-links">{m.links.map(l=><a href={url(l.path)}>{l.name}</a>)}</div>
+        <div class="clinic-menu-top"><a class="clinic-menu-overview" href={url(m.path)}>{m.overview}<span aria-hidden="true">↗</span></a></div>
+        <div class="clinic-menu-body">
+          <div class:list={['clinic-mega-links',{'clinic-design-links':m.id==='interior-design'}]}>{m.links.map(l=><a href={url(l.path)}>{'image' in l && <img src={l.image} alt="" width="600" height="338" loading="lazy" />}<span>{l.name}</span></a>)}</div>
+          {m.id==='experiences'&&<a class="clinic-menu-feature" href={url('experiences/beat-the-dealer/#play')}><img src={url('assets/experiences/beat-the-dealer.webp')} alt="A host guides a guest at the Beat the Dealer table." width="1672" height="941" loading="lazy" /><span>Try Beat the Dealer <span aria-hidden="true">↗</span></span></a>}
+        </div>
       </div>
     </div>)}
     <a class="clinic-tour-link" href={url('tour/')}>Step inside <span>360° ↗</span></a>
