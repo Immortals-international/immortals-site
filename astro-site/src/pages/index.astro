@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import GuestJourney from '../components/GuestJourney.astro';
 import { url, styles, sceneImage, feedback } from '../data/site';
 const layoutPreviews = [
   { id: 'club', name: 'Club', description: 'A lounge-led welcome' },
@@ -23,7 +24,7 @@ const layoutPreviews = [
 <section class="home-vision" id="vision" aria-labelledby="vision-title">
   <div class="home-width home-vision-grid">
     <h2 id="vision-title">Make people want to walk in.<br /><span>Give them a reason to return.</span></h2>
-    <p>An inviting public floor brings discovery and hospitality together. Beyond it, a quieter clinic offers personal care. A first encounter in Macau can become the start of a longer relationship.</p>
+    <GuestJourney />
   </div>
 </section>
 

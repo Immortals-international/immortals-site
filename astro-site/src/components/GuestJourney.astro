@@ -1,0 +1,132 @@
+---
+const moments = [
+  {
+    title: ['Catch my', 'attention.'],
+    description: 'An intriguing entrance. A visible activity. Something worth stepping inside for.',
+    drawing: 'M22 94V18H88V94 M36 94V34H74V94 M10 100H100 M36 94L61 69',
+  },
+  {
+    title: ['Let me', 'experience it.'],
+    description: 'A short challenge, a tasting or a discovery that starts a conversation.',
+    drawing: 'M16 90V24H94 M40 36A17 17 0 1 0 40 70A17 17 0 1 0 40 36 M24 77L19 84 M61 33L68 27 M75 61A9 9 0 1 0 75 79A9 9 0 1 0 75 61 M58 89H94 M89 25V37 M83 31H95',
+  },
+  {
+    title: ['Make it', 'personal.'],
+    description: 'Explore your own health questions, with a private consultation as a possible next step.',
+    drawing: 'M18 94V20H94V94H52 M18 94L39 73 M36 76V38H76V76H54 M56 48A7 7 0 1 0 56 62A7 7 0 1 0 56 48 M84 30V48',
+  },
+  {
+    title: ['Give me a reason', 'to return.'],
+    description: 'Continue the relationship through follow-up, another experience or membership.',
+    drawing: 'M18 94V42H70V94H18 M32 80V28H84V80 M46 66V14H98V66',
+  },
+];
+const routes = [
+  { orientation: 'horizontal', viewBox: '0 0 1200 144', path: 'M12 118H1188' },
+  { orientation: 'vertical', viewBox: '0 0 100 640', path: 'M14 24V628' },
+];
+---
+
+<div class="guest-journey" aria-label="From a first encounter to an ongoing relationship">
+  {routes.map(route => <svg class={`journey-route journey-route-${route.orientation}`} viewBox={route.viewBox} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path class="journey-track" d={route.path} />
+    <path class="journey-ink" d={route.path} pathLength="1" />
+    <circle class="journey-dot-halo" r="10" />
+    <circle class="journey-dot" r="3.5" />
+  </svg>)}
+  <ol class="journey-moments">
+    {moments.map((moment, index) => <li class="journey-moment">
+      <svg class="journey-mark" viewBox="0 0 120 108" aria-hidden="true" focusable="false"><path d={moment.drawing} /></svg>
+      <div class="journey-copy">
+        <span class="journey-number" aria-hidden="true">0{index + 1}</span>
+        <h3>{moment.title[0]}<br />{moment.title[1]}</h3>
+        <p>{moment.description}</p>
+      </div>
+    </li>)}
+  </ol>
+</div>
+
+<script>
+  const journey = document.querySelector<HTMLElement>('.guest-journey');
+  if (journey) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const moments = [...journey.querySelectorAll('.journey-moment')];
+    const routes = [...journey.querySelectorAll('svg.journey-route')].map(svg => {
+      const path = svg.querySelector<SVGPathElement>('.journey-ink')!;
+      return { path, length: path.getTotalLength(), dots: svg.querySelectorAll('circle') };
+    });
+    let frame = 0;
+
+    function paint(progress: number) {
+      routes.forEach(({ path, length, dots }) => {
+        path.style.strokeDashoffset = String(1 - progress);
+        const point = path.getPointAtLength(length * progress);
+        dots.forEach(dot => {
+          dot.setAttribute('cx', String(point.x));
+          dot.setAttribute('cy', String(point.y));
+        });
+      });
+      moments.forEach((moment, index) => moment.classList.toggle('is-reached', progress >= index / moments.length));
+    }
+
+    function update() {
+      frame = 0;
+      const bounds = journey!.getBoundingClientRect();
+      // Finish while the fourth moment is still comfortably in view, including
+      // the taller vertical journey on a phone. Native page scrolling is unchanged.
+      const start = window.innerHeight * 0.8;
+      const end = Math.min(window.innerHeight * 0.25, window.innerHeight * 0.75 - bounds.height);
+      const progress = reduceMotion.matches ? 1 : Math.max(0, Math.min(1, (start - bounds.top) / (start - end)));
+      paint(progress);
+      journey!.classList.toggle('is-complete', progress === 1);
+    }
+
+    function scheduleUpdate() {
+      if (!frame) frame = requestAnimationFrame(update);
+    }
+
+    journey.classList.add('journey-ready');
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    reduceMotion.addEventListener('change', scheduleUpdate);
+    document.fonts.ready.then(scheduleUpdate);
+    update();
+  }
+</script>
+
+<style>
+.guest-journey{position:relative;margin-top:10px;color:#f7f5ec}
+.journey-moments{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none}
+.journey-moment{min-width:0;padding-right:30px}
+.journey-mark{display:block;width:108px;height:108px;margin-bottom:38px;color:#d3dce6;transition:color .5s}
+.journey-mark path,.journey-route path{fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.journey-route{position:absolute;pointer-events:none;overflow:visible;left:0;top:0;width:100%;height:144px}
+.journey-route-vertical{display:none}
+.journey-track{color:#65778e;opacity:.4}
+.journey-ink{color:#bdcddd;stroke-dasharray:1;stroke-dashoffset:0}
+.journey-dot,.journey-dot-halo{fill:#f7f5ec;opacity:0}
+.journey-dot-halo{fill:#bfd5ee}
+.journey-ready .journey-dot{opacity:1}
+.journey-ready .journey-dot-halo{opacity:.13}
+.journey-number{display:block;color:#a7b8cd;font-size:10px;line-height:1.4;letter-spacing:.14em;margin-bottom:12px}
+.journey-copy h3{font-size:clamp(24px,2.3vw,34px);line-height:1.12;letter-spacing:-.035em;color:#f7f5ec;transition:color .5s}
+.journey-copy p{font-size:14px;line-height:1.7;color:#bbc6d6;margin-top:17px;max-width:245px}
+.journey-ready .journey-mark{color:#8395ac}
+.journey-ready .journey-copy h3{color:#bbc6d6}
+.journey-ready .is-reached .journey-mark,.journey-ready .is-reached h3{color:#f7f5ec}
+@media(max-width:1000px) and (min-width:701px){.journey-moment{padding-right:20px}.journey-mark{width:92px}.journey-copy h3{font-size:25px}.journey-copy p{font-size:13px}.journey-moment:last-child{padding-right:0}}
+@media(max-width:700px){
+  .guest-journey{margin-top:8px}
+  .journey-moments{grid-template-columns:1fr;gap:0}
+  .journey-moment{display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;padding:0 0 28px;min-height:172px}
+  .journey-moment:last-child{padding-bottom:0;min-height:0}
+  .journey-mark{width:70px;height:74px;margin:16px 0 0 17px}
+  .journey-route-horizontal{display:none}
+  .journey-route-vertical{display:block;width:100px;height:100%}
+  .journey-number{margin-bottom:7px;font-size:9px}
+  .journey-copy h3{font-size:26px;line-height:1.12}
+  .journey-copy p{font-size:13px;line-height:1.65;margin-top:12px;max-width:320px}
+}
+@media(max-width:370px){.journey-moment{grid-template-columns:68px minmax(0,1fr);gap:15px}.journey-mark{width:54px;margin-left:16px}.journey-route-vertical{width:80px}.journey-copy h3{font-size:24px}.journey-copy p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.journey-mark,.journey-copy h3{transition:none}}
+</style>
