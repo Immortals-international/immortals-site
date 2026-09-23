@@ -1,0 +1,106 @@
+---
+import { rooms, sceneImage } from '../data/site';
+const { direction } = Astro.props;
+---
+<section class="direction-carousel" id="rooms" aria-label={`${direction.name} rooms`} aria-roledescription="carousel">
+  <div class="carousel-track" id="direction-slides" tabindex="0" aria-label="Room images. Swipe or use the arrow keys to explore.">
+    {rooms.map((room,index) => <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label={`${index+1} of ${rooms.length}: ${room.name}`} inert={index!==0}>
+      <button class="image-button" data-lightbox={sceneImage(direction.id,room.id)} data-caption={`${direction.name} · ${room.name}`} aria-label={`Enlarge ${room.name}`}>
+        <img src={sceneImage(direction.id,room.id)} alt={`${direction.name} · ${room.name}`} width="1672" height="941" loading={index===0?'eager':'lazy'} fetchpriority={index===0?'high':'auto'} draggable="false" />
+        <span>View full image <span aria-hidden="true">↗</span></span>
+      </button>
+    </div>)}
+  </div>
+  <div class="carousel-caption">
+    <div class="room-caption"><h2 id="carousel-room-name">{rooms[0].name}</h2><p id="carousel-room-note">{rooms[0].note}</p></div>
+    <div class="carousel-controls" role="group" aria-label="Browse rooms">
+      <button type="button" data-previous-room aria-label="Previous room" aria-controls="direction-slides"><span aria-hidden="true">←</span></button>
+      <span class="carousel-count" aria-hidden="true"><span id="carousel-position">01</span> / 06</span>
+      <button type="button" data-next-room aria-label="Next room" aria-controls="direction-slides"><span aria-hidden="true">→</span></button>
+    </div>
+  </div>
+  <div class="carousel-room-links" role="group" aria-label="Choose a room">
+    {rooms.map((room,index) => <button type="button" data-room-index={index} data-room-name={room.name} data-room-note={room.note} aria-pressed={index===0} aria-controls="direction-slides">{room.name}</button>)}
+  </div>
+  <p class="carousel-status" role="status" aria-live="polite" aria-atomic="true">1 of 6. Main entrance.</p>
+</section>
+<script>
+  const carousel=document.querySelector<HTMLElement>('.direction-carousel');
+  if(carousel){
+    const track=carousel.querySelector<HTMLElement>('.carousel-track')!;
+    const slides=[...carousel.querySelectorAll<HTMLElement>('.carousel-slide')];
+    const choices=[...carousel.querySelectorAll<HTMLButtonElement>('[data-room-index]')];
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let active=0;
+    let frame=0;
+    let trackWidth=track.clientWidth;
+    function render(index:number){
+      active=index;
+      const room=choices[index];
+      carousel!.querySelector('#carousel-room-name')!.textContent=room.dataset.roomName!;
+      carousel!.querySelector('#carousel-room-note')!.textContent=room.dataset.roomNote!;
+      carousel!.querySelector('#carousel-position')!.textContent=String(index+1).padStart(2,'0');
+      carousel!.querySelector('.carousel-status')!.textContent=`${index+1} of ${slides.length}. ${room.dataset.roomName}.`;
+      choices.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+      slides.forEach((slide,i)=>slide.inert=i!==index);
+    }
+    function goTo(index:number){
+      const target=(index+slides.length)%slides.length;
+      // Wrapping goes directly to the other end instead of sweeping through every room.
+      const behavior=reducedMotion.matches||index<0||index>=slides.length?'instant':'smooth';
+      track.scrollTo({left:target*track.clientWidth,behavior});
+    }
+    carousel.querySelector('[data-previous-room]')!.addEventListener('click',()=>goTo(active-1));
+    carousel.querySelector('[data-next-room]')!.addEventListener('click',()=>goTo(active+1));
+    choices.forEach((button,index)=>button.addEventListener('click',()=>goTo(index)));
+    carousel.addEventListener('keydown',event=>{
+      if(event.altKey||event.ctrlKey||event.metaKey||event.shiftKey)return;
+      if(event.key==='ArrowRight'||event.key==='ArrowLeft'){
+        event.preventDefault();goTo(active+(event.key==='ArrowRight'?1:-1));
+      }
+    });
+    track.addEventListener('scroll',()=>{
+      cancelAnimationFrame(frame);
+      frame=requestAnimationFrame(()=>{
+        // A resize changes the pixel offset; it must not change the selected room.
+        if(track.clientWidth!==trackWidth)return;
+        const index=Math.max(0,Math.min(slides.length-1,Math.round(track.scrollLeft/track.clientWidth)));
+        if(index!==active)render(index);
+      });
+    },{passive:true});
+    new ResizeObserver(()=>{
+      if(track.clientWidth===trackWidth)return;
+      trackWidth=track.clientWidth;
+      track.scrollTo({left:active*trackWidth,behavior:'instant'});
+    }).observe(track);
+  }
+</script>
+<style>
+  .direction-carousel{min-width:0}
+  .carousel-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;background:#142034}
+  .carousel-track::-webkit-scrollbar{display:none}
+  .carousel-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
+  .carousel-slide .image-button{width:100%;touch-action:pan-x pan-y pinch-zoom}
+  .carousel-slide .image-button:focus-visible{outline-offset:-4px}
+  .carousel-slide img{width:100%;aspect-ratio:1672/941;object-fit:contain;user-select:none}
+  .carousel-caption{display:flex;justify-content:space-between;align-items:start;gap:28px;padding-top:22px}
+  .room-caption h2{font-size:28px;line-height:1.2}
+  .room-caption p{font-size:14px;color:var(--muted);margin-top:10px;max-width:660px}
+  .carousel-controls{display:flex;align-items:center;gap:16px;flex-shrink:0}
+  .carousel-controls button{width:44px;height:44px;border:1px solid #ffffff40;background:none;color:var(--bone);font-size:24px;display:grid;place-items:center}
+  .carousel-controls button:hover{background:#ffffff0c;border-color:#ffffff80}
+  .carousel-count{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:48px;text-align:center}
+  .carousel-room-links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:24px;border-top:1px solid var(--line);padding-top:10px}
+  .carousel-room-links button{background:none;border:0;border-bottom:1px solid transparent;padding:10px 0;min-height:44px;color:var(--muted);font-size:13px}
+  .carousel-room-links button[aria-pressed=true]{color:var(--bone);border-bottom-color:var(--bone)}
+  .carousel-room-links button:hover{color:var(--bone)}
+  .carousel-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  @media(max-width:700px){
+    .carousel-caption{flex-direction:column;gap:18px;padding-top:18px}
+    .room-caption h2{font-size:26px}
+    .room-caption p{font-size:13px}
+    .carousel-controls{width:100%;justify-content:space-between}
+    .carousel-room-links{gap:4px 20px;margin-top:18px}
+    .carousel-room-links button{font-size:12px}
+  }
+</style>
