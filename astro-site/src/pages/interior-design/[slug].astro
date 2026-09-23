@@ -1,15 +1,73 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { url, styles, rooms, sceneImage } from '../../data/site';
+import { url, styles, feedback } from '../../data/site';
+import { directionConcepts } from '../../data/directionConcepts';
+import DirectionCarousel from '../../components/DirectionCarousel.astro';
 export function getStaticPaths(){return styles.map(style=>({params:{slug:style.slug},props:{style}}));}
 const {style:s}=Astro.props;
+const concept=directionConcepts[s.id];
 const others=styles.filter(style=>style.id!==s.id);
 ---
 <SiteLayout title={s.name} description={s.summary} active="interior-design">
-<section class="wrap page-heading"><div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><a href={url('interior-design/')}>Interior Design</a><span>/</span><span>{s.name}</span></div><p class="eyebrow">DESIGN DIRECTION / {s.character}</p><div class="page-heading-grid"><h1>{s.name}<span>.</span></h1><div><p>{s.summary}</p><div class="actions"><a class="text-link" href="#rooms">Explore the six rooms <span>↓</span></a></div></div></div></section>
-<figure class="wrap style-hero"><button class="image-button" data-lightbox={sceneImage(s.id)} data-caption={`${s.name} · Main entrance`} aria-label="Enlarge main entrance"><img class="full-image" src={sceneImage(s.id)} alt={`${s.name} double-height main entrance concept`} width="1672" height="941" fetchpriority="high" /><span>View full image ↗</span></button><figcaption class="image-caption"><span>THE MAIN ENTRANCE / AN ARRIVAL WITH PRESENCE</span><span>Concept visualisation</span></figcaption></figure>
-<section class="cream"><div class="wrap section material-grid"><div><p class="eyebrow">THE DESIGN LANGUAGE</p><h2>{s.headline}</h2><p class="lead">{s.idea}</p><div class="palette" aria-label="Material palette">{s.swatches.map((c,i)=><div><span style={`background:${c}`}></span><small>{s.labels[i]}</small></div>)}</div></div><div class="material-details"><div><span>Materials</span><p>{s.materials}</p></div><div><span>Light</span><p>{s.light}</p></div><div><span>The guest feeling</span><p>{s.feeling}</p></div></div></div></section>
-<section class="wrap section" id="rooms"><div class="chapter-line"><span>THE ROOM COLLECTION</span><span>SIX SPACES / ONE ARCHITECTURAL LANGUAGE</span></div><div class="section-heading"><h2>Follow the feeling<br />through the clinic.</h2><p>From the first impression to the most personal part of the visit. Open each room to explore the full image.</p></div><div class="room-grid">{rooms.map((r,i)=><article class="room-card"><button class="image-button" data-lightbox={sceneImage(s.id,r.id)} data-caption={`${s.name} · ${r.name}`} aria-label={`Enlarge ${r.name}`}><img src={sceneImage(s.id,r.id)} alt={`${s.name} ${r.name.toLowerCase()} concept`} loading="lazy" width="1672" height="941" /><span>0{i+1} / View room ↗</span></button><h3>{r.name}</h3><p>{r.note}</p></article>)}</div><p class="fine" style="margin-top:35px">These visualisations explore atmosphere and equipment integration. They are not measured room layouts; final proportions, clearances and technical specifications require coordination with the floor plan.</p></section>
-<section class="cream"><div class="wrap section board-grid"><div><p class="eyebrow">THE ORIGINAL STUDY</p><h2>Public energy.<br />Private calm.</h2><p>The original concept board brings the lounge and private suite together, establishing the relationship between hospitality and care.</p></div><button class="image-button" data-lightbox={url(`assets/${s.id}.png`)} data-caption={`${s.name} · Original lounge and suite study`} aria-label="Enlarge original concept board"><img src={url(`assets/${s.id}.png`)} alt={`${s.name} original public lounge and private suite concept board`} loading="lazy" /><span>Open concept board ↗</span></button></div></section>
-<section class="wrap section"><div class="section-heading"><h2>A different<br />point of view.</h2><p>Explore the other directions, or return to the comparison to see the same room in all four styles.</p></div><div class="style-grid" style="--columns:3">{others.map(o=><a class="style-card" href={url(`interior-design/${o.slug}/`)}><div class="style-card-image"><img src={sceneImage(o.id,'main-entrance',true)} alt={`${o.name} entrance`} loading="lazy" width="600" height="338" /></div><div class="style-card-line"><span>{o.character}</span><span>↗</span></div><h3>{o.name}</h3></a>)}</div><div class="actions"><a class="text-link" href={url('interior-design/#compare')}>Compare all four directions <span>↗</span></a></div></section>
+<section class="wrap page-heading direction-heading">
+  <div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><a href={url('interior-design/')}>Interior Design</a><span>/</span><span>{s.name}</span></div>
+  <h1>{s.name}</h1>
+  <p>{s.summary}</p>
+</section>
+<div class="wrap direction-study">
+  <DirectionCarousel direction={s} />
+  <aside class="direction-concept" aria-label="The design approach">
+    <div><h2>The idea</h2><p>{s.idea}</p></div>
+    <div><h2>Inspiration</h2><p>{concept.inspiration}</p>{concept.reference && <a class="concept-reference" href={concept.reference.href} target="_blank" rel="noopener">{concept.reference.label} <span aria-hidden="true">↗</span></a>}</div>
+    <div><h2>Why it suits Immortals</h2><p>{concept.rationale}</p></div>
+  </aside>
+  <p class="direction-note">Concept visualisations illustrate design intent. Room proportions, equipment clearances and technical specifications require coordination with the selected floor plan.</p>
+</div>
+<section class="cream" aria-labelledby="other-directions-title"><div class="wrap direction-navigation">
+  <h2 id="other-directions-title">Explore another direction.</h2>
+  <nav class="other-directions" aria-label="Other design directions">
+    {others.map(other => <a href={url(`interior-design/${other.slug}/`)}><span>{other.name}</span><span aria-hidden="true">↗</span></a>)}
+  </nav>
+  <div class="actions"><a class="button" href={url('interior-design/#compare')}>Compare all four <span aria-hidden="true">↗</span></a><a class="text-link" href={feedback} target="_blank" rel="noopener">Share feedback <span aria-hidden="true">↗</span></a></div>
+</div></section>
 </SiteLayout>
+
+<style>
+  .direction-heading{padding-top:32px;padding-bottom:32px}
+  .direction-heading .breadcrumb{margin-bottom:26px}
+  .direction-heading h1{font-size:clamp(42px,6.1vw,88px)}
+  .direction-heading>p{font-size:15px;color:var(--muted);max-width:700px;margin-top:22px}
+  .direction-study{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:28px clamp(32px,4vw,64px);align-items:start;padding-bottom:42px}
+  .direction-concept{display:grid;gap:26px}
+  .direction-concept>div+div{border-top:1px solid var(--line);padding-top:24px}
+  .direction-concept h2{font-size:22px;line-height:1.2;letter-spacing:-.025em}
+  .direction-concept p{font-size:14px;line-height:1.7;color:var(--muted);margin-top:12px}
+  .concept-reference{display:inline-flex;gap:16px;align-items:center;font-size:12px;border-bottom:1px solid #738092;padding:8px 0 6px;margin-top:6px}
+  .concept-reference:hover{color:var(--sand)}
+  .direction-note{grid-column:1/-1;font-size:11px;line-height:1.7;color:var(--muted);max-width:860px}
+  .direction-navigation{padding-top:58px;padding-bottom:64px}
+  .direction-navigation h2{font-size:clamp(30px,3vw,44px);margin-bottom:30px}
+  .other-directions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  .other-directions a{display:flex;justify-content:space-between;align-items:center;gap:22px;border-top:1px solid var(--dark-line);border-bottom:1px solid var(--dark-line);padding:24px 0;font-size:clamp(20px,2vw,28px);line-height:1.25}
+  .other-directions a>span:last-child{font-size:19px;color:#53606c}
+  .other-directions a:hover{color:#786348}
+  @media(max-width:1100px){
+    .direction-study{grid-template-columns:1fr;row-gap:32px}
+    .direction-concept{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+    .direction-concept>div,.direction-concept>div+div{border-top:1px solid var(--line);padding-top:24px}
+  }
+  @media(max-width:700px){
+    .direction-heading{padding-top:24px;padding-bottom:26px}
+    .direction-heading .breadcrumb{margin-bottom:22px}
+    .direction-heading h1{font-size:clamp(37px,9.5vw,58px)}
+    .direction-heading>p{font-size:14px;margin-top:18px}
+    .direction-study{padding-bottom:32px}
+    .direction-concept{grid-template-columns:1fr;gap:24px}
+    .direction-concept h2{font-size:22px}
+    .direction-note{font-size:10px}
+    .direction-navigation{padding-top:40px;padding-bottom:42px}
+    .other-directions{grid-template-columns:1fr;gap:0}
+    .other-directions a{font-size:24px;padding:20px 0;border-bottom:0}
+    .other-directions a:last-child{border-bottom:1px solid var(--dark-line)}
+  }
+</style>
