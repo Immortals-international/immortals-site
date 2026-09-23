@@ -1,12 +1,156 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { url } from '../data/site';
+import { layouts } from '../data/layouts';
+const differences = [
+  { benefit: 'More room to settle in.', tradeoff: 'Less discovery space than Gallery; less hosted-session space than Salon.' },
+  { benefit: 'More room to discover.', tradeoff: 'The smallest lounge and enclosed salon.' },
+  { benefit: 'More room to host.', tradeoff: 'The smallest open discovery floor.' },
+];
 ---
-<SiteLayout title="Layout" description="Explore three ways to organise the Immortals Macau flagship: Club, Gallery and Salon, with private suites and dedicated assessment rooms." active="layout">
-<section class="wrap page-heading"><div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><span>Layout</span></div><p class="eyebrow">01 / THE SPATIAL PLAN</p><div class="page-heading-grid"><h1>One footprint.<br /><span>Three possibilities.</span></h1><div><p>Curved glazing, generous daylight and a double-height arrival. A former private casino, reimagined around a different kind of visit.</p><div class="actions"><a class="text-link" href="#plans">Explore the three plans <span>↓</span></a></div></div></div><div class="facts-row"><div><strong>1,100 <small>m²</small></strong><p>Reported total footprint</p></div><div><strong>04</strong><p>Window-facing private suites</p></div><div><strong>03</strong><p>Dedicated assessment rooms</p></div><div><strong>2.4 <small>m</small></strong><p>Main corridor clear-width target</p></div></div></section>
-<section class="cream" id="plans"><div class="wrap section"><div class="chapter-line"><span>THE PUBLIC FLOOR</span><span>THREE OPTIONS / NO PREFERRED LAYOUT</span></div><div class="section-heading"><h2>Where should<br />the visit begin?</h2><p>The private clinical framework stays consistent. The public floor changes its emphasis: a lounge-led welcome, an open gallery or a larger flexible salon.</p></div><div class="layout-stage"><div class="layout-tabs" role="group" aria-label="Choose a layout"><button data-layout="0" class="active" aria-pressed="true"><span>01</span> Club <small>A lounge-led welcome</small></button><button data-layout="1" aria-pressed="false"><span>02</span> Gallery <small>An open discovery floor</small></button><button data-layout="2" aria-pressed="false"><span>03</span> Salon <small>A flexible hosted space</small></button></div><div class="layout-body"><div class="plan-display"><button id="open-plan" aria-label="Enlarge the Club floor plan"><img id="plan-image" src={url('assets/plan-club.svg')} alt="Club layout: four window suites, separate assessments and a lounge-led public floor" /><span class="enlarge-label">Explore the full plan <span aria-hidden="true">↗</span></span></button></div><div class="layout-notes" aria-live="polite"><p class="eyebrow" id="plan-number">LAYOUT 01</p><h3 id="plan-title">A lounge-led welcome</h3><p id="plan-description">Arrival opens into a generous lounge. A defined threshold leads into the gallery, with space for conversation, discovery and hosted sessions.</p><div id="allocation" class="allocation"></div><p class="tradeoff" id="plan-tradeoff">The largest dedicated lounge of the three options, with a mid-sized gallery and flexible salon.</p><p class="footnote">Indicative public-space areas, calibrated to the reported footprint. These are concept layouts, not surveyed architectural drawings.</p></div></div></div></div></section>
-<section class="wrap section"><div class="chapter-line"><span>THE CONSTANTS</span><span>A PUBLIC INVITATION / A PRIVATE CLINICAL WORLD</span></div><div class="section-heading"><h2>Two ways in.<br />One considered visit.</h2><p>The main entrance welcomes guests into the public experience. A separate patient arrival supports a quieter route into the private clinic.</p></div><div class="plan-summary-grid"><article><p class="eyebrow">01 / PUBLIC DISCOVERY</p><h3>Room for curiosity.</h3><p>The gallery, lounge, coffee bar and flexible salon create different settings for a first encounter. Experience placement follows the chosen layout and each activity’s practical requirements.</p></article><article><p class="eyebrow">02 / PERSONAL CARE</p><h3>A suite as your base.</h3><p>Four permanent, window-facing suites provide a private setting for the visit, with showers and room for conversation. Dedicated assessment rooms support specific tests and equipment.</p></article><article><p class="eyebrow">03 / EVERYDAY OPERATION</p><h3>The work behind the welcome.</h3><p>Clinical support, a separate patient entry, circulation and fire escape provision remain part of the planning framework. Final routes, clearances and equipment requirements need detailed coordination.</p></article></div></section>
-<section class="cream"><div class="wrap section"><div class="section-heading"><h2>The plan is the framework.<br />Design gives it feeling.</h2><p>The four interior directions explore atmosphere within the same clinic brief. Room images are design studies and should be coordinated against the selected plan.</p></div><div class="actions"><a class="button" href={url('interior-design/')}>Compare the interior directions <span>↗</span></a><a class="text-link" href={url('experiences/')}>Discover the experiences <span>↗</span></a></div></div></section>
-<dialog id="plan-dialog" aria-labelledby="plan-dialog-title"><div class="dialog-head"><div><p class="eyebrow">SPATIAL CONCEPT / FULL DRAWING</p><h2 id="plan-dialog-title">Club layout</h2></div><button id="close-plan">Close ×</button></div><div class="plan-toolbar"><div class="plan-modal-tabs" role="group" aria-label="Floor plan"><button data-modal-plan="0">Club</button><button data-modal-plan="1">Gallery</button><button data-modal-plan="2">Salon</button></div><div class="zoom-controls"><button id="zoom-out" aria-label="Zoom out">−</button><span id="zoom-level">100%</span><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-reset">Fit</button></div></div><div class="plan-viewport" tabindex="0" aria-label="Floor plan, scroll to explore when zoomed"><img id="large-plan" src={url('assets/plan-club.svg')} alt="Club floor plan" /></div></dialog>
-<script>import '../scripts/layout-explorer.js';</script>
+<SiteLayout title="Layout" description="Compare Club, Gallery and Salon: three layouts for the same Immortals Macau flagship." active="layout">
+  <section class="wrap page-heading layout-heading">
+    <div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><span>Layout</span></div>
+    <div class="page-heading-grid">
+      <h1>One footprint.<br /><span>Three possibilities.</span></h1>
+      <p>One 1,100 m² footprint, four private suites and three ways to welcome guests. Compare how each layout uses the public floor.</p>
+    </div>
+  </section>
+
+  <section class="cream" id="plans" aria-label="Explore the three layouts">
+    <div class="wrap explorer-section">
+      <div class="layout-stage">
+        <div class="layout-tabs" role="group" aria-label="Choose a layout">
+          {layouts.map((plan, i) => <button data-layout={i} class:list={{active:i===0}} aria-pressed={i===0}>{plan.name}<small>{plan.title}</small></button>)}
+        </div>
+        <div class="layout-body">
+          <div class="plan-display"><button id="open-plan" aria-label="Enlarge the Club floor plan"><img id="plan-image" src={url(layouts[0].image)} alt="Club floor plan: A lounge-led welcome" width="2200" height="1800" /><span class="enlarge-label">Explore the full plan <span aria-hidden="true">↗</span></span></button></div>
+          <div class="layout-notes" aria-live="polite">
+            <h2 id="plan-title">{layouts[0].title}</h2>
+            <p id="plan-description">{layouts[0].description}</p>
+            <div id="allocation" class="allocation"></div>
+            <p class="tradeoff" id="plan-tradeoff">{layouts[0].tradeoff}</p>
+            <a class="text-link compare-jump" href="#compare-layouts">Compare all three <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout-comparison" id="compare-layouts">
+        <h2>What changes?</h2>
+        <table>
+          <caption class="visually-hidden">Compare the public-space allocation and trade-offs of all three layouts.</caption>
+          <thead><tr><td></td>{layouts.map(plan => <th scope="col"><a href={`#${plan.id}`}>{plan.name}<span aria-hidden="true"> ↗</span></a></th>)}</tr></thead>
+          <tbody>
+            <tr class="benefit-row"><th scope="row">The emphasis</th>{differences.map(d => <td>{d.benefit}</td>)}</tr>
+            {['Discovery gallery','Lounge + coffee bar','Flexible salon'].map((label, i) => <tr><th scope="row">{label}</th>{layouts.map(plan => <td>{plan.areas[i]} <span>m²</span></td>)}</tr>)}
+            <tr class="tradeoff-row"><th scope="row">The trade-off</th>{differences.map(d => <td>{d.tradeoff}</td>)}</tr>
+          </tbody>
+        </table>
+        <p class="layout-footnote">Indicative public-space areas within the reported 1,100 m² footprint. These are concept layouts, not surveyed architectural drawings.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section shared-framework" aria-labelledby="shared-title">
+    <div class="framework-grid">
+      <div class="section-heading"><h2 id="shared-title">Two ways in.<br />Four private suites.</h2><p>The public floor changes. Separate arrivals and window-facing suites remain part of every option.</p></div>
+      <figure>
+        <svg class="annotated-plan" viewBox="180 265 1320 1330" role="img" aria-labelledby="framework-title framework-description">
+          <title id="framework-title">The shared clinical framework, shown on the Club plan</title>
+          <desc id="framework-description">Marker 1 locates the public entrance on the lower left shopfront. Marker 2 locates the separate patient entrance on the right. Markers 3 identify four suites along the curved window frontage at the top.</desc>
+          <image href={url('assets/plan-club.svg')} width="2200" height="1800" />
+          <g class="plan-markers" transform="translate(15 155) scale(1.03)" aria-hidden="true">
+            <g transform="translate(650 1118)"><circle r="32" /><text y="1">1</text></g>
+            <g transform="translate(1149 982)"><circle r="32" /><text y="1">2</text></g>
+            {[{x:507,y:288},{x:699,y:291},{x:877,y:327},{x:1064,y:414}].map(p => <g transform={`translate(${p.x} ${p.y})`}><circle r="27" /><text y="1">3</text></g>)}
+          </g>
+        </svg>
+        <figcaption>Club shown as a reference. The marked features are shared across all three options.</figcaption>
+      </figure>
+      <div class="framework-notes">
+        <article><span class="feature-marker" aria-hidden="true">1</span><div><h3>The public welcome</h3><p>A shopfront entrance leads into the lounge, discovery floor and hosted experiences.</p></div></article>
+        <article><span class="feature-marker" aria-hidden="true">2</span><div><h3>A quieter arrival</h3><p>A separate patient entrance provides a discreet route into the private clinic.</p></div></article>
+        <article><span class="feature-marker" aria-hidden="true">3</span><div><h3>A suite as your base</h3><p>Four permanent suites follow the window frontage, each with a private shower and room for conversation.</p></div></article>
+        <p class="framework-detail">Three dedicated assessment rooms support specific tests and equipment. Clinical support, escape routes and the 2.4 m main-corridor clear-width target remain part of the planning brief, subject to detailed coordination.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cream"><div class="wrap section layout-next"><div><h2>Give the plan<br />its character.</h2><p>Explore four interior directions for the same clinic brief.</p></div><a class="button" href={url('interior-design/')}>Compare the interior directions <span aria-hidden="true">↗</span></a></div></section>
+
+  <dialog id="plan-dialog" aria-labelledby="plan-dialog-title">
+    <div class="dialog-head"><h2 id="plan-dialog-title">Club layout</h2><button id="close-plan">Close ×</button></div>
+    <div class="plan-toolbar"><div class="plan-modal-tabs" role="group" aria-label="Floor plan">{layouts.map((plan,i) => <button data-modal-plan={i}>{plan.name}</button>)}</div><div class="zoom-controls"><button id="zoom-out" aria-label="Zoom out">−</button><span id="zoom-level">100%</span><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-reset">Fit</button></div></div>
+    <div class="plan-viewport" tabindex="0" aria-label="Floor plan, scroll to explore when zoomed"><img id="large-plan" src={url('assets/plan-club.svg')} alt="Club floor plan" /></div>
+  </dialog>
+  <script>import '../scripts/layout-explorer.js';</script>
 </SiteLayout>
+
+<style>
+  .layout-heading{padding-top:32px;padding-bottom:38px}
+  .layout-heading .breadcrumb{margin-bottom:26px}
+  .layout-heading .page-heading-grid,.shared-framework .section-heading{display:block}
+  .layout-heading h1{font-size:clamp(42px,6.1vw,88px)}
+  .layout-heading .page-heading-grid>p{color:var(--muted);max-width:660px;font-size:15px;margin-top:22px}
+  .shared-framework .section-heading{grid-area:intro;margin-bottom:0}
+  .shared-framework h2{font-size:clamp(28px,3.3vw,48px)}
+  .shared-framework .section-heading>p{margin-top:22px;font-size:14px}
+  .explorer-section{padding-top:32px;padding-bottom:72px}
+  .layout-notes h2{font-size:clamp(29px,3vw,42px);margin-bottom:22px}
+  .compare-jump{margin-top:20px}
+  .layout-comparison{margin-top:64px;scroll-margin-top:25px}
+  .layout-comparison h2{font-size:clamp(32px,3.4vw,48px);margin-bottom:28px}
+  table{width:100%;table-layout:fixed;border-collapse:collapse;text-align:left}
+  th,td{padding:18px 22px;border-bottom:1px solid var(--dark-line);vertical-align:top;font-weight:400}
+  th:first-child,td:first-child{padding-left:0;width:24%}
+  thead th{font-size:28px;padding-top:0}
+  thead th span{font-size:15px;color:#53606c}
+  thead a:hover{color:#786348}
+  tbody th{font-size:13px;color:#53606c}
+  td{font-size:20px}
+  td span{font-size:12px;color:#53606c}
+  .benefit-row td{font-size:18px;line-height:1.4}
+  .tradeoff-row td{font-size:13px;color:#53606c;line-height:1.6}
+  .layout-footnote{font-size:11px;color:#53606c;margin-top:20px;max-width:660px}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .framework-grid{display:grid;grid-template-columns:1.2fr .8fr;grid-template-areas:"plan intro" "plan notes";grid-template-rows:auto 1fr;gap:28px 6%;align-items:start}
+  .framework-grid>figure{grid-area:plan}
+  .framework-notes{grid-area:notes}
+  .annotated-plan{display:block;width:100%;height:auto;background:#fffefa}
+  .plan-markers circle{fill:#142034;stroke:#fffefa;stroke-width:5}
+  .plan-markers text{font:600 28px Mori,Arial,sans-serif;text-anchor:middle;dominant-baseline:middle;fill:#fffefa}
+  figcaption{font-size:11px;color:var(--muted);margin-top:14px;max-width:530px}
+  .framework-notes article{display:flex;gap:20px;padding:28px 0;border-top:1px solid var(--line)}
+  .feature-marker{width:32px;height:32px;flex:0 0 32px;border:1px solid #d9c3a280;border-radius:50%;display:grid;place-items:center;color:var(--sand);font-size:13px}
+  .framework-notes h3{font-size:27px;margin-bottom:14px}
+  .framework-notes article p{font-size:14px;color:var(--muted)}
+  .framework-detail{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:24px}
+  .layout-next{display:flex;justify-content:space-between;align-items:center;gap:35px}
+  .layout-next p{color:#53606c;margin-top:20px}
+  .layout-next .button{flex-shrink:0}
+  @media(max-width:1000px){.framework-grid{gap:35px;grid-template-columns:1fr 1fr}.framework-notes h3{font-size:23px}.layout-next{align-items:start;flex-direction:column}}
+  @media(max-width:650px){
+    .layout-heading{padding-top:24px;padding-bottom:28px}
+    .layout-heading .breadcrumb{margin-bottom:22px}
+    .layout-heading h1{font-size:clamp(30px,8.6vw,48px)}
+    .layout-heading .page-heading-grid{gap:20px}
+    .layout-heading .page-heading-grid>p{font-size:14px}
+    .shared-framework h2{font-size:clamp(27px,8.2vw,44px)}
+    .explorer-section{padding-top:22px;padding-bottom:45px}
+    .layout-notes h2{font-size:31px;margin-bottom:16px}
+    .layout-comparison{margin-top:45px}
+    th,td{padding:14px 8px}
+    th:first-child,td:first-child{width:27%}
+    thead th{font-size:19px}
+    thead th span{display:none}
+    tbody th{font-size:11px}
+    td{font-size:17px}
+    td span{font-size:10px}
+    .benefit-row td{font-size:13px}
+    .tradeoff-row td{font-size:11px}
+    .framework-grid{grid-template-columns:1fr;grid-template-areas:"intro" "plan" "notes";grid-template-rows:auto;gap:30px}
+    .framework-notes article{padding:23px 0}
+    .framework-notes h3{font-size:25px}
+    .framework-notes article p{font-size:13px}
+  }
+</style>
