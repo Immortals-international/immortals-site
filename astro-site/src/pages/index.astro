@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import GuestJourney from '../components/GuestJourney.astro';
-import { url, styles, sceneImage, feedback } from '../data/site';
+import { url, styles, sceneImage, sceneDimensions, feedback } from '../data/site';
 const layoutPreviews = [
   { id: 'club', name: 'Club', description: 'A lounge-led welcome' },
   { id: 'gallery', name: 'Gallery', description: 'An open discovery floor' },
@@ -52,7 +52,7 @@ const layoutPreviews = [
       <h2 id="design-title">How should<br /><span>Immortals feel?</span></h2>
       <p>Four interpretations of the same clinic. Explore the atmosphere that best expresses Immortals.</p>
     </div>
-    <div class="home-design-grid">{styles.map(s=><a class="home-design-card" href={url(`interior-design/${s.slug}/`)}><img src={sceneImage(s.id,'main-entrance')} alt={`${s.name} public lobby concept`} loading="lazy" width="1536" height="1024" /><div><h3>{s.name}</h3><span aria-hidden="true">↗</span></div></a>)}</div>
+    <div class="home-design-grid">{styles.map(s=><a class="home-design-card" href={url(`interior-design/${s.slug}/`)}><img src={sceneImage(s.id,'main-entrance')} alt={`${s.name} public lobby concept`} loading="lazy" width={sceneDimensions(s.id).width} height={sceneDimensions(s.id).height} /><div><h3>{s.name}</h3><span aria-hidden="true">↗</span></div></a>)}</div>
     <a class="home-link" href={url('interior-design/')}>Compare the four directions <span aria-hidden="true">↗</span></a>
   </div>
 </section>
@@ -138,7 +138,7 @@ const layoutPreviews = [
 .home-section-heading{display:grid;grid-template-columns:1.2fr .8fr;align-items:end;gap:8vw;margin-bottom:48px}
 .home-design-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
 .home-design-card{display:block;min-width:0}
-.home-design-card>img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;border-radius:3px;transition:filter .2s}
+.home-design-card>img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain;border-radius:3px;transition:filter .2s}
 .home-design-card:hover>img{filter:brightness(1.1)}
 .home-design-card>div{display:flex;align-items:start;justify-content:space-between;gap:16px;padding-top:22px}
 .home-design-card h3{font-size:clamp(22px,2vw,30px);line-height:1.15;letter-spacing:-.03em;max-width:235px}
@@ -161,7 +161,7 @@ const layoutPreviews = [
 .home-closing h2{font-size:clamp(52px,6.3vw,96px)}
 .home-closing p{font-size:16px;line-height:1.7;color:#bbc6d6;margin:28px auto 25px;max-width:600px}
 @media(max-width:1000px){.home-width{width:calc(100% - 48px)}.home-section{padding:80px 0}.home-vision{padding:80px 0 90px}.home-vision-grid,.home-layout-grid,.home-section-heading{gap:40px}.home-vision-grid>p{font-size:16px}.home-layout-grid{grid-template-columns:.85fr 1.15fr}.home-design-grid{grid-template-columns:1fr 1fr;gap:38px 24px}.home-design-card h3{font-size:26px;max-width:none}.home-experiences{min-height:520px;grid-template-columns:1fr 1fr}.home-experiences>.home-copy{padding:55px 30px}.home-copy>p,.home-section-heading>p{font-size:15px}.home-tour{min-height:590px;padding-bottom:60px}.home-closing{padding:90px 0}}
-@media(max-width:700px){.home-width{width:calc(100% - 40px)}.home-section{padding:60px 0}.home-section h2,.home-experiences h2{font-size:42px}.home-vision{padding:65px 0 70px}.home-vision-grid,.home-layout-grid,.home-section-heading{grid-template-columns:1fr;gap:28px}.home-vision h2{font-size:43px}.home-vision-grid>p{font-size:15px;max-width:450px}.home-copy>p{font-size:14px;margin:23px 0 22px;max-width:360px}.home-link{font-size:13px;gap:35px}.home-layout-grid{gap:35px}.home-plan{padding:7px}.home-section-heading{margin-bottom:32px;gap:22px}.home-section-heading>p{font-size:14px}.home-design-grid{gap:30px 16px}.home-design-card>img{aspect-ratio:3/2}.home-design-card>div{padding-top:15px;gap:8px}.home-design-card h3{font-size:23px;max-width:160px}.home-design-card>div>span{font-size:15px}.home-design .home-link{margin-top:30px}.home-experiences{grid-template-columns:1fr;min-height:0}.home-experiences>figure{aspect-ratio:4/3}.home-experiences>.home-copy{padding:44px 20px 55px}.home-experiences h2{font-size:44px}.home-tour{min-height:540px;padding:80px 0 45px}.home-tour h2{font-size:54px}.home-tour p{font-size:14px;margin:22px 0 25px;max-width:290px}.home-tour-button{font-size:13px;gap:30px}.home-closing{padding:75px 0 80px}.home-closing h2{font-size:55px}.home-closing p{font-size:14px;margin:24px auto 20px}}
+@media(max-width:700px){.home-width{width:calc(100% - 40px)}.home-section{padding:60px 0}.home-section h2,.home-experiences h2{font-size:42px}.home-vision{padding:65px 0 70px}.home-vision-grid,.home-layout-grid,.home-section-heading{grid-template-columns:1fr;gap:28px}.home-vision h2{font-size:43px}.home-vision-grid>p{font-size:15px;max-width:450px}.home-copy>p{font-size:14px;margin:23px 0 22px;max-width:360px}.home-link{font-size:13px;gap:35px}.home-layout-grid{gap:35px}.home-plan{padding:7px}.home-section-heading{margin-bottom:32px;gap:22px}.home-section-heading>p{font-size:14px}.home-design-grid{gap:30px 16px}.home-design-card>img{aspect-ratio:auto}.home-design-card>div{padding-top:15px;gap:8px}.home-design-card h3{font-size:23px;max-width:160px}.home-design-card>div>span{font-size:15px}.home-design .home-link{margin-top:30px}.home-experiences{grid-template-columns:1fr;min-height:0}.home-experiences>figure{aspect-ratio:4/3}.home-experiences>.home-copy{padding:44px 20px 55px}.home-experiences h2{font-size:44px}.home-tour{min-height:540px;padding:80px 0 45px}.home-tour h2{font-size:54px}.home-tour p{font-size:14px;margin:22px 0 25px;max-width:290px}.home-tour-button{font-size:13px;gap:30px}.home-closing{padding:75px 0 80px}.home-closing h2{font-size:55px}.home-closing p{font-size:14px;margin:24px auto 20px}}
 @media(prefers-reduced-motion:reduce){.home-design-card>img{transition:none}}
 
 </style>

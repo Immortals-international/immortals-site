@@ -11,9 +11,12 @@ dist = Path(sys.argv[1]) if len(sys.argv) > 1 else root / 'astro-site/dist'
 base = sys.argv[2] if len(sys.argv) > 2 else '/'
 manifest = json.loads((dist / 'assets/scenes/manifest.json').read_text())
 expected = {}
+dimensions = {}
 for style in manifest['styles']:
     for scene in style['images']:
         expected[scene['src']] = scene['sha256']
+        dimensions[scene['src']] = (scene['width'], scene['height'])
+        dimensions[scene['thumbnail']] = (scene.get('thumbnailWidth', 640), scene.get('thumbnailHeight', round(640 * scene['height'] / scene['width'])))
         expected[scene['thumbnail']] = scene['thumbnailSha256']
 for source in manifest['motion']['sources']:
     expected[source['src']] = source['sha256']
@@ -29,10 +32,18 @@ class Page(HTMLParser):
         for key in ['src', 'poster', 'data-lightbox']:
             if 'assets/scenes/' in attrs.get(key, ''):
                 self.refs.append(attrs[key])
+        if tag == 'img' and 'assets/scenes/' in attrs.get('src', ''):
+            asset = urlparse(attrs['src']).path[len(base):]
+            width, height = dimensions[asset]
+            assert abs(int(attrs['width']) / int(attrs['height']) - width / height) < .004, attrs
         if 'data-scene-sources' in attrs:
             options = json.loads(attrs['data-scene-sources'])
             assert set(options) == {s['id'] for s in manifest['scenes']}
             self.selectors.extend(options.values())
+            sizes = json.loads(attrs['data-scene-dimensions'])
+            for room, ref in options.items():
+                asset = urlparse(ref).path[len(base):]
+                assert (sizes[room]['width'], sizes[room]['height']) == dimensions[asset], (room, sizes[room])
 
 pages, refs, thumbnails, selectors = 0, 0, 0, 0
 coverage = {}

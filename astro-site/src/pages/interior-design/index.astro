@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import SceneMedia from '../../components/SceneMedia.astro';
-import { url, styles, rooms, sceneImage, feedback } from '../../data/site';
+import { url, styles, rooms, sceneImage, sceneDimensions, feedback } from '../../data/site';
 ---
 <SiteLayout title="Interior Design" description="Compare four design directions for Immortals Macau across the same six clinic spaces." active="interior-design">
   <section class="wrap page-heading design-heading">
@@ -16,7 +16,7 @@ import { url, styles, rooms, sceneImage, feedback } from '../../data/site';
     </div>
     <p id="comparison-room-label" class="visually-hidden" role="status">{rooms[0].name} shown in all four directions.</p>
     <div class="comparison-grid">
-      {styles.map((style,i) => <article class="comparison-card" data-style={style.id} data-style-name={style.name} data-scene-sources={JSON.stringify(Object.fromEntries(rooms.map(room => [room.id, sceneImage(style.id,room.id)])))}>
+      {styles.map((style,i) => <article class="comparison-card" data-style={style.id} data-style-name={style.name} data-scene-dimensions={JSON.stringify(Object.fromEntries(rooms.map(room => [room.id, sceneDimensions(style.id,room.id)])))} data-scene-sources={JSON.stringify(Object.fromEntries(rooms.map(room => [room.id, sceneImage(style.id,room.id)])))}>
         <SceneMedia direction={style} room={rooms[0]} loading={i<2?'eager':'lazy'} />
         <div class="direction-details">
           <h2>{style.name}</h2>
@@ -46,8 +46,9 @@ import { url, styles, rooms, sceneImage, feedback } from '../../data/site';
         const caption=`${card.dataset.styleName} · ${name}`;
         image.src=JSON.parse(card.dataset.sceneSources!)[room];
         image.alt=caption;
-        image.width=room==='main-entrance'?1536:1600;
-        image.height=room==='main-entrance'?1024:900;
+        const dimensions=JSON.parse(card.dataset.sceneDimensions!)[room];
+        image.width=dimensions.width;
+        image.height=dimensions.height;
         card.querySelector<HTMLElement>('[data-scene-media]')!.dataset.room=room;
         trigger.dataset.lightbox=image.src;
         trigger.dataset.caption=caption;

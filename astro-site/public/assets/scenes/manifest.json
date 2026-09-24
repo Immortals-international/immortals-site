@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "release": "2026-09-23",
+  "release": "2026-09-24",
   "layoutBasis": "Gallery",
   "assetBase": "assets/scenes/",
   "pathNote": "Display paths are relative to the public directory. Master hashes identify the approved local scene rollout; web exports retain the complete composition.",
@@ -138,15 +138,17 @@
           "label": "Public lobby",
           "src": "assets/scenes/asian/main-entrance.webp",
           "thumbnail": "assets/scenes/asian/main-entrance-thumb.webp",
-          "width": 1536,
-          "height": 1024,
+          "width": 1600,
+          "height": 900,
           "alt": "Public lobby - Shadow & Timber, Immortals Macau architectural concept",
-          "sha256": "fcbcfa281bcf7176f79033263bc3aa16ccf2c6d51e5b339493f6572b98c2f9d3",
-          "thumbnailSha256": "29b3d2a87d9c43863bcb5bee28039beb4af79d4d59d061b37f0d444c0e502f9e",
-          "sourceFile": "shadow-and-timber/main-entrance.png",
-          "sourceSha256": "585033a3d0c4d6b045301ffd46797ed1bf9135a84d62ccaccbcd5331107d70dd",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024
+          "sha256": "33c9a185b8c3df3f63da048686a43695c8c7cec43b9f205def8a9a70794b94a2",
+          "thumbnailSha256": "8313958654807390a1db27e0acd2b97e73e31343fdc40ed1c3216e176572b1f2",
+          "sourceFile": "shadow-timber-widescreen-2026-09-24/main-entrance.png",
+          "sourceSha256": "a3864d4ca08fe87e15c5dc890d53d13b3be25f9f29a66826735c77b295518a25",
+          "sourceWidth": 1672,
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "private-entrance",
@@ -156,12 +158,14 @@
           "width": 1600,
           "height": 900,
           "alt": "Private entrance - Shadow & Timber, Immortals Macau architectural concept",
-          "sha256": "1c040e14dcf679615787203bf70b10cba07af6b394c0270cd7c99d0e90239f77",
-          "thumbnailSha256": "4e0b3b0e1cb5790fee27f5c2de13e3d82dc3a0c392765a0e189b9004a36d00e3",
-          "sourceFile": "shadow-and-timber/private-entrance.png",
-          "sourceSha256": "d3404c19a31ca37684a137ecea40f871820c4bd57bae5007a6af17af483a3f1a",
+          "sha256": "5fb5abcbc765c6da450943c367dace30f4c07c3d5271953a30bab6caf7fc489d",
+          "thumbnailSha256": "f9cd1e06f8e36432a2d3db4ff865ae103305b37369bfefcf53cfba942e3c46ae",
+          "sourceFile": "shadow-timber-widescreen-2026-09-24/private-entrance.png",
+          "sourceSha256": "b02eb9cf3b418309adfc6feccc8eda87b53a0bdd0b9a84be322dd345d6ca9978",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "patient-suite-blood-draw",
@@ -171,12 +175,14 @@
           "width": 1600,
           "height": 900,
           "alt": "Patient suite - Shadow & Timber, Immortals Macau architectural concept",
-          "sha256": "fd3dbc4235aecb6907557da07b513e509f8c0edf326e18ecd236816de3040548",
-          "thumbnailSha256": "ce714477bfa4effd28aa37d1a609b7b2f017f993c65c8f611d8be7374bac65a6",
-          "sourceFile": "shadow-and-timber/patient-suite-blood-draw.png",
-          "sourceSha256": "5e218d93ac30a43548e9fb696b12050e1b5394b0cd9d3700e58e2c8b14bf47ec",
+          "sha256": "e9beda331f533589fabf27518a030055901226f61fbd21bb2bc079c960378825",
+          "thumbnailSha256": "92e66e9f11183a8a7ff6609f1f25f759f0a9224557c52caafe1bdf5bf4e2a323",
+          "sourceFile": "shadow-timber-widescreen-2026-09-24/patient-suite-blood-draw.png",
+          "sourceSha256": "cce7e20e165728b68f000824a9c17875592c572462fdb3705c9179d41a90ac3b",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "dexa",
@@ -186,12 +192,14 @@
           "width": 1600,
           "height": 900,
           "alt": "DEXA room - Shadow & Timber, Immortals Macau architectural concept",
-          "sha256": "c37f4a44a07868a40e63fa7439d1d00927ab481391f8a809f9e28c9324552984",
-          "thumbnailSha256": "5108952f25fdb0823bfcd31e3dcad0ee195909f705e9b527a71c6b0a8b0947cc",
-          "sourceFile": "shadow-and-timber/dexa.png",
-          "sourceSha256": "84b58aea0b0f82453550138b29b45e47d61760b745aac4d314f0adb16ba686c8",
+          "sha256": "79421869262d95aa8441f90488195b2f9d03c1ace176cdaede8f106d35f8bebd",
+          "thumbnailSha256": "f244d88d554a17caa48480059944ec6acd154f33e97e965597577e06d0dd32a7",
+          "sourceFile": "shadow-timber-widescreen-2026-09-24/dexa.png",
+          "sourceSha256": "1de977e4c25538d66268c66922fe687a92c72e80accb0236ffc5813d0c634cae",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "vo2-max",
@@ -201,12 +209,14 @@
           "width": 1600,
           "height": 900,
           "alt": "VO2 testing room - Shadow & Timber, Immortals Macau architectural concept",
-          "sha256": "86c3fd24378049c5516ded0c4e5c1f8daf68f4fde735401d6ae87b023f80c26b",
-          "thumbnailSha256": "75e5be0724c57b7718930600602526a9373b91e8f37c6b0d0ec61537937ec726",
-          "sourceFile": "shadow-and-timber/vo2-max.png",
-          "sourceSha256": "8c8e53324b83959b7167ce155a2013c44984222c5fd4f1391f69c8e04354d11b",
+          "sha256": "9cbebda05eebba0643019cd7bde92c84c4d71ec6e01d4b459047802a6090efb5",
+          "thumbnailSha256": "cbac68ef2708c7fada38c5b35250a9455478e9d65fb502d36e63c284543a9c59",
+          "sourceFile": "shadow-timber-widescreen-2026-09-24/vo2-max.png",
+          "sourceSha256": "c85c555c8215e892821cbefa0b6c98e2e3f9b26cb3ec639f19a4b57ee9c44779",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "hyperbaric",
@@ -216,14 +226,18 @@
           "width": 1600,
           "height": 900,
           "alt": "Hyperbaric room - Shadow & Timber, Immortals Macau architectural concept",
-          "sha256": "f8c9aab734d1446f621a0e32a171c767e282495c938f5dbf5a8ccee77474908a",
-          "thumbnailSha256": "b6ab5e3d93b7ac3f3cc6632b126e6e98c773c73f9040159fd2bb52a8e611ff4e",
-          "sourceFile": "shadow-and-timber/hyperbaric.png",
-          "sourceSha256": "d35e35a098081ee73fef7df7dbd56dccc96239256184963a27efa3feeb2b6d69",
+          "sha256": "d489c6b79ac18dc3e2f2f28efe8e7f1d66023085502cd8fc1587237b01ab2fe7",
+          "thumbnailSha256": "4560314c1aec596c1d6ff61a45a64615ef4c9306b9cb687e5850155f728daa43",
+          "sourceFile": "shadow-timber-widescreen-2026-09-24/hyperbaric.png",
+          "sourceSha256": "095b7009e9f50aea013654a7169535c37394fcb09a7d5aebd5c2c07651a06b66",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         }
-      ]
+      ],
+      "release": "2026-09-24",
+      "aspectRatio": "16:9"
     },
     {
       "id": "aman",

@@ -1,10 +1,10 @@
 ---
-import { url, styles, sceneImage } from '../data/site';
+import { url, styles, sceneImage, sceneDimensions } from '../data/site';
 import { experiences } from '../data/experiences';
 import '../styles/site-shell.css';
 const { active = '', skipTarget = 'main-content' } = Astro.props;
 const menus = [
-  { id:'interior-design', name:'Interior Design', path:'interior-design/', overview:'Overview & comparison', links:styles.map(s=>({name:s.name,path:`interior-design/${s.slug}/`,image:sceneImage(s.id,'main-entrance',true)})) },
+  { id:'interior-design', name:'Interior Design', path:'interior-design/', overview:'Overview & comparison', links:styles.map(s=>({name:s.name,path:`interior-design/${s.slug}/`,image:sceneImage(s.id,'main-entrance',true),dimensions:sceneDimensions(s.id,'main-entrance',true)})) },
   { id:'experiences', name:'Experiences', path:'experiences/', overview:'Explore all experiences', links:experiences.map(e=>({name:e.name,path:`experiences/${e.slug}/`})) },
 ];
 ---
@@ -19,7 +19,7 @@ const menus = [
       <div class:list={['clinic-mega',{'clinic-mega-wide':m.id==='experiences'}]} id={`mega-${m.id}`} hidden>
         <div class="clinic-menu-top"><a class="clinic-menu-overview" href={url(m.path)}>{m.overview}<span aria-hidden="true">↗</span></a></div>
         <div class="clinic-menu-body">
-          <div class:list={['clinic-mega-links',{'clinic-design-links':m.id==='interior-design'}]}>{m.links.map(l=><a href={url(l.path)}>{'image' in l && <img src={l.image} alt="" width="640" height="427" loading="lazy" />}<span>{l.name}</span></a>)}</div>
+          <div class:list={['clinic-mega-links',{'clinic-design-links':m.id==='interior-design'}]}>{m.links.map(l=><a href={url(l.path)}>{'image' in l && <img src={l.image} alt="" width={l.dimensions.width} height={l.dimensions.height} loading="lazy" />}<span>{l.name}</span></a>)}</div>
           {m.id==='experiences'&&<a class="clinic-menu-feature" href={url('experiences/beat-the-dealer/#play')}><img src={url('assets/experiences/beat-the-dealer.webp')} alt="A host guides a guest at the Beat the Dealer table." width="1672" height="941" loading="lazy" /><span>Try Beat the Dealer <span aria-hidden="true">↗</span></span></a>}
         </div>
       </div>
