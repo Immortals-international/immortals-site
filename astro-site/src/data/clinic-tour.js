@@ -8,7 +8,8 @@ const cube = (id, name) => ({
 // The Gallery plan shows shared circulation, not direct doors between these
 // viewpoints. Keep the supplied editorial sequence; arrows explicitly say Jump to.
 export const scenes = [
-  { id: 'main-entrance', name: 'Main entrance', src: asset('main-entrance.webp') },
+  // Approved divider-side view toward reception, the public entrance and lab.
+  { id: 'main-entrance', name: 'Main entrance', src: asset('main-entrance.webp?v=e722f3c1d880'), yaw: -.045 * Math.PI * 2, fov: 96, maxFov: 96 },
   { id: 'private-entrance', name: 'Private entrance', src: asset('private-entrance.webp') },
   cube('patient-suite', 'Patient suite'),
   cube('dexa', 'DEXA'),

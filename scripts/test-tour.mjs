@@ -8,7 +8,7 @@ import { createRequire } from 'node:module';
 // Browser rendering and real source-image QA are separate manual checks.
 const source = (await readFile(new URL('../astro-site/src/scripts/clinic-tour.js', import.meta.url), 'utf8')).replace(/^import .*;\n/, '');
 const flush = () => new Promise((resolve) => setImmediate(resolve));
-function harness({ cube = false, missing = false } = {}) {
+function harness({ cube = false, missing = false, entrance = {} } = {}) {
   class Element {
     constructor() { this.hidden = false; this.dataset = {}; this.attributes = {}; this.style = {}; this.events = {}; this.clientWidth = 1440; this.clientHeight = 822; const set = new Set(); this.classList = { add: (v) => set.add(v), remove: (v) => set.delete(v), contains: (v) => set.has(v), toggle: (v, force) => { const on = force ?? !set.has(v); on ? set.add(v) : set.delete(v); return on; } }; }
     setAttribute(k, v) { this.attributes[k] = v; }
@@ -33,6 +33,7 @@ function harness({ cube = false, missing = false } = {}) {
     set src(path) { this.path = path; this.width = cube && path.startsWith('/face') ? 512 : 1774; this.height = cube && path.startsWith('/face') ? 512 : 887; pending.set(path, this); }
   }
   const scenes = ['main-entrance','private-entrance','patient-suite','dexa','vo2-max','hyperbaric'].map((id) => ({ id, name: id, src: `/${id}.webp` }));
+  Object.assign(scenes[0], entrance);
   if (cube || missing) scenes[5] = { id: 'hyperbaric', name: 'hyperbaric', projection: 'cube', faces: missing ? null : [0,1,2,3,4,5].map((i) => `/face${i}.webp`) };
   const doc = { getElementById: el, querySelector: () => el('toolbar'), addEventListener() {}, fullscreenElement: null };
   const context = { scenes, document: doc, navigator: { connection: { saveData: true } }, history: { replaceState: (_, __, hash) => { values.hash = hash; } }, location: { hash: '' }, Image, devicePixelRatio: 1, ResizeObserver: class { observe() {} }, addEventListener() {}, setTimeout, clearTimeout, requestAnimationFrame: (fn) => { setImmediate(fn); return 1; } };
@@ -134,7 +135,7 @@ test('all production rooms have loadable assets and three complete cube sets', a
     const paths = scene.faces || [scene.src];
     if (scene.projection === 'cube') assert.equal(paths.length, 6);
     for (const src of paths) {
-      const file = new URL(`../astro-site/public/${src.replace('/immortals-site/', '')}`, import.meta.url);
+      const file = new URL(`../astro-site/public/${src.split('?')[0].replace('/immortals-site/', '')}`, import.meta.url);
       const { width, height } = await sharp(await readFile(file)).metadata();
       if (scene.projection === 'cube') {
         assert.equal(width, height);
@@ -149,6 +150,31 @@ test('all production rooms have loadable assets and three complete cube sets', a
 test('desktop field of view stays below 90 degrees at every zoom level', async () => {
   const h = harness(); await h.load('/main-entrance.webp');
   const horizontalFov = () => 2 * Math.atan(h.values.lens * h.values.aspect) * 180 / Math.PI;
+  assert.ok(Math.abs(horizontalFov() - 78) < .001);
+  for (let i = 0; i < 12; i++) h.el('zoom-out').onclick();
+  await flush();
+  assert.ok(horizontalFov() <= 90.001);
+});
+
+test('approved entrance opens and resets toward the lab without changing other rooms', async () => {
+  const data = (await readFile(new URL('../astro-site/src/data/clinic-tour.js', import.meta.url), 'utf8'))
+    .replace('import.meta.env.BASE_URL', "'/'").replace('export const scenes', 'const scenes');
+  const entrance = vm.runInNewContext(`${data}; scenes[0]`);
+  const h = harness({ entrance });
+  await h.load(entrance.src);
+  const horizontalFov = () => 2 * Math.atan(h.values.lens * h.values.aspect) * 180 / Math.PI;
+  assert.ok(Math.abs(.5 + h.values.yaw / (Math.PI * 2) - .455) < 1e-8);
+  assert.ok(Math.abs(horizontalFov() - 96) < .001);
+  h.el('zoom-out').onclick(); await flush();
+  assert.ok(Math.abs(horizontalFov() - 96) < .001, 'Zoom out must not unexpectedly zoom in');
+  h.el('tour-canvas').fire('keydown', { key: 'ArrowRight' });
+  h.el('zoom-in').onclick(); await flush();
+  assert.notEqual(h.values.yaw, entrance.yaw);
+  h.el('reset').onclick(); await flush();
+  assert.equal(h.values.yaw, entrance.yaw);
+  assert.ok(Math.abs(horizontalFov() - 96) < .001);
+  h.select(1); await h.load('/private-entrance.webp');
+  assert.equal(h.values.yaw, 0);
   assert.ok(Math.abs(horizontalFov() - 78) < .001);
   for (let i = 0; i < 12; i++) h.el('zoom-out').onclick();
   await flush();

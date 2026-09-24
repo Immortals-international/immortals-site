@@ -1,17 +1,19 @@
 {
   "sourcePackage": "Immortals-Six-Room-360",
-  "conversion": "WebP quality 90, original dimensions, no crop or upscaling",
+  "conversion": "Original package: WebP quality 90. Per-image conversion overrides are recorded below. Original dimensions, no crop or upscaling.",
   "images": [
     {
       "room": "main-entrance",
-      "source": "assets/main-entrance.png",
-      "sourceSha256": "9c1e53cc2fe1440d2c4e8c29d10baeeacd9fc8ca95b7b15f3fe5344888f8b3f2",
+      "source": "tour-entrance-lab-corrected-360-2026-09-24/entrance-panorama-v2.png",
+      "sourceSha256": "4834a9f176a5c87f16203bd56b1a40ddf7e165f7557787060f5edc4d14e18035",
       "display": "main-entrance.webp",
-      "displaySha256": "d3d25492ad76844f73beaa2c46728c5d15dc378f22a6c713c6a183fe3057b1d1",
+      "displaySha256": "e722f3c1d8803b080dc8f94a7f49cda154796b019a44cfd0d7f65df090f7a5d6",
       "width": 1774,
       "height": 887,
-      "sourceBytes": 2083429,
-      "displayBytes": 237756
+      "sourceBytes": 2064017,
+      "displayBytes": 379436,
+      "sourcePackage": "Immortals Gallery entrance: approved 2026-09-24",
+      "conversion": "WebP quality 96, original dimensions, no crop or upscaling"
     },
     {
       "room": "private-entrance",
