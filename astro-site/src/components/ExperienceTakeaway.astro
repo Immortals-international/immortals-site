@@ -1,0 +1,73 @@
+---
+const { presentation: p } = Astro.props;
+---
+<figure class="takeaway-preview">
+  <div class="document-stage">
+    <div class="personal-document">
+      <div class="document-masthead"><span>IMMORTALS</span><span>Illustrative guide</span></div>
+      <h2>{p.title}</h2>
+      <p class="document-subtitle">{p.subtitle}</p>
+      <div class="document-illustration" aria-hidden="true">
+        <svg viewBox="0 0 380 180" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          {p.kind === 'plate' && <>
+            <ellipse cx="190" cy="94" rx="72" ry="67" class="wash"/><ellipse cx="190" cy="94" rx="58" ry="53"/>
+            <path d="M91 31v36q0 14 10 14t10-14V31M101 31v118M278 149V31q-18 13-18 49h18"/>
+            <path d="M158 88q9-33 29-31q12 27-17 48q-13 4-12-17Z" class="accent"/>
+            <path d="M173 90q5-12 12-17M203 109q-2-19 18-19q14 12 6 24q-15 9-24-5Z"/>
+            <circle cx="183" cy="122" r="8"/><circle cx="216" cy="66" r="6"/>
+          </>}
+          {p.kind === 'portrait' && <>
+            <path d="M58 43V28h24M298 28h24v15M58 137v15h24M298 152h24v-15" opacity=".45"/>
+            <ellipse cx="190" cy="76" rx="32" ry="42" class="wash"/><path d="M154 80q-8 3-6 12l12 17M226 80q8 3 6 12l-12 17M177 116v13l-37 18M203 116v13l37 18M190 68v26l8 2"/>
+            <path d="M102 47q-22 7-22 38l-9 10 12 3 3 20 17 7v17M278 47q22 7 22 38l9 10-12 3-3 20-17 7v17" opacity=".5"/>
+          </>}
+          {p.kind === 'body' && <>
+            <circle cx="190" cy="30" r="16" class="wash"/><path d="M172 52h36l20 43-10 6-16-31 5 48 9 44h-16l-10-42-10 42h-16l9-44 5-48-16 31-10-6Z" class="wash"/>
+            <path d="M109 51h31M109 90h31M109 131h31M240 51h31M240 90h31M240 131h31" opacity=".45"/><path d="M169 104h42M190 56v48" stroke-dasharray="3 5"/>
+          </>}
+          {p.kind === 'watch' && <>
+            <path d="m148 48 5-33h73l5 33M148 132l5 33h73l5-33" class="wash"/><rect x="139" y="41" width="102" height="98" rx="24"/><rect x="150" y="53" width="80" height="74" rx="15"/>
+            <path d="M241 73h6v15h-6M165 76h36M165 91h48M165 106h27"/><circle cx="268" cy="114" r="15" class="accent"/><path d="m262 114 4 4 8-9"/>
+          </>}
+          {p.kind === 'pulse' && <>
+            <circle cx="114" cy="84" r="45" class="wash"/><circle cx="266" cy="84" r="45" class="wash"/>
+            <path d="M94 84h40M246 84h40M175 84h30"/><text x="114" y="151" text-anchor="middle">Before</text><text x="266" y="151" text-anchor="middle">After</text>
+          </>}
+          {p.kind === 'card' && <>
+            <path d="m120 31 123-10 10 133-123 10Z" class="wash"/><rect x="141" y="35" width="123" height="133" rx="2" fill="#fbf9f3"/>
+            <path d="M191 81q0-16 15-16q15 0 15 14q0 8-9 14q-7 4-7 15" stroke-width="2.4"/><circle cx="205" cy="122" r="1.8" fill="currentColor"/>
+          </>}
+          {p.kind === 'night' && <>
+            <path d="M161 25a50 50 0 1 0 48 75a44 44 0 0 1-48-75Z" class="wash"/>
+            <path d="M246 43v12M240 49h12M274 72v8M270 76h8M94 142h192"/><path d="M221 142a24 24 0 0 1 48 0" class="accent"/>
+          </>}
+          {p.kind === 'fitness' && <>
+            <path d="M104 146h48v-34h47V77h47V43h37"/><circle cx="116" cy="97" r="18" class="wash"/>
+            <path d="M171 130h11M218 96h11M265 62h11M101 161h182" opacity=".45"/>
+          </>}
+          {p.kind === 'baseline' && <>
+            <circle cx="106" cy="77" r="32" class="wash"/><circle cx="274" cy="77" r="32"/><circle cx="106" cy="77" r="4" fill="currentColor"/><circle cx="274" cy="77" r="4" fill="currentColor"/>
+            <path d="M147 77h86" stroke-dasharray="3 7"/><path d="M106 118v12M274 118v12"/>
+            <text x="106" y="151" text-anchor="middle">First visit</text><text x="274" y="151" text-anchor="middle">Planned repeat</text>
+          </>}
+        </svg>
+      </div>
+      <dl class="document-fields">{p.fields.map(([label, copy]) => <div><dt>{label}</dt><dd>{copy}</dd></div>)}</dl>
+    </div>
+  </div>
+  <figcaption>An example of the takeaway format. Personal content is developed with the guest.</figcaption>
+</figure>
+<style>
+  .takeaway-preview{margin:0;min-width:0}.document-stage{background:#182536;padding:32px;display:flex;justify-content:center}
+  .personal-document{background:#f5f1e7;color:#253c3f;padding:30px 36px;width:100%;max-width:540px;box-shadow:0 12px 30px #040a1438}
+  .document-masthead{display:flex;justify-content:space-between;align-items:center;gap:15px;padding-bottom:17px;border-bottom:1px solid #253c3f30;font-size:10px}
+  .document-masthead>span:first-child{letter-spacing:.16em;font-weight:600}.document-masthead>span:last-child{color:#606b68}
+  .personal-document h2{font-size:clamp(25px,2.5vw,35px);line-height:1.12;letter-spacing:-.04em;margin:25px 0 8px}.document-subtitle{font-size:13px;line-height:1.5;color:#606b68}
+  .document-illustration{height:164px;margin:8px 0 14px}.document-illustration svg{display:block;width:100%;height:100%}.document-illustration .wash{fill:#deded0}.document-illustration .accent{fill:#c6cbb9}
+  .document-illustration text{stroke:none;fill:currentColor;font-family:inherit;font-size:12px}
+  .document-fields{margin:0}.document-fields>div{border-top:1px solid #253c3f30;padding:13px 0}.document-fields>div:last-child{padding-bottom:0}
+  .document-fields dt{font-size:14px;margin-bottom:4px}.document-fields dd{font-size:12px;line-height:1.5;color:#606b68;margin:0}
+  figcaption{font-size:11px;line-height:1.6;color:#b8c3d0;margin-top:12px;max-width:510px}
+  @media(max-width:700px){.document-stage{padding:20px}.personal-document{padding:23px}.personal-document h2{font-size:28px}.document-illustration{height:140px}.document-masthead{font-size:9px}.document-fields>div{padding:12px 0}}
+  @media(max-width:370px){.document-stage{padding:14px}.personal-document{padding:18px}.document-masthead{gap:8px}.personal-document h2{font-size:26px}}
+</style>

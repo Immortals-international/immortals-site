@@ -4,6 +4,7 @@ import '../../styles/dealer-challenge.css';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import DealerChallenge from '../../components/DealerChallenge.astro';
+import ExperienceNavigation from '../../components/ExperienceNavigation.astro';
 const base = import.meta.env.BASE_URL;
 ---
 <!doctype html>
@@ -13,7 +14,7 @@ const base = import.meta.env.BASE_URL;
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="theme-color" content="#0c1220" />
-  <title>Beat the Dealer — An Immortals experience</title>
+  <title>Beat the Dealer | Immortals Macau</title>
   <meta name="description" content="Three challenges. Win two. Beat the dealer. Explore a hosted discovery experience for the Immortals Macau flagship." />
   <link rel="icon" href={`${base}assets/favicon.png`} />
   <link rel="preload" href={`${base}assets/mori-regular.woff2`} as="font" type="font/woff2" crossorigin />
@@ -24,15 +25,14 @@ const base = import.meta.env.BASE_URL;
   <SiteHeader active="experiences" />
   <main id="main-content"><div id="experience"></div>
     <section class="dealer-hero">
-      <div class="dealer-hero-top"><p class="dealer-kicker">MACAU / EXPERIENCE 01</p><span class="dealer-preview"><span></span> Concept preview</span></div>
-      <div class="dealer-hero-copy"><h1>Beat the<br /><span>Dealer.</span></h1><div class="dealer-invitation"><p class="dealer-tagline">Three challenges.<br />Win two. Make it personal.</p><p>Take a seat with our host. Test your reactions, grip and balance. Leave with a little more insight into yourself.</p><a class="dealer-button dealer-button-light" href="#play">Play the three rounds <span aria-hidden="true">↗</span></a></div></div>
-      <div class="dealer-hero-image"><img src={`${base}assets/experiences/beat-the-dealer.webp`} alt="A guest taps a reaction pad at a sculptural stone table while an Immortals host guides him and his companion watches." width="1672" height="941" fetchpriority="high" /><div class="dealer-image-note"><span>THE DISCOVERY FLOOR</span><span>A little competition. A different kind of discovery.</span></div></div>
-      <div class="dealer-facts"><div><span>THE FORMAT</span><strong>Paid, hosted experience</strong></div><div><span>THE VISIT</span><strong>15–20 minutes</strong></div><div><span>THE CHALLENGE</span><strong>Three rounds. Best of three.</strong></div><div><span>THE TAKEAWAY</span><strong>Your personal scorecard</strong></div></div>
+      <div class="dealer-breadcrumb"><a href={`${base}`}>Macau flagship</a><span>/</span><a href={`${base}experiences/`}>Experiences</a><span>/</span><span>Beat the Dealer</span></div>
+      <div class="dealer-opening"><h1>Beat the Dealer</h1><p>Three hosted challenges in reaction, grip and balance. Win two rounds and leave with a personal scorecard.</p><a class="dealer-button dealer-button-outline" href="#play">Try the interactive demo <span aria-hidden="true">↗</span></a></div>
+      <div class="dealer-hero-image"><img src={`${base}assets/experiences/beat-the-dealer.webp`} alt="A guest taps a reaction pad at a sculptural stone table while an Immortals host guides him and his companion watches." width="1672" height="941" fetchpriority="high" /></div>
+      <div class="dealer-facts"><div><span>Format</span><strong>Paid, hosted challenge</strong></div><div><span>Setting</span><strong>Discovery floor</strong></div><div><span>Proposed visit</span><strong>15-20 minutes</strong></div></div>
     </section>
 
     <section id="rounds" class="dealer-section dealer-rounds">
-      <div class="dealer-section-label"><span>01 / TAKE YOUR SEAT</span><span>A HOST. A TARGET. YOUR TURN.</span></div>
-      <div class="dealer-section-heading"><h2>You know the target.<br /><span>Can you beat it?</span></h2><p>Your host shows you what to aim for before each round. Try all three, see your results, and let a little friendly competition open the conversation.</p></div>
+      <div class="dealer-section-heading"><h2>Three rounds at the table</h2><p>Your host explains each challenge and its target. Try all three, then talk through your results together.</p></div>
       <div class="dealer-round-grid">
         <article><div class="dealer-round-art reaction-art" aria-hidden="true"><span class="art-orbit"></span><span class="art-orbit"></span><span class="art-core"></span><span class="art-word">READY WHEN YOU ARE</span></div><div class="dealer-round-title"><span>01</span><h3>Reaction</h3></div><p>A signal appears. You respond. A fraction of a second becomes the whole story.</p><span class="dealer-round-note">A dedicated reaction interface</span></article>
         <article><div class="dealer-round-art grip-art" aria-hidden="true"><div class="grip-gauge"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><span class="art-word">MAKE YOUR MARK</span></div><div class="dealer-round-title"><span>02</span><h3>Grip</h3></div><p>One focused effort, guided by your host. Watch your grip measurement appear.</p><span class="dealer-round-note">A hand-grip dynamometer</span></article>
@@ -44,8 +44,7 @@ const base = import.meta.env.BASE_URL;
     <DealerChallenge />
 
     <section id="takeaway" class="dealer-section dealer-takeaway">
-      <div class="dealer-section-label"><span>03 / MORE THAN THE FINAL SCORE</span><span>SOMETHING TO TAKE WITH YOU</span></div>
-      <div class="dealer-takeaway-grid"><div class="dealer-takeaway-copy"><h2>A good story.<br /><span>Your own numbers.</span></h2><p>The competition starts the conversation. Your scorecard gives you something personal to take away.</p><p>Your host explains each result, answers your questions and helps you decide whether you want to explore further. Every guest receives the full experience.</p><button id="reveal-scorecard" class="dealer-button dealer-button-outline" aria-expanded="false" aria-controls="example-scorecard">Reveal an example scorecard <span aria-hidden="true">↗</span></button><p class="dealer-small">All scorecard values below are fictional examples. Your browser-game results stay separate.</p></div>
+      <div class="dealer-takeaway-grid"><div class="dealer-takeaway-copy"><h2>Your personal scorecard</h2><p>The competition starts the conversation. Your scorecard gives you something personal to take away.</p><p>Your host explains each result, answers your questions and helps you decide whether you want to explore further. Every guest receives the full experience.</p><button id="reveal-scorecard" class="dealer-button dealer-button-outline" aria-expanded="false" aria-controls="example-scorecard">Reveal an example scorecard <span aria-hidden="true">↗</span></button><p class="dealer-small">All scorecard values below are fictional examples. Your browser-game results stay separate.</p></div>
       <div id="example-scorecard" class="dealer-scorecard" data-revealed="false">
         <div class="scorecard-heading"><span>IMMORTALS / MACAU</span><span>EXAMPLE GUEST</span></div><h3>Beat the Dealer.</h3><p class="scorecard-subtitle">Three rounds. One personal record.</p>
         <div class="scorecard-cover" id="scorecard-cover"><span class="scorecard-emblem" aria-hidden="true">03</span><p>A little more<br />insight into you.</p><span>REVEAL THE EXAMPLE TO EXPLORE</span></div>
@@ -62,14 +61,28 @@ const base = import.meta.env.BASE_URL;
     </section>
 
     <section class="dealer-section dealer-visit" id="visit">
-      <div class="dealer-section-label"><span>04 / YOUR VISIT</span><span>SMALL ENCOUNTER. LASTING IMPRESSION.</span></div>
-      <div class="dealer-section-heading"><h2>One ticket.<br /><span>The whole experience.</span></h2><p>A hosted visit designed to fit into a short stay in Macau. Come for the challenge. Leave with your results and a conversation worth continuing.</p></div>
+      <div class="dealer-section-heading"><h2>How the visit unfolds</h2></div>
       <div class="dealer-visit-grid"><div><span class="dealer-step-number">01</span><h3>A personal welcome</h3><p>Meet your host on the discovery floor. Understand the three rounds and the targets before you begin.</p></div><div><span class="dealer-step-number">02</span><h3>Your time at the table</h3><p>Take part in all three challenges, with guidance and your results explained along the way.</p></div><div><span class="dealer-step-number">03</span><h3>Something to keep</h3><p>Receive your scorecard. Ask questions, explore a relevant next step, or plan a return visit.</p></div></div>
-      <details class="dealer-operating"><summary><span>Behind the experience</span><span>THE OPERATING CONCEPT <b aria-hidden="true">+</b></span></summary><div class="dealer-operating-body"><div class="dealer-operating-facts"><p><span>VISIT LENGTH</span><strong>15–20 minutes</strong></p><p><span>HOSTING</span><strong>One dedicated host</strong></p><p><span>INDICATIVE FOOTPRINT</span><strong>20–30 m²</strong></p><p><span>ENTRY</span><strong>Paid · price to be set</strong></p></div><p>A visible first encounter with Immortals for short-stay visitors. The ticket covers the experience and scorecard; further assessment or membership is optional. Scores are private by default.</p><p class="dealer-small">Concept assumptions for discussion. Equipment, test protocols, challenge targets, staffing and final placement need validation. The image illustrates a proposed setting rather than a measured layout.</p></div></details>
     </section>
-    <section class="dealer-closing"><p class="dealer-kicker">THE EXPERIENCE HAS AN ADDRESS.</p><h2>Picture it in Macau.</h2><div><a class="dealer-button dealer-button-light" href={`${base}tour/#main-entrance`}>Step inside the clinic <span aria-hidden="true">↗</span></a><a class="dealer-text-link" href={`${base}experiences/`}>All experiences <span aria-hidden="true">↖</span></a></div></section>
+    <section class="dealer-section dealer-context">
+      <div class="dealer-context-grid"><div><h2>Why it belongs at Immortals</h2><p>A visible, hosted challenge gives short-stay visitors a reason to stop at the discovery floor. Familiar competition opens a personal conversation, and the scorecard gives guests something concrete to remember.</p></div><div><h2>If you want to go further</h2><p>Explore a result that makes you curious. A further assessment or membership conversation is optional; every guest receives the complete experience and scorecard.</p></div></div>
+      <details class="dealer-operating"><summary><span>Behind the experience</span><span><b aria-hidden="true">+</b></span></summary><div class="dealer-operating-body"><p>Proposed visit: 15-20 minutes with one dedicated host, within an indicative 20-30 m² footprint. Paid entry; price to be set. Scores are private by default.</p><p class="dealer-small">Concept assumptions for discussion. Equipment, test protocols, challenge targets, staffing and final placement need validation. The image illustrates a proposed setting rather than a measured layout.</p></div></details>
+    </section>
+    <ExperienceNavigation slug="beat-the-dealer" />
   </main>
   <SiteFooter />
   <script>import '../../scripts/beat-the-dealer.js';</script>
 </body>
 </html>
+
+<style>
+  .dealer-visit{scroll-margin-top:100px}
+  .dealer-hero{padding-top:45px}.dealer-breadcrumb{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted);margin-bottom:32px}.dealer-breadcrumb a{color:inherit}
+  .dealer-opening{padding-bottom:36px}.dealer-opening h1{font-size:clamp(46px,5.5vw,80px);line-height:1.06;letter-spacing:-.05em;margin:0}.dealer-opening p{font-size:18px;color:var(--muted);line-height:1.6;max-width:670px;margin:20px 0 23px}.dealer-opening .dealer-button{font-weight:400;min-height:44px;padding:11px 18px;font-size:13px}
+  .dealer-hero-image{max-height:570px}.dealer-hero-image>img{width:100%;height:auto;aspect-ratio:2.1;object-fit:cover;object-position:center 53%}
+  .dealer-facts{grid-template-columns:repeat(3,1fr);padding:23px 0}.dealer-facts span{font-size:12px;letter-spacing:0}.dealer-facts strong{font-weight:400}
+  .dealer-section{padding-top:65px;padding-bottom:65px}.dealer-section-heading{display:block;margin-bottom:30px}.dealer-section-heading h2,.dealer-takeaway h2{font-size:clamp(30px,3.5vw,46px);line-height:1.15;letter-spacing:-.035em}.dealer-section-heading>p{max-width:640px;margin-top:18px}
+  .dealer-scorecard{transform:none;box-shadow:0 12px 30px #040a1438}.dealer-takeaway-copy>.dealer-button{font-weight:400}.dealer-visit{background:#f3f0e8;color:#253c3f}.dealer-visit-grid{margin-bottom:0}.dealer-visit-grid>div{border-color:#253c3f35}.dealer-step-number{color:#62706e}.dealer-visit-grid p{color:#53605f;font-size:15px}.dealer-visit-grid h3{font-size:24px}
+  .dealer-context-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:7vw;margin-bottom:38px}.dealer-context h2{font-size:27px;line-height:1.25;margin:0 0 18px}.dealer-context-grid p{font-size:15px;line-height:1.75;color:var(--muted);max-width:550px}.dealer-operating summary{padding:19px 0}.dealer-operating summary>span:first-child{font-size:14px;letter-spacing:0}
+  @media(max-width:760px){.dealer-hero{padding-top:30px}.dealer-breadcrumb{font-size:11px;margin-bottom:25px}.dealer-opening h1{font-size:clamp(40px,9vw,60px)}.dealer-opening p{font-size:16px;margin-top:16px}.dealer-hero-image{margin:0}.dealer-hero-image>img{aspect-ratio:1.4;object-position:50% center}.dealer-facts{grid-template-columns:1fr;padding:12px 0}.dealer-facts>div{display:grid;grid-template-columns:110px 1fr;gap:15px;padding:12px 0!important;border:0!important}.dealer-facts span{margin:0;font-size:12px}.dealer-facts strong{font-size:13px}.dealer-section{padding-top:45px;padding-bottom:45px}.dealer-section-heading h2,.dealer-takeaway h2{font-size:32px}.dealer-context-grid{grid-template-columns:1fr;gap:30px}.dealer-context h2{font-size:26px;margin-bottom:12px}.dealer-visit-grid h3{font-size:22px}.dealer-visit-grid p{font-size:15px}.dealer-scorecard{margin:0}}
+</style>

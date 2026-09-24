@@ -22,7 +22,7 @@ export const experiences = [
     "name": "Tilt Meter",
     "group": "A reason to come in",
     "tagline": "Take a seat. Find your rhythm.",
-    "summary": "A quiet pause turns a pulse reading into something you can see and discuss.",
+    "summary": "A guided pulse reading, a short breathing exercise and a conversation about what you notice.",
     "invitation": "Step away from the pace of Macau. Sit with a host, watch your pulse and try a short guided breathing exercise.",
     "steps": [
       {
@@ -53,7 +53,7 @@ export const experiences = [
     "name": "Mystery Marker",
     "group": "A reason to come in",
     "tagline": "Curiosity opens the conversation.",
-    "summary": "A sealed card introduces a personal measurement, with the choice always in your hands.",
+    "summary": "A card reveal introduces a question, followed by a measurement you agree with the team.",
     "invitation": "Choose a card. Discover a question about yourself. Decide with the team whether the suggested measurement is right for you.",
     "steps": [
       {
@@ -177,7 +177,7 @@ export const experiences = [
     "name": "One Plate",
     "group": "A moment to reset",
     "tagline": "An idea you can taste.",
-    "summary": "A hosted plate makes a conversation about nutrition tangible, personal and easy to remember.",
+    "summary": "A hosted tasting and a personal plate guide for everyday eating.",
     "invitation": "Sit down to a considered plate. Discover why it was put together, what you enjoy and which small idea you could bring into your everyday routine.",
     "steps": [
       {
@@ -208,7 +208,7 @@ export const experiences = [
     "name": "Skin Portrait",
     "group": "A closer look at you",
     "tagline": "See yourself in a new light.",
-    "summary": "Standardised photography creates a visual starting point for a guided skin conversation.",
+    "summary": "Standardised skin photographs, a guided review and a personal skincare starting point.",
     "invitation": "Take a seat for a considered portrait of your skin. The team walks through the images with you, then introduces a skincare ritual suited to the agreed scope.",
     "steps": [
       {
@@ -270,7 +270,7 @@ export const experiences = [
     "name": "DEXA Body Portrait",
     "group": "A closer look at you",
     "tagline": "The picture beneath the surface.",
-    "summary": "A DEXA scan becomes a guided visual conversation about body composition.",
+    "summary": "A body-composition scan, followed by a guided review of your report.",
     "invitation": "See your body composition presented as a picture you can explore with the team. Take time to understand the result, its context and the questions it raises.",
     "steps": [
       {
@@ -301,7 +301,7 @@ export const experiences = [
     "name": "Two Baselines",
     "group": "A relationship that continues",
     "tagline": "One visit starts a longer view.",
-    "summary": "An initial assessment and a correctly timed repeat create a more useful conversation over time.",
+    "summary": "An initial assessment and a planned repeat after your trip, with both records reviewed together.",
     "invitation": "Begin with a question worth following. Agree what to measure now and when a comparable repeat will actually be useful after your trip.",
     "steps": [
       {
@@ -391,3 +391,11 @@ export const experiences = [
   }
 ];
 export const experienceGroups = [...new Set(experiences.map(e => e.group))];
+
+// The presentation's shortlist, shared by the overview, menu and page navigation.
+// The remaining concepts retain their URLs for existing links.
+export const selectedExperiences = [
+  'beat-the-dealer', 'one-plate', 'skin-portrait', 'dexa-body-portrait',
+  'bring-your-watch', 'tilt-meter', 'mystery-marker', 'night-room',
+  'vo2-introduction', 'two-baselines',
+].map(slug => experiences.find(experience => experience.slug === slug));

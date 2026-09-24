@@ -1,20 +1,70 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { url, sceneDimensions } from '../../data/site';
+import ExperienceTakeaway from '../../components/ExperienceTakeaway.astro';
+import ExperienceNavigation from '../../components/ExperienceNavigation.astro';
+import { url } from '../../data/site';
 import { experiences } from '../../data/experiences';
-export function getStaticPaths(){return experiences.filter(e=>e.slug!=='beat-the-dealer').map(experience=>({params:{slug:experience.slug},props:{experience}}));}
-const {experience:e}=Astro.props;
-const scene = e.image.match(/^assets\/scenes\/([^/]+)\/(.+)\.webp$/);
-const imageSize = scene ? sceneDimensions(scene[1], scene[2]) : {width:1672, height:941};
-const index=experiences.findIndex(item=>item.slug===e.slug);
-const previous=experiences[(index-1+experiences.length)%experiences.length];
-const next=experiences[(index+1)%experiences.length];
+import { experiencePresentation } from '../../data/experience-presentation';
+export function getStaticPaths() {
+  return experiences.filter(e => e.slug !== 'beat-the-dealer').map(experience => ({ params: { slug: experience.slug }, props: { experience } }));
+}
+const { experience: e } = Astro.props;
+const presentation = experiencePresentation[e.slug];
 ---
 <SiteLayout title={e.name} description={e.summary} active="experiences">
-<section class="wrap page-heading"><div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><a href={url('experiences/')}>Experiences</a><span>/</span><span>{e.name}</span></div><p class="eyebrow">EXPERIENCE {e.number} / {e.group}</p><div class="page-heading-grid"><h1>{e.name}<span>.</span></h1><div><p>{e.summary}</p><div class="actions"><a class="text-link" href="#journey">Follow the experience <span>↓</span></a></div></div></div><div class="experience-meta"><div><span>The format</span><strong>{e.format}</strong></div><div><span>The setting</span><strong>{e.setting}</strong></div><div><span>The concept</span><strong>{e.status}</strong></div></div></section>
-<figure class="wrap experience-hero-image"><img src={url(e.image)} alt={e.caption} width={imageSize.width} height={imageSize.height} fetchpriority="high" /><figcaption class="image-caption"><span>{e.caption}</span><span>Concept visualisation</span></figcaption></figure>
-<section class="cream" id="journey"><div class="wrap section"><div class="chapter-line"><span>THE INVITATION</span><span>{e.tagline}</span></div><p class="experience-invitation">{e.invitation}</p><div class="journey-list">{e.steps.map((step,i)=><article class="journey-step"><span>0{i+1}</span><h3>{step.title}</h3><p>{step.copy}</p></article>)}</div></div></section>
-<section class="wrap section"><div class="takeaway-grid"><div><p class="eyebrow">WHAT STAYS WITH YOU</p><h2>{e.tagline}</h2><p>{e.takeaway}</p><div style="margin-top:35px;border-top:1px solid var(--line);padding-top:25px"><p class="eyebrow">THE NEXT CONVERSATION</p><p class="muted" style="margin-top:12px;font-size:14px">{e.nextstep}</p></div></div><aside class="takeaway-card"><p class="eyebrow">IMMORTALS / THE PERSONAL TAKEAWAY</p><h3>{e.name}</h3><p>{e.takeaway}</p><div><span>EXPERIENCE {e.number}</span><span>MACAU FLAGSHIP</span></div></aside></div><details class="operating-note" open={e.status==='Feasibility review'}><summary>Behind the experience <span aria-hidden="true">＋</span></summary><p>{e.operating}</p></details></section>
-<section class="wrap next-experience" aria-label="More experiences"><a href={url(`experiences/${previous.slug}/`)}><small>← Previous experience</small><h3>{previous.name}</h3></a><a href={url(`experiences/${next.slug}/`)}><small>Next experience →</small><h3>{next.name}</h3></a></section>
-<section class="closing cream"><p class="eyebrow">THE WIDER COLLECTION</p><h2>More ways to begin.</h2><div class="actions"><a class="button" href={url('experiences/#collection')}>Explore all experiences <span>↗</span></a></div></section>
+  <section class="wrap experience-opening">
+    <div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><a href={url('experiences/')}>Experiences</a><span>/</span><span>{e.name}</span></div>
+    <h1>{e.name}</h1>
+    <p class="experience-summary">{e.summary}</p>
+  </section>
+
+  <section class:list={['wrap', 'experience-introduction', { 'without-preview': !presentation }]} aria-label="About the experience">
+    {presentation && <ExperienceTakeaway presentation={presentation} />}
+    <div class="experience-explanation">
+      <h2>The experience</h2>
+      <p>{e.invitation}</p>
+      <div class="personal-takeaway"><h3>You leave with</h3><p>{e.takeaway}</p></div>
+      <dl class="visit-details">
+        <div><dt>Format</dt><dd>{e.format}</dd></div>
+        <div><dt>Setting</dt><dd>{e.setting}</dd></div>
+        {presentation?.duration && <div><dt>Proposed visit</dt><dd>{presentation.duration}</dd></div>}
+      </dl>
+      <a class="text-link" href="#journey">Follow the visit <span aria-hidden="true">↓</span></a>
+    </div>
+  </section>
+
+  <section class="cream guest-journey" id="journey" aria-labelledby="journey-title">
+    <div class="wrap">
+      <h2 id="journey-title">How the visit unfolds</h2>
+      <ol class="visit-stages">{e.steps.map((step, i) => <li><span class="stage-number" aria-hidden="true">0{i + 1}</span><h3>{step.title}</h3><p>{step.copy}</p></li>)}</ol>
+    </div>
+  </section>
+
+  <section class="wrap experience-context">
+    <div class="context-copy">
+      {presentation && <div><h2>Why it belongs at Immortals</h2><p>{presentation.why}</p></div>}
+      <div><h2>{e.status === 'Feasibility review' ? 'Before taking it further' : 'If you want to go further'}</h2><p>{e.nextstep}</p></div>
+    </div>
+    <details class="experience-operating" open={e.status === 'Feasibility review'}>
+      <summary>Behind the experience <span aria-hidden="true">＋</span></summary>
+      <p>{e.operating}</p>
+    </details>
+  </section>
+  <ExperienceNavigation slug={e.slug} />
 </SiteLayout>
+
+<style>
+  .experience-opening{padding:45px 0 40px}.experience-opening .breadcrumb{margin-bottom:32px}.experience-opening h1{font-size:clamp(46px,5.5vw,80px);line-height:1.06;letter-spacing:-.05em;max-width:100%;margin:0}
+  .experience-summary{font-size:18px;line-height:1.6;color:var(--muted);max-width:700px;margin-top:20px}
+  .experience-introduction{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(40px,7vw,110px);align-items:center;padding-bottom:75px}
+  .experience-explanation{max-width:500px}.experience-explanation h2{font-size:32px;line-height:1.2;letter-spacing:-.035em;margin-bottom:18px}.experience-explanation p{font-size:16px;line-height:1.7;color:var(--muted)}
+  .personal-takeaway{margin:26px 0}.personal-takeaway h3{font-size:19px;letter-spacing:-.02em;margin:0 0 10px}
+  .visit-details{margin:30px 0 16px}.visit-details>div{display:grid;grid-template-columns:105px 1fr;gap:18px;border-top:1px solid var(--line);padding:14px 0;font-size:13px;line-height:1.55}.visit-details dt{color:var(--muted)}.visit-details dd{margin:0}
+  .experience-explanation .text-link{font-size:13px;gap:35px}.guest-journey{padding:65px 0 70px;scroll-margin-top:100px}.guest-journey h2{font-size:clamp(30px,3.5vw,46px);line-height:1.15;letter-spacing:-.035em;margin:0 0 35px}
+  .visit-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4vw;margin:0;padding:0;list-style:none}.visit-stages li{border-top:1px solid #253c3f35;padding-top:20px}.stage-number{font-size:12px;color:#62706e}.visit-stages h3{font-size:24px;line-height:1.2;letter-spacing:-.035em;margin:20px 0 13px}.visit-stages p{font-size:15px;line-height:1.65;color:#53605f;max-width:380px}
+  .experience-context{padding:65px 0 50px}.context-copy{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(40px,7vw,110px)}.context-copy h2{font-size:27px;line-height:1.25;letter-spacing:-.035em;margin:0 0 18px}.context-copy p{font-size:15px;line-height:1.75;color:var(--muted);max-width:550px}
+  .experience-operating{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:38px}.experience-operating summary{font-size:14px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:19px 0}.experience-operating summary::-webkit-details-marker{display:none}.experience-operating summary>span{font-size:23px}.experience-operating[open] summary>span{transform:rotate(45deg)}.experience-operating p{font-size:13px;line-height:1.7;color:var(--muted);max-width:860px;padding-bottom:24px}
+  .without-preview{display:block}.without-preview .experience-explanation{max-width:850px}
+  @media(max-width:1000px){.experience-introduction{gap:35px;grid-template-columns:1.1fr 1fr}.experience-explanation p{font-size:15px}.visit-details>div{grid-template-columns:80px 1fr;gap:14px}.visit-stages{gap:25px}.visit-stages h3{font-size:22px}.context-copy{gap:40px}}
+  @media(max-width:760px){.experience-opening{padding:30px 0}.experience-opening .breadcrumb{margin-bottom:25px;font-size:11px;flex-wrap:wrap}.experience-opening h1{font-size:clamp(40px,9vw,60px)}.experience-summary{font-size:16px;margin-top:16px}.experience-introduction{grid-template-columns:1fr;gap:35px;padding-bottom:45px}.experience-explanation{max-width:none}.experience-explanation h2{font-size:29px}.personal-takeaway{margin:23px 0}.visit-details>div{grid-template-columns:105px 1fr}.guest-journey{padding:45px 0}.guest-journey h2{font-size:32px;margin-bottom:26px}.visit-stages{grid-template-columns:1fr;gap:26px}.visit-stages li{display:grid;grid-template-columns:28px 1fr;column-gap:15px;padding-top:22px}.stage-number{padding-top:5px}.visit-stages h3{margin:0 0 10px}.visit-stages p{grid-column:2;max-width:none}.experience-context{padding:45px 0 35px}.context-copy{grid-template-columns:1fr;gap:30px}.context-copy h2{font-size:26px;margin-bottom:12px}.experience-operating{margin-top:30px}}
+</style>

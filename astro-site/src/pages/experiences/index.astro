@@ -1,12 +1,119 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { url } from '../../data/site';
-import { experiences, experienceGroups } from '../../data/experiences';
+import { url, feedback } from '../../data/site';
+import { selectedExperiences as collection } from '../../data/experiences';
+
+const selectedExperiences = collection.filter(experience => experience.slug !== 'beat-the-dealer');
+const overview = {
+  'one-plate': { activity: 'Taste a considered plate and discover one practical idea for the way you eat.', takeaway: 'A personal plate guide to take home.' },
+  'skin-portrait': { activity: 'See your skin through standardised photographs, then explore the images with the team.', takeaway: 'A private visual record and a skincare starting point.' },
+  'dexa-body-portrait': { activity: 'Explore a picture of your body composition, with a host guiding you through the scan report.', takeaway: 'Your report, explained in plain language.' },
+  'bring-your-watch': { activity: 'Bring the wearable history you already have and discuss the patterns you want to understand.', takeaway: 'A conversation summary and one useful question to explore.' },
+  'tilt-meter': { activity: 'Try a guided pulse reading and a short breathing exercise, then discuss what you notice.', takeaway: 'A session record with context from your host.' },
+  'mystery-marker': { activity: 'Reveal a card that introduces a personal question, then agree a suitable measurement with the team.', takeaway: 'An explained personal result, once available.' },
+  'night-room': { activity: 'Follow a hotel-room wind-down, record the night with a wearable and meet for a morning conversation.', takeaway: 'A summary that pairs the wearable record with how the night felt.' },
+  'vo2-introduction': { activity: 'Complete a supervised introduction to fitness assessment and discuss what the estimate can tell you.', takeaway: 'An explained fitness estimate, with its limitations.' },
+  'two-baselines': { activity: 'Agree what to measure now and when a comparable repeat would be useful after your trip.', takeaway: 'An initial record and a clear follow-up plan.' },
+};
 ---
-<SiteLayout title="Experiences" description="Thirteen invitations to discover Immortals Macau, from a hosted challenge to a personal assessment and an ongoing relationship." active="experiences">
-<section class="wrap page-heading"><div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><span>Experiences</span></div><p class="eyebrow">03 / THE INVITATION</p><div class="page-heading-grid"><h1>Curiosity first.<br /><span>Something personal<br />follows.</span></h1><div><p>An experience gives a guest a reason to cross the threshold. What happens next should feel relevant, considered and entirely their choice.</p><div class="actions"><a class="text-link" href="#collection">Explore the collection <span>↓</span></a></div></div></div></section>
-<section class="wrap style-hero"><div class="experience-feature"><img src={url('assets/experiences/beat-the-dealer.webp')} alt="A host guides a guest through a challenge at an Immortals experience table." width="1672" height="941" fetchpriority="high" /><div class="experience-feature-copy"><p class="eyebrow">THE INTERACTIVE SHOWCASE / EXPERIENCE 01</p><h2>Beat the<br />Dealer.</h2><p>Three challenges. Win two. A paid, hosted encounter turns reactions, grip and balance into the start of a conversation.</p><div class="actions"><a class="button solid" href={url('experiences/beat-the-dealer/')}>Discover the experience <span>↗</span></a><a class="text-link" href={url('experiences/beat-the-dealer/#play')}>Try the three-round demo <span>↗</span></a></div></div></div></section>
-<section class="cream"><div class="wrap section"><div class="chapter-line"><span>WHY EXPERIENCES?</span><span>AN OPEN DOOR TO THE CLINIC</span></div><div class="vision-grid"><h2>Make the first<br />step worth taking.</h2><div><p>A short stay leaves little room for a complicated invitation. An experience makes the proposition immediate: here is what you will do, why it is interesting and what you will take away.</p><p>It also creates a natural point of connection. A host can turn a moment of curiosity into a useful question, then help the guest decide whether to explore further.</p></div></div><div class="pillars"><article class="pillar"><span>01</span><h3>Invitation.</h3><p>Something understandable and memorable, designed to fit around a visitor’s time in Macau.</p></article><article class="pillar"><span>02</span><h3>Personal value.</h3><p>A record, a reflection or a practical idea. Every experience should give the guest something meaningful in its own right.</p></article><article class="pillar"><span>03</span><h3>Continuity.</h3><p>A relevant next step after the visit. Further assessment, follow-up and membership remain an individual choice.</p></article></div></div></section>
-<section class="wrap section" id="collection"><div class="chapter-line"><span>THE EXPERIENCE COLLECTION</span><span>13 CONCEPTS / DIFFERENT WAYS IN</span></div><div class="section-heading"><h2>Choose your<br />first encounter.</h2><p>Some begin with play. Others with a quiet moment or a closer look at yourself. Each page follows the guest journey, the takeaway and the conversation it could open.</p></div>{experienceGroups.map((group,index)=><section class="experience-group"><div class="experience-group-heading"><h3>{group}</h3><span>0{index+1} / {experiences.filter(e=>e.group===group).length} CONCEPTS</span></div><div class="experience-cards">{experiences.filter(e=>e.group===group).map(e=><a class="experience-card" href={url(`experiences/${e.slug}/`)}><div class="experience-card-top"><span>{e.number} / IMMORTALS</span>{e.status!=='Experience concept'&&<span class="status-tag">{e.status}</span>}</div><h3>{e.name}</h3><p>{e.summary}</p><span>Discover the experience <b aria-hidden="true">↗</b></span></a>)}</div></section>)}<p class="fine" style="margin-top:35px">An experience collection for discussion, rather than a confirmed service menu. Beat the Dealer has paid entry confirmed; other commercial terms and operating details remain to be developed. Concepts marked “Feasibility review” need further validation before becoming a guest offer.</p></section>
-<section class="closing cream"><p class="eyebrow">THE EXPERIENCE NEEDS A SETTING</p><h2>A public invitation.<br />A private world beyond.</h2><div class="actions"><a class="button" href={url('layout/')}>See how the clinic fits together <span>↗</span></a></div></section>
+<SiteLayout title="Experiences" description="Ten experience concepts for Immortals Macau, from a hosted challenge to a personal assessment and a conversation about your own data." active="experiences">
+  <section class="wrap page-heading experiences-heading">
+    <div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><span>Experiences</span></div>
+    <h1>Curiosity first.</h1>
+    <p>Ten experiences to spark curiosity, make a personal discovery and give guests something to take away.</p>
+  </section>
+
+  <section class="wrap featured-experience" aria-labelledby="featured-title">
+    <img src={url('assets/experiences/beat-the-dealer.webp')} alt="A host guides a guest through a challenge at an Immortals experience table." width="1672" height="941" fetchpriority="high" />
+    <div class="featured-copy">
+      <h2 id="featured-title">Beat the Dealer.</h2>
+      <p>Three challenges. Win two. Test reactions, grip and balance in a paid, hosted encounter.</p>
+      <div class="actions">
+        <a class="button" href={url('experiences/beat-the-dealer/')}>Explore the experience <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href={url('experiences/beat-the-dealer/#play')}>Try the demo <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cream experience-rationale" aria-label="Why experiences matter">
+    <div class="wrap"><p>Give resort visitors something worthwhile to do. Use the encounter to understand what interests them, then offer a relevant reason to continue the relationship. Each experience should have value in its own right, whether or not the guest goes further.</p></div>
+  </section>
+
+  <section class="wrap experience-collection" id="collection" aria-labelledby="collection-title">
+    <h2 id="collection-title">Explore the experiences.</h2>
+    <div class="experience-picks">
+      {selectedExperiences.map(e => <article class="pick-card">
+        <h3>{e.name}</h3>
+        <p class="pick-activity">{overview[e.slug].activity}</p>
+        <p class="pick-takeaway"><span>Take away</span>{overview[e.slug].takeaway}</p>
+        <a class="text-link" href={url(`experiences/${e.slug}/`)} aria-label={`Explore ${e.name}`}>Explore the experience <span aria-hidden="true">↗</span></a>
+      </article>)}
+    </div>
+    <p class="collection-note">Concepts for discussion, with service details still to be developed. Beat the Dealer has paid entry confirmed; other pricing and operating arrangements remain open.</p>
+  </section>
+
+  <section class="cream experience-feedback" aria-labelledby="feedback-title"><div class="wrap">
+    <h2 id="feedback-title">Which experiences belong in the flagship?</h2>
+    <p>Tell us which ideas you would prioritise and what you would change.</p>
+    <div class="actions"><a class="button" href={feedback} target="_blank" rel="noopener">Share feedback <span aria-hidden="true">↗</span></a><a class="text-link" href={url('layout/')}>Explore the layout <span aria-hidden="true">↗</span></a></div>
+  </div></section>
 </SiteLayout>
+
+<style>
+  .experiences-heading{padding-top:32px;padding-bottom:32px}
+  .experiences-heading .breadcrumb{margin-bottom:26px}
+  .experiences-heading h1{font-size:clamp(44px,6.1vw,88px)}
+  .experiences-heading>p{font-size:15px;max-width:660px;color:var(--muted);margin-top:22px}
+  .featured-experience{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;background:var(--panel);margin-bottom:42px}
+  .featured-experience>img{width:100%;height:auto;aspect-ratio:1672/941;object-fit:contain}
+  .featured-copy{padding:30px clamp(24px,3vw,48px)}
+  .featured-copy h2{font-size:clamp(32px,3.2vw,48px)}
+  .featured-copy>p{font-size:15px;max-width:480px;color:var(--muted);margin-top:20px}
+  .featured-copy .actions{gap:18px 26px;margin-top:26px}
+  .featured-copy .button{font-weight:400;min-height:44px;padding:11px 16px;gap:24px;border-color:#ffffff40}
+  .featured-copy .button:hover{background:#ffffff08;color:var(--bone);border-color:#ffffff80}
+  .experience-rationale{padding:40px 0}
+  .experience-rationale p{max-width:1120px;font-size:clamp(18px,1.6vw,24px);line-height:1.6;letter-spacing:-.015em}
+  .experience-collection{padding-top:56px;padding-bottom:52px}
+  .experience-collection>h2{font-size:clamp(32px,3.2vw,48px)}
+  .experience-picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:32px}
+  .pick-card{display:flex;flex-direction:column;align-items:flex-start;padding:36px clamp(28px,3vw,44px);background:var(--panel);border:1px solid var(--line)}
+  .pick-card h3{font-size:clamp(29px,2.8vw,40px);line-height:1.15}
+  .pick-card .pick-activity{font-size:16px;line-height:1.6;color:var(--muted);max-width:480px;margin-top:20px}
+  .pick-card .pick-takeaway{font-size:14px;line-height:1.6;color:var(--muted);margin-top:24px;margin-bottom:26px;max-width:460px}
+  .pick-takeaway>span{display:block;font-size:12px;color:var(--bone);margin-bottom:6px}
+  .pick-card .text-link{margin-top:auto;min-height:44px}
+  .collection-note{font-size:11px;color:var(--muted);line-height:1.7;max-width:980px;margin-top:30px}
+  .experience-feedback{padding:48px 0 54px}
+  .experience-feedback h2{font-size:clamp(32px,3.5vw,50px);max-width:830px}
+  .experience-feedback p{font-size:15px;color:#53606c;margin-top:20px}
+  @media(max-width:1100px){
+    .featured-experience{grid-template-columns:1fr 1fr}
+    .featured-copy{padding:26px}
+    .featured-copy h2{font-size:34px}
+    .featured-copy>p{font-size:14px;margin-top:16px}
+    .featured-copy .actions{margin-top:18px;gap:12px 20px}
+
+  }
+  @media(max-width:700px){
+    .experiences-heading{padding-top:24px;padding-bottom:26px}
+    .experiences-heading h1{font-size:clamp(40px,9.5vw,58px)}
+    .experiences-heading>p{font-size:14px;margin-top:18px}
+    .featured-experience{grid-template-columns:1fr;margin-bottom:30px}
+    .featured-copy{padding:26px 22px 30px}
+    .featured-copy h2{font-size:34px}
+    .experience-rationale{padding:30px 0}
+    .experience-rationale p{font-size:18px}
+    .experience-collection{padding-top:36px;padding-bottom:36px}
+    .experience-collection>h2{font-size:32px}
+    .experience-picks{grid-template-columns:1fr;gap:18px;margin-top:24px}
+    .pick-card{padding:28px 24px}
+    .pick-card h3{font-size:30px}
+    .pick-card .pick-activity{font-size:15px;margin-top:16px}
+    .pick-card .pick-takeaway{font-size:13px;margin-top:20px;margin-bottom:20px}
+    .collection-note{font-size:10px;margin-top:26px}
+    .experience-feedback{padding:36px 0 40px}
+    .experience-feedback h2{font-size:34px}
+    .experience-feedback p{font-size:14px}
+  }
+</style>

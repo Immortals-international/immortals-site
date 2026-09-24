@@ -1,11 +1,11 @@
 ---
 import { url, styles, sceneImage, sceneDimensions } from '../data/site';
-import { experiences } from '../data/experiences';
+import { selectedExperiences } from '../data/experiences';
 import '../styles/site-shell.css';
 const { active = '', skipTarget = 'main-content' } = Astro.props;
 const menus = [
   { id:'interior-design', name:'Interior Design', path:'interior-design/', overview:'Overview & comparison', links:styles.map(s=>({name:s.name,path:`interior-design/${s.slug}/`,image:sceneImage(s.id,'main-entrance',true),dimensions:sceneDimensions(s.id,'main-entrance',true)})) },
-  { id:'experiences', name:'Experiences', path:'experiences/', overview:'Explore all experiences', links:experiences.map(e=>({name:e.name,path:`experiences/${e.slug}/`})) },
+  { id:'experiences', name:'Experiences', path:'experiences/', overview:'Explore all experiences', links:selectedExperiences.map(e=>({name:e.name,path:`experiences/${e.slug}/`})) },
 ];
 ---
 <a class="clinic-skip" href={`#${skipTarget}`}>Skip to content</a>
