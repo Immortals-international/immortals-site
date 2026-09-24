@@ -71,6 +71,7 @@ function initialise() {
   gl.uniform1i(uniforms.panorama, 0); gl.uniform1i(uniforms.roomCube, 1);
 
   let yaw = 0, pitch = 0, fov = 78, ready = false, frame = 0, targetIndex = 0, loadToken = 0;
+  const maxFov = () => scenes[targetIndex].maxFov ?? 90;
   let prefetchTimer;
   const imageCache = new Map();
   function imagesFor(scene) {
@@ -124,11 +125,12 @@ function initialise() {
     gl.uniform1f(uniforms.yaw, yaw); gl.uniform1f(uniforms.pitch, pitch);
     gl.uniform1f(uniforms.aspect, w / h); gl.uniform1f(uniforms.lens, viewLens());
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    positionMarker(nextMarker, 0); positionMarker(backMarker, Math.PI);
+    const sceneYaw = scenes[targetIndex].yaw ?? 0;
+    positionMarker(nextMarker, sceneYaw); positionMarker(backMarker, sceneYaw + Math.PI);
   }
   function draw() { if (!frame) frame = requestAnimationFrame(render); }
   function reset() {
-    yaw = 0; pitch = scenes[targetIndex].pitch ?? 0; fov = scenes[targetIndex].fov ?? 78;
+    yaw = scenes[targetIndex].yaw ?? 0; pitch = scenes[targetIndex].pitch ?? 0; fov = scenes[targetIndex].fov ?? 78;
     draw();
   }
   async function loadScene(index) {
@@ -183,8 +185,8 @@ function initialise() {
   backMarker.onclick = $('previous-room').onclick = () => loadScene(targetIndex - 1);
   $('retry-room').onclick = () => loadScene(targetIndex);
   $('reset').onclick = reset;
-  $('zoom-in').onclick = () => { fov = clamp(fov - 8, 45, 90); draw(); };
-  $('zoom-out').onclick = () => { fov = clamp(fov + 8, 45, 90); draw(); };
+  $('zoom-in').onclick = () => { fov = clamp(fov - 8, 45, maxFov()); draw(); };
+  $('zoom-out').onclick = () => { fov = clamp(fov + 8, 45, maxFov()); draw(); };
   const requested = scenes.findIndex((scene) => scene.id === location.hash.slice(1));
   loadScene(requested < 0 ? 0 : requested);
   addEventListener('hashchange', () => {
@@ -211,22 +213,22 @@ function initialise() {
       pitch = clamp(pitch + (event.clientY - previous.y) * scale, -Math.PI / 2, Math.PI / 2);
     } else if (pointers.size === 2) {
       const current = distance();
-      if (pinchDistance > 0 && current > 0) fov = clamp(fov * pinchDistance / current, 45, 90);
+      if (pinchDistance > 0 && current > 0) fov = clamp(fov * pinchDistance / current, 45, maxFov());
       pinchDistance = current;
     }
     draw();
   });
   function release(event) { pointers.delete(event.pointerId); pinchDistance = 0; if (!pointers.size) canvas.classList.remove('dragging'); }
   ['pointerup','pointercancel','lostpointercapture'].forEach((name) => canvas.addEventListener(name, release));
-  canvas.addEventListener('wheel', (event) => { event.preventDefault(); fov = clamp(fov + event.deltaY * .045, 45, 90); draw(); }, { passive: false });
+  canvas.addEventListener('wheel', (event) => { event.preventDefault(); fov = clamp(fov + event.deltaY * .045, 45, maxFov()); draw(); }, { passive: false });
   canvas.addEventListener('keydown', (event) => {
     switch (event.key) {
       case 'ArrowLeft': yaw -= .09; break;
       case 'ArrowRight': yaw += .09; break;
       case 'ArrowUp': pitch = clamp(pitch + .07, -Math.PI / 2, Math.PI / 2); break;
       case 'ArrowDown': pitch = clamp(pitch - .07, -Math.PI / 2, Math.PI / 2); break;
-      case '+': case '=': fov = clamp(fov - 5, 45, 90); break;
-      case '-': fov = clamp(fov + 5, 45, 90); break;
+      case '+': case '=': fov = clamp(fov - 5, 45, maxFov()); break;
+      case '-': fov = clamp(fov + 5, 45, maxFov()); break;
       case 'Home': reset(); break;
       default: return;
     }
