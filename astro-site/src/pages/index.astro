@@ -3,11 +3,7 @@ import WaterLoop from '../components/WaterLoop.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import GuestJourney from '../components/GuestJourney.astro';
 import { url, styles, sceneImage, sceneDimensions, feedback } from '../data/site';
-const layoutPreviews = [
-  { id: 'club', name: 'Club', description: 'A lounge-led welcome' },
-  { id: 'gallery', name: 'Gallery', description: 'An open discovery floor' },
-  { id: 'salon', name: 'Salon', description: 'A flexible hosted space' },
-];
+import { layouts as layoutPreviews } from '../data/layouts';
 ---
 <SiteLayout title="Macau flagship" description="Explore the vision for Immortals Macau: the spatial plan, four interior directions and a new kind of guest experience.">
 <section class="home-intro" aria-labelledby="home-intro-title">
@@ -33,15 +29,15 @@ const layoutPreviews = [
   <div class="home-layout-sticky">
   <div class="home-width home-layout-grid">
     <div class="home-copy">
-      <h2 id="layout-title">One footprint.<br /><span>Three layouts.</span></h2>
-      <p>1,100 m². Four private suites. Three ways to bring hospitality and clinical care together.</p>
+      <h2 id="layout-title">One footprint.<br /><span>Five layouts.</span></h2>
+      <p>1,100 m². Four private suites. Five ways to bring hospitality and clinical care together.</p>
       <div class="home-plan-options" role="group" aria-label="Preview a layout" hidden>
         {layoutPreviews.map((plan, index) => <button type="button" data-plan-option={index} aria-pressed={index === 0} aria-controls="home-plan-preview"><span>{String(index + 1).padStart(2, '0')}</span> {plan.name}</button>)}
       </div>
       <a class="home-link" href={url('layout/')}>Explore the layouts <span aria-hidden="true">↗</span></a>
     </div>
-    <a class="home-plan" id="home-plan-preview" href={url('layout/')} aria-label="Explore the layouts: Club floor plan">
-      {layoutPreviews.map((plan, index) => <img class:list={{ 'is-active': index === 0 }} data-plan-preview={index} data-plan-name={plan.name} src={url(`assets/plan-${plan.id}.svg`)} loading="lazy" width="2200" height="1800" aria-hidden={index !== 0} alt={`${plan.name} floor plan: ${plan.description.toLowerCase()}, with four private suites and dedicated assessment rooms.`} />)}
+    <a class="home-plan" id="home-plan-preview" href={url('layout/')} aria-label="Explore the layouts: Gallery floor plan">
+      {layoutPreviews.map((plan, index) => <img class:list={{ 'is-active': index === 0 }} data-plan-preview={index} data-plan-name={plan.name} data-plan-id={plan.id} src={url(plan.image)} loading="lazy" width="2200" height="1800" aria-hidden={index !== 0} alt={`${plan.name} floor plan: ${plan.title.toLowerCase()}, with four private suites and dedicated assessment rooms.`} />)}
     </a>
   </div>
   </div>
@@ -126,7 +122,7 @@ const layoutPreviews = [
 .home-plan{display:grid;background:#fffefa;padding:12px;border-radius:4px;box-shadow:0 22px 55px #0003;min-width:0}
 .home-plan img{grid-area:1/1;width:100%;height:auto;object-fit:contain;opacity:0;transition:opacity .18s ease;pointer-events:none}
 .home-plan img.is-active{opacity:1}
-.home-plan-options{display:flex;gap:20px;margin:0 0 20px}
+.home-plan-options{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0 0 20px}
 .home-plan-options button{border:0;border-bottom:1px solid #71849b;padding:10px 0;background:transparent;color:#bbc6d6;min-height:44px;font-size:14px;white-space:nowrap}
 .home-plan-options button>span{font-size:10px;margin-right:5px}
 .home-plan-options button[aria-pressed=true]{color:#f7f5ec;border-color:#f7f5ec}

@@ -1,0 +1,25 @@
+{
+  "referenceGallerySha256": "dd16cd0c82d22eac90de24b5c156502e62fd897526eefb004d3128e5393dbc8d",
+  "plans": [
+    {
+      "id": "windowfront",
+      "file": "plan-windowfront.svg",
+      "sha256": "2d8d8a8144a44504fb13f6e7627c3e8643ad40a5059046243b59837f9f79768e"
+    },
+    {
+      "id": "shared-club",
+      "file": "plan-shared-club.svg",
+      "sha256": "6fd6c6666fa0480105e40fcdb130c6d1b5f675dbbdc8797d0c6bc96781398045"
+    },
+    {
+      "id": "two-destinations",
+      "file": "plan-two-destinations.svg",
+      "sha256": "09216ec63639598691c46b528a810e52b762f37077a5f290b9526bec1bf5d86c"
+    },
+    {
+      "id": "patient-houses",
+      "file": "plan-patient-houses.svg",
+      "sha256": "9ade742000884ae4edde005ceb85126d21aa340cec1d1a2f9b645136c6ad63b6"
+    }
+  ]
+}
