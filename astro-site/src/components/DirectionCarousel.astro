@@ -1,14 +1,12 @@
 ---
-import { rooms, sceneImage } from '../data/site';
+import { rooms } from '../data/site';
+import SceneMedia from './SceneMedia.astro';
 const { direction } = Astro.props;
 ---
 <section class="direction-carousel" id="rooms" aria-label={`${direction.name} rooms`} aria-roledescription="carousel">
   <div class="carousel-track" id="direction-slides" tabindex="0" aria-label="Room images. Swipe or use the arrow keys to explore.">
     {rooms.map((room,index) => <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label={`${index+1} of ${rooms.length}: ${room.name}`} inert={index!==0}>
-      <button class="image-button" data-lightbox={sceneImage(direction.id,room.id)} data-caption={`${direction.name} · ${room.name}`} aria-label={`Enlarge ${room.name}`}>
-        <img src={sceneImage(direction.id,room.id)} alt={`${direction.name} · ${room.name}`} width="1672" height="941" loading={index===0?'eager':'lazy'} fetchpriority={index===0?'high':'auto'} draggable="false" />
-        <span>View full image <span aria-hidden="true">↗</span></span>
-      </button>
+      <SceneMedia direction={direction} room={room} loading={index===0?'eager':'lazy'} priority={index===0?'high':'auto'} />
     </div>)}
   </div>
   <div class="carousel-caption">
@@ -22,7 +20,7 @@ const { direction } = Astro.props;
   <div class="carousel-room-links" role="group" aria-label="Choose a room">
     {rooms.map((room,index) => <button type="button" data-room-index={index} data-room-name={room.name} data-room-note={room.note} aria-pressed={index===0} aria-controls="direction-slides">{room.name}</button>)}
   </div>
-  <p class="carousel-status" role="status" aria-live="polite" aria-atomic="true">1 of 6. Main entrance.</p>
+  <p class="carousel-status" role="status" aria-live="polite" aria-atomic="true">1 of {rooms.length}. {rooms[0].name}.</p>
 </section>
 <script>
   const carousel=document.querySelector<HTMLElement>('.direction-carousel');
@@ -80,9 +78,6 @@ const { direction } = Astro.props;
   .carousel-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;background:#142034}
   .carousel-track::-webkit-scrollbar{display:none}
   .carousel-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
-  .carousel-slide .image-button{width:100%;touch-action:pan-x pan-y pinch-zoom}
-  .carousel-slide .image-button:focus-visible{outline-offset:-4px}
-  .carousel-slide img{width:100%;aspect-ratio:1672/941;object-fit:contain;user-select:none}
   .carousel-caption{display:flex;justify-content:space-between;align-items:start;gap:28px;padding-top:22px}
   .room-caption h2{font-size:28px;line-height:1.2}
   .room-caption p{font-size:14px;color:var(--muted);margin-top:10px;max-width:660px}

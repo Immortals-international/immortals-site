@@ -8,9 +8,9 @@ The former single-page architecture study is now a complete presentation website
 - `/layout/` — Club, Gallery and Salon in one page, with the original SVG drawings, area comparison and zoom dialog. `#club`, `#gallery` and `#salon` select a plan.
 - `/interior-design/` — four-direction overview and six-room comparison.
 - `/interior-design/sculptural-minimalism/`
-- `/interior-design/asian-modernist/`
-- `/interior-design/contemporary-luxury/`
-- `/interior-design/tailored-luxury/`
+- `/interior-design/shadow-and-timber/`
+- `/interior-design/blue-mineral/`
+- `/interior-design/navy-residence/`
 - `/experiences/` — why experiences matter, guest journey and all thirteen concepts.
 - `/experiences/beat-the-dealer/` — existing three-round interactive showcase.
 - `/experiences/tilt-meter/`
@@ -33,16 +33,16 @@ The former single-page architecture study is now a complete presentation website
 
 Desktop menus support hover on the category link, explicit toggle buttons, outside-click dismissal and Escape. Mobile uses a menu button and expandable sections. Overview links remain ordinary links. All navigation and assets use Astro's configured base, supporting the repository Pages prefix and the custom-domain root.
 
-## Original assets and naming
+## Approved interiors and naming
 
-The current renders, official wordmark, fonts, floor-plan SVGs, original boards and 360° assets are retained. New names map to existing asset folders:
+The September 2026 rollout replaces the 24 room renders and thumbnails. The wordmark, fonts, floor-plan SVGs and separate 360° panorama assets remain in place. Approved directions map to stable asset folders:
 
 | Presentation name | Existing asset folder |
 | --- | --- |
-| Sculptural minimalism | `futurism` |
-| Asian modernist | `asian` |
-| Contemporary luxury | `aman` |
-| Tailored luxury | `milanese` |
+| Sculptural Minimalism | `futurism` |
+| Shadow & Timber | `asian` |
+| Blue Mineral | `aman` |
+| Navy Residence | `milanese` |
 
 Experience pages use relevant existing room studies as context. Captions distinguish an atmosphere/setting reference from an illustration of the specific activity. Hotel-room, heat-facility and meal-service designs have not been created or implied by the reused clinic images.
 
@@ -61,7 +61,7 @@ Each new page explains the invitation, three steps of the visit, personal takeaw
 
 The site remains a concept presentation with `noindex,nofollow`. Feedback continues to link to the existing external service. There are no changes to DNS, deployment settings, authentication or feedback storage.
 
-## Verification
+## Previous presentation verification
 
 - Both the repository-prefix build and `SITE_URL=https://immortals.international` build produce 22 routes.
 - Existing regression suites pass: seven dealer-model checks and ten tour checks.
@@ -72,3 +72,9 @@ The site remains a concept presentation with `noindex,nofollow`. Feedback contin
 - A responsive image-height correction was checked after the full-route review.
 
 The offline preview generator is `scripts/build-presentation-preview.py` at the repository root. It packages the compiled site into one HTML file and adapts asset URLs/navigation only inside the review wrapper. Production pages remain ordinary static Astro routes.
+
+## September 2026 interior release
+
+All four approved lobby compositions are retained. The five original Sculptural Minimalism room scenes remain the reference; fifteen adaptations complete the other directions. Web exports retain the full composition. Blue Mineral includes the approved water animation with playback controls, visibility handling and reduced-motion support. The three previous direction URLs redirect, bringing the build to 25 HTML routes including redirects.
+
+Use `npm run test:interiors` for media lifecycle and asset checks. The release also requires a production build and a check of the deployed pages and asset hashes.

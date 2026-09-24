@@ -10,6 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test:interiors": "node --test ../scripts/test-interiors.mjs",
     "test:tour": "node --test ../scripts/test-tour.mjs",
     "test:dealer": "node --test ../scripts/test-dealer.mjs"
   },

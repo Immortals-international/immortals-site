@@ -198,7 +198,7 @@ export const experiences = [
     "setting": "Hospitality or tasting table",
     "format": "Hosted tasting",
     "image": "assets/scenes/milanese/main-entrance.webp",
-    "caption": "Hospitality atmosphere reference from the Tailored luxury concept.",
+    "caption": "Hospitality atmosphere reference from the Navy Residence concept.",
     "operating": "Proposed visit: 30–45 minutes. Menu, service model, dietary handling, staffing and pricing are to be developed. The tasting does not replace a personal nutrition assessment.",
     "status": "Experience concept",
     "number": "07"
@@ -291,7 +291,7 @@ export const experiences = [
     "setting": "Dedicated DEXA room",
     "format": "Scan + guided explanation",
     "image": "assets/scenes/asian/dexa.webp",
-    "caption": "DEXA room concept in the Asian modernist direction.",
+    "caption": "DEXA room concept in the Shadow & Timber direction.",
     "operating": "The visit, eligibility, preparation, reporting scope and staffing need clinical definition. A body-composition report is one part of a wider personal assessment.",
     "status": "Experience concept",
     "number": "10"
