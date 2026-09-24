@@ -1,6 +1,12 @@
 # Immortals Macau architectural presentation
 
-Astro port of the existing Immortals Macau presentation. All four architectural directions, images, fonts, three floor plans, comparisons and zoom controls are included locally.
+Astro port of the existing Immortals Macau presentation. All four architectural directions, images, fonts, five floor plans, comparisons and zoom controls are included locally.
+
+## Floor plans
+
+Gallery is the unchanged reference. Public windowfront, Shared window club, Two destinations and Two patient houses replace the former Club and Salon options. All five share the homepage preview, layout comparison and enlarged viewer.
+
+The four concept geometries are in `../scripts/floor-plans/concepts.json`. From the repository root, run `python3 scripts/floor-plans/build.py` to regenerate their SVGs and cache manifest. This renderer reads Gallery's reference symbols but never writes Gallery. The drawings illustrate the agreed program; measured areas, dimensions, new entrances and equipment fit remain unverified.
 
 ## Development
 

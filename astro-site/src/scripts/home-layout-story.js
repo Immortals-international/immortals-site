@@ -19,6 +19,7 @@ if (story) {
       image.setAttribute('aria-hidden', String(i !== index));
       options[i].setAttribute('aria-pressed', String(i === index));
     });
+    preview.hash = images[index].dataset.planId;
     preview.setAttribute('aria-label', `Explore the layouts: ${images[index].dataset.planName} floor plan`);
   }
 
