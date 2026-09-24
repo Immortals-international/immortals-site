@@ -27,7 +27,7 @@ The approved September 2026 scene set contains six rooms across Sculptural Minim
 
 The Blue Mineral lobby includes the approved eight-second silent water loop, with WebM and MP4 sources. It plays only while visible, pauses when switching rooms or hiding the page, and provides an explicit pause/play control. Reduced-motion users start with the still image. A video failure leaves the still usable.
 
-The approved website exports and their thumbnails are committed under `astro-site/public/assets/scenes/`. `manifest.json` records the current names, actual dimensions, source master hashes and exported asset hashes. Stable internal asset IDs preserve existing experience-page links. The 360° tour uses its separate panorama assets.
+The approved website exports and their thumbnails are committed under `astro-site/public/assets/scenes/`. `manifest.json` records the current names, actual dimensions, source master hashes and exported asset hashes. Stable internal asset IDs preserve existing experience-page links. The shared URL helper adds a content-hash version to every approved scene image, thumbnail and video, including experience references. Room switching uses the same versioned URLs. Menu previews retain the full lobby composition. The 360° tour uses its separate panorama assets.
 
 To republish this approved pack, run `node scripts/publish-approved-scenes.mjs /path/to/clinic-scene-rollout-2026-09-23` after installing the Astro dependencies. The companion `output/gallery-water-motion-2026-09-23` folder supplies the approved loop. Production builds need only the committed exports, not the private source folder. `scripts/prepare-scenes.mjs` is the older archive importer and should not be run against this release.
 

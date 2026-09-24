@@ -6,7 +6,7 @@
 .clinic-mega .clinic-menu-overview{justify-content:space-between;border:0;min-height:48px;padding:10px 0;margin-left:var(--overview-offset,0px);gap:24px;white-space:nowrap}
 .clinic-menu-overview>span{color:#bbc6d6}
 .clinic-menu-overview:hover{text-decoration:underline;text-underline-offset:5px}
-.clinic-design-links img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:4px;background:#1b2b40}
+.clinic-design-links img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;border-radius:4px;background:#1b2b40}
 .clinic-menu-feature{display:flex;flex-direction:column;gap:17px;border-left:1px solid #ffffff24;padding-left:30px}
 .clinic-menu-feature>img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
 .clinic-menu-feature>span{display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:16px;line-height:1.4}
