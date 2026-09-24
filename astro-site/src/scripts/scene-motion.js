@@ -1,50 +1,39 @@
-// The approved still remains visible until video playback actually starts.
+// Decorative water motion starts only when visible. The still is always the fallback.
 document.querySelectorAll('[data-scene-media]').forEach(media => {
   const video = media.querySelector('video');
-  const control = media.querySelector('[data-water-toggle]');
-  if (!video || !control) return;
+  if (!video) return;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let requested = !reducedMotion.matches;
   let visible = false;
   let failed = false;
+  let blocked = false;
   let pending = false;
   const available = () => media.dataset.room === 'main-entrance' && !media.closest('[inert]') && !failed;
-  const shouldPlay = () => available() && requested && visible && !document.hidden;
-  const label = () => {
-    const playing = !video.paused;
-    control.textContent = playing ? 'Pause water' : 'Play water';
-    control.setAttribute('aria-label', playing ? 'Pause water animation' : 'Play water animation');
-    media.toggleAttribute('data-playing', playing);
-  };
+  const shouldPlay = () => available() && !reducedMotion.matches && !blocked && visible && !document.hidden;
+  const showState = () => media.toggleAttribute('data-playing', !video.paused && shouldPlay());
   const sync = () => {
-    control.hidden = !available();
     if (!shouldPlay()) {
       video.pause();
-      label();
+      showState();
       return;
     }
     if (!video.paused || pending) return;
     pending = true;
     video.muted = true;
     video.play().catch(error => {
-      // Switching rooms can cancel an outstanding play request.
-      if (error.name !== 'AbortError') requested = false;
+      // Switching rooms can cancel an outstanding play request without disabling motion.
+      if (error.name !== 'AbortError') blocked = true;
     }).finally(() => {
       pending = false;
       if (!shouldPlay()) video.pause();
-      label();
+      showState();
       if (shouldPlay() && video.paused) sync();
     });
   };
-  control.addEventListener('click', () => {
-    requested = video.paused;
-    sync();
-  });
   video.addEventListener('playing', () => {
     if (!shouldPlay()) video.pause();
-    label();
+    showState();
   });
-  video.addEventListener('pause', label);
+  video.addEventListener('pause', showState);
   video.addEventListener('error', () => { failed = true; sync(); });
   new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting && entries[0].intersectionRatio >= .25;
@@ -55,6 +44,6 @@ document.querySelectorAll('[data-scene-media]').forEach(media => {
   const slide = media.closest('.carousel-slide');
   if (slide) observer.observe(slide, { attributes:true, attributeFilter:['inert'] });
   document.addEventListener('visibilitychange', sync);
-  reducedMotion.addEventListener('change', () => { requested = !reducedMotion.matches; sync(); });
+  reducedMotion.addEventListener('change', sync);
   sync();
 });

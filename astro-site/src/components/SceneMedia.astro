@@ -1,32 +1,20 @@
 ---
-import { sceneImage, sceneDimensions, url } from '../data/site';
+import { sceneImage, sceneDimensions } from '../data/site';
+import WaterLoop from './WaterLoop.astro';
 const { direction, room, loading = 'lazy', priority = 'auto' } = Astro.props;
-const water = direction.id === 'aman' && room.id === 'main-entrance';
 const dimensions = sceneDimensions(direction.id, room.id);
 const caption = `${direction.name} · ${room.name}`;
 ---
 <div class="scene-media" data-scene-media data-room={room.id}>
   <button type="button" class="image-button" data-lightbox={sceneImage(direction.id,room.id)} data-caption={caption} aria-label={`Enlarge ${caption}`}>
     <img src={sceneImage(direction.id,room.id)} alt={caption} width={dimensions.width} height={dimensions.height} loading={loading} fetchpriority={priority} draggable="false" />
-    {water && <video class="water-loop" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture>
-      <source src={url('assets/scenes/motion/blue-mineral-water-loop.webm')} type="video/webm" />
-      <source src={url('assets/scenes/motion/blue-mineral-water-loop.mp4')} type="video/mp4" />
-    </video>}
+    <WaterLoop direction={direction.id} room={room.id} />
     <span>View full image <span aria-hidden="true">↗</span></span>
   </button>
-  {water && <button type="button" class="water-control" data-water-toggle aria-label="Play water animation" hidden>Play water</button>}
 </div>
-<script>import '../scripts/scene-motion.js';</script>
 <style>
   .scene-media{position:relative;min-width:0}
   .scene-media .image-button{touch-action:pan-x pan-y pinch-zoom}
   .scene-media .image-button:focus-visible{outline-offset:-4px}
-  .scene-media img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;user-select:none;background:#142034}
-  .water-loop{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;opacity:0}
-  .scene-media[data-playing] .water-loop{opacity:1}
-  .scene-media[data-room]:not([data-room="main-entrance"]) .water-loop{display:none}
-  .water-control{position:absolute;left:15px;bottom:15px;min-height:44px;padding:9px 14px;border:1px solid #ffffff45;background:#0c1220e8;color:#f7f5ec;font-size:11px;cursor:pointer}
-  .water-control[hidden]{display:none}
-  .water-control:hover{background:#0c1220}
-  @media(max-width:700px){.water-control{left:10px;bottom:10px;font-size:10px;padding:8px 10px}}
+  .scene-media img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;user-select:none;background:#142034}
 </style>
