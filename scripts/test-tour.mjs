@@ -122,15 +122,22 @@ test('mismatched cube dimensions are rejected before upload', async () => {
   assert.match(h.el('status-message').textContent, /matching square images/);
 });
 
-test('all production rooms have loadable assets and three complete cube sets', async () => {
+test('all production rooms have loadable assets and five complete cube sets', async () => {
   const sharp = createRequire(new URL('../astro-site/package.json', import.meta.url))('sharp');
   const data = (await readFile(new URL('../astro-site/src/data/clinic-tour.js', import.meta.url), 'utf8'))
     .replace('import.meta.env.BASE_URL', "'/immortals-site/'").replace('export const scenes', 'const scenes');
   const scenes = vm.runInNewContext(`${data}; scenes`);
   assert.equal(scenes.length, 6);
   assert.equal(scenes[0].id, 'main-entrance');
-  assert.equal(scenes.filter(s => s.projection === 'cube').length, 3);
+  assert.equal(scenes.filter(s => s.projection === 'cube').length, 5);
   for (const scene of scenes) {
+    const rebuilt = ['private-entrance', 'vo2-max'].includes(scene.id);
+    if (rebuilt) {
+      assert.equal(scene.projection, 'cube', `${scene.id} must not use its low-resolution panorama`);
+      assert.equal(scene.src, undefined);
+      assert.equal(scene.fov, 78, 'Preserve the original opening field of view');
+      assert.equal(scene.pitch, 0, 'Preserve the original level camera');
+    }
     let size;
     const paths = scene.faces || [scene.src];
     if (scene.projection === 'cube') assert.equal(paths.length, 6);
@@ -139,6 +146,10 @@ test('all production rooms have loadable assets and three complete cube sets', a
       const { width, height } = await sharp(await readFile(file)).metadata();
       if (scene.projection === 'cube') {
         assert.equal(width, height);
+        if (rebuilt) {
+          assert.ok(width >= 1254, `${scene.id} needs native detail in every direction`);
+          assert.ok(src.includes(`/cube-v3/${scene.id}/`), 'Use the rebuilt assets, not cached old views');
+        }
         if (size) assert.equal(width, size);
         size = width;
       } else assert.equal(width, height * 2);

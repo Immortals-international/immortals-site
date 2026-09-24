@@ -1,0 +1,145 @@
+{
+  "projection": "cubemap",
+  "faceOrder": [
+    "right",
+    "left",
+    "up",
+    "down",
+    "front",
+    "back"
+  ],
+  "generation": "Built-in image generation, rebuilding the existing private-entrance and VO2 max panorama views at native cubemap-face detail on 2026-09-24.",
+  "conversion": "WebP quality 95 at original 1254-square dimensions; no enlargement. Six independently rebuilt camera-matched faces per room.",
+  "rooms": [
+    {
+      "id": "private-entrance",
+      "faces": [
+        {
+          "face": "right",
+          "sourceFile": "exec-ee4afbd3-b666-4b23-a139-d870448c97ed.png",
+          "sourceSha256": "6ccbc4e8f3e2020a27eb8cd74089c256eb0cd7942d49fa0d381a8e76cbaca00b",
+          "file": "private-entrance/right.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "04dbd8a5de24af8e714ae7015396cea3b6ff7a20c423ad7b1fe57ea44e944266",
+          "bytes": 409452
+        },
+        {
+          "face": "left",
+          "sourceFile": "exec-b9789d3a-6e84-4ba9-9d8f-c6da42c9a0f0.png",
+          "sourceSha256": "927448aad7283f12f55728c4bf463f8fab1305617ed69231d32357dea22b5d30",
+          "file": "private-entrance/left.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "b65e76de437023655354a0e8f24beb6b39ab6e4557122e817ac906c52f372c13",
+          "bytes": 260988
+        },
+        {
+          "face": "up",
+          "sourceFile": "exec-501982b2-9015-4e49-acfe-3539bf08473c.png",
+          "sourceSha256": "c62df6ecececd7abd4254c03911ad05fdac950d7e44ec4e5bbe55a2221adef20",
+          "file": "private-entrance/up.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "de03ba14d818cab1819bce72ed3221d3a5adb5d6153b17817bd5e026f615cd61",
+          "bytes": 296506
+        },
+        {
+          "face": "down",
+          "sourceFile": "exec-71618412-8f8c-4680-8b66-fd1b4d7b54d3.png",
+          "sourceSha256": "1484333d33aae4c07de0b42e3b26e36f089b3c2698fb1216685e4469f05dcef5",
+          "file": "private-entrance/down.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "cb0fc91872d26fca1589b08a14838d28bbc403d61f26056710d0ac72b0a6d81d",
+          "bytes": 288218
+        },
+        {
+          "face": "front",
+          "sourceFile": "exec-0a6cebf7-9214-40ac-bf2d-bbe1ffbbeace.png",
+          "sourceSha256": "d3cbb21fa31baadb1a7628d04020d72344ae3ac7c4659db1fa98a9bb0200d655",
+          "file": "private-entrance/front.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "85d407d9e6586cdb1929d5be435668e4b2e75de2e48a8bc155c1e8d758301ad0",
+          "bytes": 256140
+        },
+        {
+          "face": "back",
+          "sourceFile": "exec-eb063e02-ce8a-4f39-88e0-f8163533c9f3.png",
+          "sourceSha256": "10acdbe58d66117eabbe8cdd8114a0b8b8ad5228979ac3f52724066d822eeb21",
+          "file": "private-entrance/back.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "de3606297871a7640a8fb0a1d6d2119610fbdccc9e797dd3161fb5abbfa238e8",
+          "bytes": 231634
+        }
+      ]
+    },
+    {
+      "id": "vo2-max",
+      "faces": [
+        {
+          "face": "right",
+          "sourceFile": "exec-965a0c73-a40d-4356-8bea-076aa131ce24.png",
+          "sourceSha256": "59b26051fc0d93351aee1982fe55bbe3eb7b85ad687d3e4825229551dbd36f06",
+          "file": "vo2-max/right.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "f3b047761dc332d34b0a0bb33a5262681223aae3a3fecded27a6214c41117982",
+          "bytes": 340974
+        },
+        {
+          "face": "left",
+          "sourceFile": "exec-c041840d-9f13-4515-a1a5-bde605cc7091.png",
+          "sourceSha256": "1107d61b62d1118a925aa792d9f9b236901714ecf7e2fe5baf3f8065b5a08c61",
+          "file": "vo2-max/left.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "ad3ccf4f4b646769423c2a7f83cbb03d466d8ec3630241c889439b4bc526e690",
+          "bytes": 311236
+        },
+        {
+          "face": "up",
+          "sourceFile": "exec-51169cf0-8c3b-4c8d-a82e-635c3f17c0ee.png",
+          "sourceSha256": "e4db35c8e88cd1d933ff02034416ccb22d0204a64f11b76a641feca6b608b28d",
+          "file": "vo2-max/up.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "17f71b3ad45269f073872b10be33bb801a802fbeda1dead087e06e34cab37e1f",
+          "bytes": 315332
+        },
+        {
+          "face": "down",
+          "sourceFile": "exec-a3762d19-9081-4030-b626-4fa46a6f6b01.png",
+          "sourceSha256": "b70376107e3729f86fc711b04e3eec063357c86c51668ffeafa022072ee60b4d",
+          "file": "vo2-max/down.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "d871e3a2935bd9ee98489ee72b756188dc75acb9bff471115fb5a45012389a5a",
+          "bytes": 437850
+        },
+        {
+          "face": "front",
+          "sourceFile": "exec-46244d22-3bf8-4cea-b650-5b8572d112bc.png",
+          "sourceSha256": "2a0eca7af97388d7046795549d0b33dec6c2339d91a003b22fc49fdafafac363",
+          "file": "vo2-max/front.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "02c39561b307c72352bbcd18ac2baad8f9bf3340d587b0736c7f4ea9dc1a89cb",
+          "bytes": 282494
+        },
+        {
+          "face": "back",
+          "sourceFile": "exec-12864f8b-5b02-4887-9130-12f89eddef1d.png",
+          "sourceSha256": "085e59f1f297329d96efea690945905a114ff26c9ba80e813bd94ef977396666",
+          "file": "vo2-max/back.webp",
+          "width": 1254,
+          "height": 1254,
+          "sha256": "ecab98731ab6cbdf960324cc2e80c64bf00939c1299d51589b15ae2f08520a1a",
+          "bytes": 431364
+        }
+      ]
+    }
+  ]
+}
