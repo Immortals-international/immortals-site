@@ -19,7 +19,7 @@ const menus = [
       <div class:list={['clinic-mega',{'clinic-mega-wide':m.id==='experiences'}]} id={`mega-${m.id}`} hidden>
         <div class="clinic-menu-top"><a class="clinic-menu-overview" href={url(m.path)}>{m.overview}<span aria-hidden="true">↗</span></a></div>
         <div class="clinic-menu-body">
-          <div class:list={['clinic-mega-links',{'clinic-design-links':m.id==='interior-design'}]}>{m.links.map(l=><a href={url(l.path)}>{'image' in l && <img src={l.image} alt="" width="600" height="338" loading="lazy" />}<span>{l.name}</span></a>)}</div>
+          <div class:list={['clinic-mega-links',{'clinic-design-links':m.id==='interior-design'}]}>{m.links.map(l=><a href={url(l.path)}>{'image' in l && <img src={l.image} alt="" width="640" height="427" loading="lazy" />}<span>{l.name}</span></a>)}</div>
           {m.id==='experiences'&&<a class="clinic-menu-feature" href={url('experiences/beat-the-dealer/#play')}><img src={url('assets/experiences/beat-the-dealer.webp')} alt="A host guides a guest at the Beat the Dealer table." width="1672" height="941" loading="lazy" /><span>Try Beat the Dealer <span aria-hidden="true">↗</span></span></a>}
         </div>
       </div>

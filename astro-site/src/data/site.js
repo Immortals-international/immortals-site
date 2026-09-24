@@ -1,5 +1,18 @@
+import sceneManifest from '../../public/assets/scenes/manifest.json';
+
 export const base = import.meta.env.BASE_URL;
-export const url = (path = '') => `${base}${path.replace(/^\//, '')}`;
+const sceneVersions = new Map([
+  ...sceneManifest.styles.flatMap(style => style.images.flatMap(image => [
+    [image.src, image.sha256], [image.thumbnail, image.thumbnailSha256],
+  ])),
+  ...sceneManifest.motion.sources.map(source => [source.src, source.sha256]),
+]);
+// Every placement gets a fresh URL when an approved image or video changes.
+export const url = (path = '') => {
+  const relative = path.replace(/^\//, '');
+  const version = sceneVersions.get(relative);
+  return `${base}${relative}${version ? `?v=${version.slice(0, 12)}` : ''}`;
+};
 export const feedback = 'https://immortals-macau-visual-concepts.immortals-in-8490.chatgpt.site/#discussion';
 export const rooms = [
   { id: 'main-entrance', name: 'Public lobby', note: 'A hosted arrival with screened conversation seating, a coffee lounge and a water wall.' },
