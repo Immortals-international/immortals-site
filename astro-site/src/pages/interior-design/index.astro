@@ -1,6 +1,7 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { url, styles, rooms, sceneImage, feedback } from '../../data/site';
+import SceneMedia from '../../components/SceneMedia.astro';
+import { url, styles, rooms, feedback } from '../../data/site';
 ---
 <SiteLayout title="Interior Design" description="Compare four design directions for Immortals Macau across the same six clinic spaces." active="interior-design">
   <section class="wrap page-heading design-heading">
@@ -13,13 +14,10 @@ import { url, styles, rooms, sceneImage, feedback } from '../../data/site';
     <div class="comparison-tools" role="group" aria-label="Room to compare">
       {rooms.map((room,i) => <button class="chip" data-compare-room={room.id} aria-pressed={i===0}>{room.name}</button>)}
     </div>
-    <p id="comparison-room-label" class="visually-hidden" role="status">Main entrance shown in all four directions.</p>
+    <p id="comparison-room-label" class="visually-hidden" role="status">{rooms[0].name} shown in all four directions.</p>
     <div class="comparison-grid">
       {styles.map((style,i) => <article class="comparison-card" data-style={style.id} data-style-name={style.name}>
-        <button class="image-button" data-lightbox={sceneImage(style.id)} data-caption={`${style.name} · Main entrance`} aria-label={`Enlarge ${style.name} main entrance`}>
-          <img src={sceneImage(style.id)} alt={`${style.name} · Main entrance`} width="1672" height="941" loading={i<2?'eager':'lazy'} />
-          <span>View full image <span aria-hidden="true">↗</span></span>
-        </button>
+        <SceneMedia direction={style} room={rooms[0]} loading={i<2?'eager':'lazy'} />
         <div class="direction-details">
           <h2>{style.name}</h2>
           <p>{style.summary}</p>
@@ -49,6 +47,9 @@ import { url, styles, rooms, sceneImage, feedback } from '../../data/site';
         const caption=`${card.dataset.styleName} · ${name}`;
         image.src=`${base}assets/scenes/${card.dataset.style}/${room}.webp`;
         image.alt=caption;
+        image.width=room==='main-entrance'?1536:1600;
+        image.height=room==='main-entrance'?1024:900;
+        card.querySelector<HTMLElement>('[data-scene-media]')!.dataset.room=room;
         trigger.dataset.lightbox=image.src;
         trigger.dataset.caption=caption;
         trigger.setAttribute('aria-label',`Enlarge ${caption}`);
@@ -65,6 +66,7 @@ import { url, styles, rooms, sceneImage, feedback } from '../../data/site';
   .design-comparison{padding-bottom:68px}
   .comparison-tools{margin:0 0 28px}
   .comparison-grid{gap:46px 26px}
+  .comparison-card :global(img){aspect-ratio:auto}
   .comparison-card{display:flex;flex-direction:column}
   .comparison-card>.direction-details{display:flex;flex-direction:column;align-items:flex-start;gap:0;flex:1;padding-top:20px}
   .direction-details h2{font-size:clamp(25px,2.3vw,34px);line-height:1.15}

@@ -1,6 +1,6 @@
 # Immortals Macau
 
-The Macau flagship presentation, built in `astro-site/` using Astro 7.3.3 and Node.js 24. A shared mega-menu navigation connects the homepage, Layout, Interior Design and Experiences. The site has 22 static pages, including four design directions, thirteen experience concepts and the six-room 360° tour. See `astro-site/MACAU_PRESENTATION.md` for the sitemap, content decisions and validation.
+The Macau flagship presentation, built in `astro-site/` using Astro 7.3.3 and Node.js 24. A shared mega-menu navigation connects the homepage, Layout, Interior Design and Experiences. The site has 22 content pages and three redirects, including four design directions, thirteen experience concepts and the six-room 360° tour. See `astro-site/MACAU_PRESENTATION.md` for the sitemap, content decisions and validation.
 
 ## Run locally
 
@@ -23,9 +23,13 @@ The presentation links to the existing [team feedback form](https://immortals-ma
 
 ## Room scene galleries
 
-Each architectural direction has its own page, with the six room studies, material palette and original lounge/suite board. Room images open in a full-image dialog. The Interior Design overview compares any of the six rooms across all four directions; full room views retain their proportions. Navigation thumbnails and atmospheric homepage hero images may crop for composition. The single Layout page contains all three original floor plans and the zoomable drawing explorer.
+The approved September 2026 scene set contains six rooms across Sculptural Minimalism, Shadow & Timber, Blue Mineral and Navy Residence. Each direction has a room carousel; the overview compares the same room across all four. Full images open in a dialog without cropping. The lobby images are 3:2 and the remaining room images are 16:9. The previous direction URLs redirect to their current names.
 
-Display WebP files and thumbnails are generated with `node scripts/prepare-scenes.mjs /path/to/extracted-pack/public` after installing the Astro dependencies. The original PNG masters are retained in the supplied `Immortals-Macau-24-Scene-Pack.zip` archive and in the local ignored `verification/scene-pack/` extraction. `public/assets/scenes/manifest.json` records both source and display hashes. Generated display files are committed; production builds do not need the private handoff folder. Images keep their full proportions, with no crops or upscaling.
+The Blue Mineral lobby includes the approved eight-second silent water loop, with WebM and MP4 sources. It plays only while visible, pauses when switching rooms or hiding the page, and provides an explicit pause/play control. Reduced-motion users start with the still image. A video failure leaves the still usable.
+
+The approved website exports and their thumbnails are committed under `astro-site/public/assets/scenes/`. `manifest.json` records the current names, actual dimensions, source master hashes and exported asset hashes. Stable internal asset IDs preserve existing experience-page links. The 360° tour uses its separate panorama assets.
+
+To republish this approved pack, run `node scripts/publish-approved-scenes.mjs /path/to/clinic-scene-rollout-2026-09-23` after installing the Astro dependencies. The companion `output/gallery-water-motion-2026-09-23` folder supplies the approved loop. Production builds need only the committed exports, not the private source folder. `scripts/prepare-scenes.mjs` is the older archive importer and should not be run against this release.
 
 
 ## Offline presentation preview

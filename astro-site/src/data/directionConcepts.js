@@ -1,19 +1,19 @@
 export const directionConcepts = {
   futurism: {
-    inspiration: 'Zaha Hadid’s fluid architecture is a key inspiration. Morpheus in Macau, designed by Zaha Hadid Architects, gives this direction a local connection: architecture that makes arrival an experience.',
+    inspiration: 'Zaha Hadid’s fluid architecture informs the flowing edges, sculptural room divider and shaped coffee bar. Morpheus in Macau provides a local architectural reference.',
     reference: { label: 'Morpheus, Macau', href: 'https://www.zha.com/projects/architecture/morpheus-hotel-resort-at-city-of-dreams-macao?disclaimer=true' },
-    rationale: 'A distinctive entrance could draw visitors into the flagship. Inside, softer forms and continuous lighting carry that identity into a quieter setting for private care.',
+    rationale: 'A recognizable architectural identity gives the flagship presence. Continuous surfaces and softer forms carry that identity into a more sheltered setting for personal care.',
   },
   asian: {
-    inspiration: 'Courtyard modernism informs the framed views and sequence of thresholds. The Biograph lighting reference informs the discreet light close to the floor, keeping the atmosphere quiet and precise.',
-    rationale: 'Clear sightlines and measured transitions could make the clinic easy to navigate. The same architectural language creates an open public welcome and a more sheltered setting for care.',
+    inspiration: 'Aman Tokyo’s quiet, atmospheric interiors inform the depth of the timber, framed views and measured light. The Biograph references inform the warmth and discretion of a working clinic.',
+    rationale: 'A composed hotel-like welcome gives guests room to settle in. Screened conversation areas and clear thresholds support privacy without closing off the public lounge.',
   },
   aman: {
-    inspiration: 'The starting point is the grand hotel arrival combined with the intimacy of a private residence. Generous proportions establish presence; comfortable seating and lighting bring the rooms back to a personal scale.',
-    rationale: 'This could feel familiar to Macau’s resort guests while giving Immortals its own presence. The public spaces can host conversation, while the suites offer somewhere to settle into a longer visit.',
+    inspiration: 'A luminous hotel lobby provides the starting point, with mineral surfaces and a ground-level water wall bringing depth and movement. Blue stays rich and inky against the warm ivory architecture.',
+    rationale: 'The light envelope keeps the clinic approachable, while the stone and water create a distinct public arrival. Quieter versions of that material palette carry through the clinical rooms.',
   },
   milanese: {
-    inspiration: 'Tailored residential interiors and the atmosphere of a private club inform this direction. Joinery, expressive stone and individual pieces of furniture create character within a clear architectural frame.',
-    rationale: 'A furnished, personal atmosphere could make the flagship somewhere people choose to spend time. That sense of familiarity carries from the coffee bar into suites designed around privacy and conversation.',
+    inspiration: 'Tailored residential interiors and private hotel lounges inform the furniture, walnut joinery and lamps. Blue marble becomes part of the architecture through substantial counters and tables.',
+    rationale: 'Comfortable seating supports a hosted visit followed by a conversation. Rich materials give the public lounge character, with the same residential warmth carried into private suites.',
   },
 };
