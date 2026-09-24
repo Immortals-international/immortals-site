@@ -13,7 +13,7 @@ export const directionConcepts = {
     rationale: 'The light envelope keeps the clinic approachable, while the stone and water create a distinct public arrival. Quieter versions of that material palette carry through the clinical rooms.',
   },
   milanese: {
-    inspiration: 'Tailored residential interiors and private hotel lounges inform the furniture, walnut joinery and lamps. Blue marble becomes part of the architecture through substantial counters and tables.',
+    inspiration: 'Tailored residential interiors and private hotel lounges inform the timber floors, furniture, walnut joinery and lamps. Blue marble becomes part of the architecture through substantial counters and tables.',
     rationale: 'Comfortable seating supports a hosted visit followed by a conversation. Rich materials give the public lounge character, with the same residential warmth carried into private suites.',
   },
 };

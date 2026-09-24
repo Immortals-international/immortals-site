@@ -7,10 +7,12 @@ import {once} from 'node:events';
 const sharp = createRequire(new URL('../astro-site/package.json', import.meta.url))('sharp');
 const root = path.resolve(import.meta.dirname, '..');
 const input = path.resolve(process.argv[2] || path.join(root, 'output'));
-const output = path.join(input, 'all-lobby-water-2026-09-24');
+const selectedStyle = process.argv[3];
+const output = path.join(input, selectedStyle ? `${selectedStyle}-water-refresh-2026-09-24` : 'all-lobby-water-2026-09-24');
 const publicDir = path.join(root, 'astro-site/public');
 const manifestPath = path.join(publicDir, 'assets/scenes/manifest.json');
 const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+if(selectedStyle && !manifest.styles.some(style=>style.id===selectedStyle))throw new Error(`Unknown style: ${selectedStyle}`);
 const hash = b => createHash('sha256').update(b).digest('hex');
 const width=1600, height=900, fps=30, duration=8, tau=2*Math.PI;
 const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
@@ -51,20 +53,24 @@ function edgeDistance(x,y,poly){
 }
 const loops=[];
 for(const style of manifest.styles){
+  if(selectedStyle && style.id!==selectedStyle)continue;
   const scene=style.images.find(im=>im.id==='main-entrance');
   const shadow=style.id==='asian';
-  const source=path.join(input,shadow?'shadow-timber-widescreen-2026-09-24/main-entrance.png':`clinic-scene-rollout-2026-09-23/${style.slug}/main-entrance.png`);
+  const declaredSource=path.join(input,scene.sourceFile);
+  const source=await fs.access(declaredSource).then(()=>declaredSource).catch(()=>path.join(input,shadow?'shadow-timber-widescreen-2026-09-24/main-entrance.png':`clinic-scene-rollout-2026-09-23/${style.slug}/main-entrance.png`));
   const sourceBytes=await fs.readFile(source),meta=await sharp(sourceBytes).metadata();
   if(hash(sourceBytes)!==scene.sourceSha256)throw new Error(`Source mismatch: ${style.slug}`);
   // Remove only excess foreground floor from the three original 3:2 lobbies.
-  const crop=shadow?null:{left:0,top:0,width:1536,height:864};
+  const crop=scene.sourceCrop||null;
   let pipeline=sharp(sourceBytes);
   if(crop)pipeline=pipeline.extract(crop);
-  const master=await pipeline.resize(width,height,{fit:'cover'}).png().toBuffer();
+  pipeline=pipeline.resize(width,height,{fit:'cover',kernel:'lanczos3'});
+  if(style.exportSettings?.sharpen)pipeline=pipeline.sharpen(style.exportSettings.sharpen);
+  const master=await pipeline.png().toBuffer();
   await fs.writeFile(path.join(output,`${style.slug}.png`),master);
-  if(!shadow){
-    const full=await sharp(master).webp({quality:90}).toBuffer();
-    const thumb=await sharp(master).resize(640,360).webp({quality:85}).toBuffer();
+  if(!shadow && !selectedStyle){
+    const full=await sharp(master).webp({quality:style.exportSettings?.quality||90,...(style.exportSettings?{effort:6,smartSubsample:true}:{})}).toBuffer();
+    const thumb=await sharp(master).resize(640,360).webp({quality:style.exportSettings?.thumbnailQuality||85,...(style.exportSettings?{effort:6,smartSubsample:true}:{})}).toBuffer();
     await fs.writeFile(path.join(publicDir,scene.src),full);
     await fs.writeFile(path.join(publicDir,scene.thumbnail),thumb);
     Object.assign(scene,{width,height,thumbnailWidth:640,thumbnailHeight:360,sha256:hash(full),thumbnailSha256:hash(thumb),sourceCrop:crop});
@@ -74,7 +80,7 @@ for(const style of manifest.styles){
   const blur=await sharp(master).removeAlpha().blur(7).raw().toBuffer();
   const sx=width/(crop?.width||meta.width),sy=height/(crop?.height||meta.height);
   const scale=poly=>poly.map(([x,y])=>[x*sx,y*sy]);
-  const wall=scale(shadow?[[180,58],[269,128],[269,591],[180,625]]:[[195,49],[294,136],[294,640],[195,671]]);
+  const wall=scale(style.id==='milanese' && !crop ? [[211,58],[314,144],[314,698],[211,735]] : shadow?[[180,58],[269,128],[269,591],[180,625]]:[[195,49],[294,136],[294,640],[195,671]]);
   const pool=shadow?scale([[626,582],[906,582],[967,641],[565,641]]):null;
   const plinth=shadow?scale([[712,567],[833,567],[833,619],[712,619]]):null;
   const wallPixels=[],poolPixels=[],mask=new Uint8Array(width*height);
@@ -127,8 +133,8 @@ for(const style of manifest.styles){
   await sharp(maskPreview,{raw:{width,height,channels:3}}).png().toFile(path.join(output,`${style.slug}-mask.png`));
   const filename=`${style.slug}-water-loop`;
   const args=['-y','-hide_banner','-loglevel','error','-f','rawvideo','-pixel_format','rgb24','-video_size',`${width}x${height}`,'-framerate',String(fps),'-i','pipe:0',
-    '-map','0:v','-an','-c:v','libx264','-preset','medium','-crf','21','-pix_fmt','yuv420p','-movflags','+faststart',path.join(output,filename+'.mp4'),
-    '-map','0:v','-an','-c:v','libvpx-vp9','-b:v','0','-crf','32','-row-mt','1','-cpu-used','4','-pix_fmt','yuv420p',path.join(output,filename+'.webm')];
+    '-map','0:v','-an','-c:v','libx264','-preset','medium','-crf',String(style.exportSettings?.mp4Crf??21),'-pix_fmt','yuv420p','-movflags','+faststart',path.join(output,filename+'.mp4'),
+    '-map','0:v','-an','-c:v','libvpx-vp9','-b:v','0','-crf',String(style.exportSettings?.webmCrf??32),'-row-mt','1','-cpu-used','4','-pix_fmt','yuv420p',path.join(output,filename+'.webm')];
   const ff=spawn('ffmpeg',args,{stdio:['pipe','inherit','inherit']});
   const done=once(ff,'exit');
   for(let n=0;n<fps*duration;n++)if(!ff.stdin.write(frame(n/fps)))await once(ff.stdin,'drain');
@@ -142,10 +148,10 @@ for(const style of manifest.styles){
     sources.push({src,type:`video/${ext}`,sha256:hash(bytes)});
   }
   loops.push({style:style.id,scene:'main-entrance',width,height,durationSeconds:duration,muted:true,sources});
-  console.log(`${style.slug}: 16:9 crop, seamless water loop, zero changes outside water mask.`);
+  console.log(`${style.slug}: 16:9 export, seamless water loop, zero changes outside water mask.`);
 }
 manifest.schemaVersion=3;
-manifest.motions=loops;
+manifest.motions=selectedStyle?manifest.motions.map(m=>loops.find(next=>next.style===m.style)||m):loops;
 delete manifest.motion;
 manifest.pathNote='Display paths are relative to the public directory. Source hashes identify original masters; sourceCrop records intentional 16:9 crops in source pixels.';
 await fs.writeFile(manifestPath,JSON.stringify(manifest,null,2)+'\n');
