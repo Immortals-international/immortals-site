@@ -1,16 +1,17 @@
 ---
-import { rooms } from '../data/site';
+import { rooms, roomNote, sceneDimensions } from '../data/site';
 import SceneMedia from './SceneMedia.astro';
 const { direction } = Astro.props;
+const firstSize = sceneDimensions(direction.id, rooms[0].id);
 ---
 <section class="direction-carousel" id="rooms" aria-label={`${direction.name} rooms`} aria-roledescription="carousel">
-  <div class="carousel-track" id="direction-slides" tabindex="0" aria-label="Room images. Swipe or use the arrow keys to explore.">
-    {rooms.map((room,index) => <div class="carousel-slide" role="group" aria-roledescription="slide" aria-label={`${index+1} of ${rooms.length}: ${room.name}`} inert={index!==0}>
+  <div class="carousel-track" style={`--scene-ratio:${firstSize.width}/${firstSize.height}`} id="direction-slides" tabindex="0" aria-label="Room images. Swipe or use the arrow keys to explore.">
+    {rooms.map((room,index) => <div class="carousel-slide" data-ratio={sceneDimensions(direction.id,room.id).width / sceneDimensions(direction.id,room.id).height} role="group" aria-roledescription="slide" aria-label={`${index+1} of ${rooms.length}: ${room.name}`} inert={index!==0}>
       <SceneMedia direction={direction} room={room} loading={index===0?'eager':'lazy'} priority={index===0?'high':'auto'} />
     </div>)}
   </div>
   <div class="carousel-caption">
-    <div class="room-caption"><h2 id="carousel-room-name">{rooms[0].name}</h2><p id="carousel-room-note">{rooms[0].note}</p></div>
+    <div class="room-caption"><h2 id="carousel-room-name">{rooms[0].name}</h2><p id="carousel-room-note">{roomNote(direction, rooms[0])}</p></div>
     <div class="carousel-controls" role="group" aria-label="Browse rooms">
       <button type="button" data-previous-room aria-label="Previous room" aria-controls="direction-slides"><span aria-hidden="true">←</span></button>
       <span class="carousel-count" aria-hidden="true"><span id="carousel-position">01</span> / 06</span>
@@ -18,7 +19,7 @@ const { direction } = Astro.props;
     </div>
   </div>
   <div class="carousel-room-links" role="group" aria-label="Choose a room">
-    {rooms.map((room,index) => <button type="button" data-room-index={index} data-room-name={room.name} data-room-note={room.note} aria-pressed={index===0} aria-controls="direction-slides">{room.name}</button>)}
+    {rooms.map((room,index) => <button type="button" data-room-index={index} data-room-name={room.name} data-room-note={roomNote(direction, room)} aria-pressed={index===0} aria-controls="direction-slides">{room.name}</button>)}
   </div>
   <p class="carousel-status" role="status" aria-live="polite" aria-atomic="true">1 of {rooms.length}. {rooms[0].name}.</p>
 </section>
@@ -34,6 +35,7 @@ const { direction } = Astro.props;
     let trackWidth=track.clientWidth;
     function render(index:number){
       active=index;
+      track.style.setProperty('--scene-ratio',slides[index].dataset.ratio!);
       const room=choices[index];
       carousel!.querySelector('#carousel-room-name')!.textContent=room.dataset.roomName!;
       carousel!.querySelector('#carousel-room-note')!.textContent=room.dataset.roomNote!;
@@ -75,7 +77,7 @@ const { direction } = Astro.props;
 </script>
 <style>
   .direction-carousel{min-width:0}
-  .carousel-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;background:#142034}
+  .carousel-track{display:flex;align-items:flex-start;aspect-ratio:var(--scene-ratio);contain:size;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;background:#142034}
   .carousel-track::-webkit-scrollbar{display:none}
   .carousel-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
   .carousel-caption{display:flex;justify-content:space-between;align-items:start;gap:28px;padding-top:22px}

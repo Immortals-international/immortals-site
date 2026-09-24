@@ -1,16 +1,18 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { url } from '../../data/site';
+import { url, sceneDimensions } from '../../data/site';
 import { experiences } from '../../data/experiences';
 export function getStaticPaths(){return experiences.filter(e=>e.slug!=='beat-the-dealer').map(experience=>({params:{slug:experience.slug},props:{experience}}));}
 const {experience:e}=Astro.props;
+const scene = e.image.match(/^assets\/scenes\/([^/]+)\/(.+)\.webp$/);
+const imageSize = scene ? sceneDimensions(scene[1], scene[2]) : {width:1672, height:941};
 const index=experiences.findIndex(item=>item.slug===e.slug);
 const previous=experiences[(index-1+experiences.length)%experiences.length];
 const next=experiences[(index+1)%experiences.length];
 ---
 <SiteLayout title={e.name} description={e.summary} active="experiences">
 <section class="wrap page-heading"><div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><a href={url('experiences/')}>Experiences</a><span>/</span><span>{e.name}</span></div><p class="eyebrow">EXPERIENCE {e.number} / {e.group}</p><div class="page-heading-grid"><h1>{e.name}<span>.</span></h1><div><p>{e.summary}</p><div class="actions"><a class="text-link" href="#journey">Follow the experience <span>↓</span></a></div></div></div><div class="experience-meta"><div><span>The format</span><strong>{e.format}</strong></div><div><span>The setting</span><strong>{e.setting}</strong></div><div><span>The concept</span><strong>{e.status}</strong></div></div></section>
-<figure class="wrap experience-hero-image"><img src={url(e.image)} alt={e.caption} width="1672" height="941" fetchpriority="high" /><figcaption class="image-caption"><span>{e.caption}</span><span>Concept visualisation</span></figcaption></figure>
+<figure class="wrap experience-hero-image"><img src={url(e.image)} alt={e.caption} width={imageSize.width} height={imageSize.height} fetchpriority="high" /><figcaption class="image-caption"><span>{e.caption}</span><span>Concept visualisation</span></figcaption></figure>
 <section class="cream" id="journey"><div class="wrap section"><div class="chapter-line"><span>THE INVITATION</span><span>{e.tagline}</span></div><p class="experience-invitation">{e.invitation}</p><div class="journey-list">{e.steps.map((step,i)=><article class="journey-step"><span>0{i+1}</span><h3>{step.title}</h3><p>{step.copy}</p></article>)}</div></div></section>
 <section class="wrap section"><div class="takeaway-grid"><div><p class="eyebrow">WHAT STAYS WITH YOU</p><h2>{e.tagline}</h2><p>{e.takeaway}</p><div style="margin-top:35px;border-top:1px solid var(--line);padding-top:25px"><p class="eyebrow">THE NEXT CONVERSATION</p><p class="muted" style="margin-top:12px;font-size:14px">{e.nextstep}</p></div></div><aside class="takeaway-card"><p class="eyebrow">IMMORTALS / THE PERSONAL TAKEAWAY</p><h3>{e.name}</h3><p>{e.takeaway}</p><div><span>EXPERIENCE {e.number}</span><span>MACAU FLAGSHIP</span></div></aside></div><details class="operating-note" open={e.status==='Feasibility review'}><summary>Behind the experience <span aria-hidden="true">＋</span></summary><p>{e.operating}</p></details></section>
 <section class="wrap next-experience" aria-label="More experiences"><a href={url(`experiences/${previous.slug}/`)}><small>← Previous experience</small><h3>{previous.name}</h3></a><a href={url(`experiences/${next.slug}/`)}><small>Next experience →</small><h3>{next.name}</h3></a></section>

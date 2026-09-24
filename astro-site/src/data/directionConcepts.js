@@ -5,8 +5,8 @@ export const directionConcepts = {
     rationale: 'A recognizable architectural identity gives the flagship presence. Continuous surfaces and softer forms carry that identity into a more sheltered setting for personal care.',
   },
   asian: {
-    inspiration: 'Aman Tokyo’s quiet, atmospheric interiors inform the depth of the timber, framed views and measured light. The Biograph references inform the warmth and discretion of a working clinic.',
-    rationale: 'A composed hotel-like welcome gives guests room to settle in. Screened conversation areas and clear thresholds support privacy without closing off the public lounge.',
+    inspiration: 'Aman Tokyo informs the softly luminous lantern ceiling and planted water centrepiece, reinterpreted at the scale of this clinic. Dark timber, framed views and measured light carry the atmosphere into the treatment rooms.',
+    rationale: 'The planted reflecting pool creates a calm focal point for arrival, with reception and a comfortable coffee lounge alongside. Clear thresholds separate this shared welcome from the private clinical spaces.',
   },
   aman: {
     inspiration: 'A luminous hotel lobby provides the starting point, with mineral surfaces and a ground-level water wall bringing depth and movement. Blue stays rich and inky against the warm ivory architecture.',

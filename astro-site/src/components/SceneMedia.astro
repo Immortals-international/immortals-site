@@ -1,13 +1,13 @@
 ---
-import { sceneImage, url } from '../data/site';
+import { sceneImage, sceneDimensions, url } from '../data/site';
 const { direction, room, loading = 'lazy', priority = 'auto' } = Astro.props;
 const water = direction.id === 'aman' && room.id === 'main-entrance';
-const lobby = room.id === 'main-entrance';
+const dimensions = sceneDimensions(direction.id, room.id);
 const caption = `${direction.name} · ${room.name}`;
 ---
 <div class="scene-media" data-scene-media data-room={room.id}>
   <button type="button" class="image-button" data-lightbox={sceneImage(direction.id,room.id)} data-caption={caption} aria-label={`Enlarge ${caption}`}>
-    <img src={sceneImage(direction.id,room.id)} alt={caption} width={lobby ? 1536 : 1600} height={lobby ? 1024 : 900} loading={loading} fetchpriority={priority} draggable="false" />
+    <img src={sceneImage(direction.id,room.id)} alt={caption} width={dimensions.width} height={dimensions.height} loading={loading} fetchpriority={priority} draggable="false" />
     {water && <video class="water-loop" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture>
       <source src={url('assets/scenes/motion/blue-mineral-water-loop.webm')} type="video/webm" />
       <source src={url('assets/scenes/motion/blue-mineral-water-loop.mp4')} type="video/mp4" />

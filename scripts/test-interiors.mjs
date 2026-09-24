@@ -98,3 +98,16 @@ test('24 deployed images and thumbnails decode, match their manifest and preserv
     assert.equal(createHash('sha256').update(await readFile(new URL(asset.src,publicRoot))).digest('hex'),asset.sha256);
   }
 });
+
+test('Shadow & Timber has one 16:9 format across all six scenes and thumbnails',async()=>{
+  const publicRoot=new URL('../astro-site/public/',import.meta.url);
+  const manifest=JSON.parse(await readFile(new URL('assets/scenes/manifest.json',publicRoot),'utf8'));
+  const images=manifest.styles.find(s=>s.id==='asian').images;
+  assert.equal(images.length,6);
+  for(const image of images){
+    for(const [file,width,height] of [[image.src,1600,900],[image.thumbnail,640,360]]){
+      const meta=await sharp(await readFile(new URL(file,publicRoot))).metadata();
+      assert.deepEqual([meta.width,meta.height],[width,height],file);
+    }
+  }
+});
