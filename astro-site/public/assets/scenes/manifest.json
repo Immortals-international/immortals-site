@@ -366,21 +366,15 @@
           "thumbnail": "assets/scenes/milanese/main-entrance-thumb.webp",
           "width": 1600,
           "height": 900,
-          "alt": "Public lobby - Navy Residence, Immortals Macau architectural concept",
-          "sha256": "96197b3d14568ad6ea4d3136c3ec834412c09135b47631129cfe290891edd3ae",
-          "thumbnailSha256": "9745f5ae4eb871df6a30d11c88ce32cb30ac94023c7ca9706e00e5e718b2b403",
-          "sourceFile": "navy-residence/main-entrance.png",
-          "sourceSha256": "bcfb3d108fb4bc4b3dd20f3a5bb9f1f9f83d8cdc99e048e83358e96997650d17",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024,
+          "alt": "Public lobby - Navy Residence with smoked-oak flooring, Immortals Macau architectural concept",
+          "sha256": "2420bf7c44bd2b4c7daa3d1059e8fc249d1311908a9d9746fa032f88edb4deb8",
+          "thumbnailSha256": "d88aa471e80b1390d38fee24e0447c119af6a44e8afebfc904a56b44e930309e",
+          "sourceFile": "navy-timber-final-2026-09-24/main-entrance.png",
+          "sourceSha256": "64e3a35bfc0af62dd11dbc81f29266672a3b8f8b38e8fc2f68d59721abedc8ba",
+          "sourceWidth": 1672,
+          "sourceHeight": 941,
           "thumbnailWidth": 640,
-          "thumbnailHeight": 360,
-          "sourceCrop": {
-            "left": 0,
-            "top": 0,
-            "width": 1536,
-            "height": 864
-          }
+          "thumbnailHeight": 360
         },
         {
           "id": "private-entrance",
@@ -389,13 +383,15 @@
           "thumbnail": "assets/scenes/milanese/private-entrance-thumb.webp",
           "width": 1600,
           "height": 900,
-          "alt": "Private entrance - Navy Residence, Immortals Macau architectural concept",
-          "sha256": "0e9a35d187c44be706bf2ec052e4685dcdf6dd9f28a3763e6d7852db1f2493da",
-          "thumbnailSha256": "c7695494b35042b3d3e34c5ca60ac34d4eb9acb2e5c6dda964fe70eab9fd3075",
-          "sourceFile": "navy-residence/private-entrance.png",
-          "sourceSha256": "df45d4861e1e0e62d4da147fcc6014dd27644ea6ed2b48bdd54e5506e1afeac2",
+          "alt": "Private entrance - Navy Residence with smoked-oak flooring, Immortals Macau architectural concept",
+          "sha256": "b124ea69d24688b930f00c6cf6a8a45c268a78affc7d1a7490874e631962a03f",
+          "thumbnailSha256": "bfa02f2a603465d149f818793d823151daa16dedd872b2e94c332dfeaa8b0f31",
+          "sourceFile": "navy-timber-final-2026-09-24/private-entrance.png",
+          "sourceSha256": "7e7d377265d51140ce7c94999607108507738e188d05d7f927895f10cf09aef9",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "patient-suite-blood-draw",
@@ -404,13 +400,15 @@
           "thumbnail": "assets/scenes/milanese/patient-suite-blood-draw-thumb.webp",
           "width": 1600,
           "height": 900,
-          "alt": "Patient suite - Navy Residence, Immortals Macau architectural concept",
-          "sha256": "6f032cd9fbbefc920df5b0b42b45ffc3e054756d3a4071af9fc619396d753070",
-          "thumbnailSha256": "f97ee007535d66c8ca3ae638d14693c8f9281f5aaea59b7ceeee344967e7106a",
-          "sourceFile": "navy-residence/patient-suite-blood-draw.png",
-          "sourceSha256": "8ba8aeee87316c1a2b7a452a1e951988dcb595d567388d8220a6e183383b4e22",
+          "alt": "Patient suite - Navy Residence with smoked-oak flooring, Immortals Macau architectural concept",
+          "sha256": "84b93b615f47dfc9b816dd1b47167a7e3be74e6e30a140ae3fcd6f6fd140600e",
+          "thumbnailSha256": "f83619d79996ffae948083429553f2fe7d766897453f4ad588dc960ccf90a9da",
+          "sourceFile": "navy-timber-final-2026-09-24/patient-suite-blood-draw.png",
+          "sourceSha256": "e886c17860527acf05df22ce155e8ad8971835c720c56a3cc5ee8c86f9a30d7e",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "dexa",
@@ -419,13 +417,15 @@
           "thumbnail": "assets/scenes/milanese/dexa-thumb.webp",
           "width": 1600,
           "height": 900,
-          "alt": "DEXA room - Navy Residence, Immortals Macau architectural concept",
-          "sha256": "70b221783c0c2898ae9be94297432cbedb4c697a4ab689744256969fc3c5ef64",
-          "thumbnailSha256": "f2cb7e7819802c30e636d30a5820c8ddfa4fe684af9cf5561a32110caf4ec8f7",
-          "sourceFile": "navy-residence/dexa.png",
-          "sourceSha256": "618df24acf77531aa110fcf9e7a52ef4ed4de76c9abd8174f0d13198cd3d3b14",
+          "alt": "DEXA room - Navy Residence with smoked-oak flooring, Immortals Macau architectural concept",
+          "sha256": "207d8c7ccd57a0e74223da37f22b72be617808e0f82adefe9a94942bbd12002d",
+          "thumbnailSha256": "55b7bfda5f59057073851194949c1de51cf2d56e03b201df4fc4dcb58b651d65",
+          "sourceFile": "navy-timber-final-2026-09-24/dexa.png",
+          "sourceSha256": "9a86b89f6e046a1dbeb0056154d78bbaaecedbaaa5d390802fd02c0b5570c824",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "vo2-max",
@@ -434,13 +434,15 @@
           "thumbnail": "assets/scenes/milanese/vo2-max-thumb.webp",
           "width": 1600,
           "height": 900,
-          "alt": "VO2 testing room - Navy Residence, Immortals Macau architectural concept",
-          "sha256": "41cb953593222cb286f11dc041e73f7a21b214a6ffb04e00d762364ccebf19b9",
-          "thumbnailSha256": "9569a7fe303660fc853bc08b6d3478e323b62974866ea5ad175143c2897547eb",
-          "sourceFile": "navy-residence/vo2-max.png",
-          "sourceSha256": "c7df64b918250f1ca189bb74961f45477918a8c6d978674d11ee686d0be0c802",
+          "alt": "VO2 testing room - Navy Residence with smoked-oak flooring, Immortals Macau architectural concept",
+          "sha256": "8cb2ec79d3c4727fa4b55761d63b81824986c525d8f8225b19428d1f6ccbe46a",
+          "thumbnailSha256": "cb360b804a9a28ad0265b1230ba2108f9747e8d4955e573d0660b0cc6ff32d10",
+          "sourceFile": "navy-timber-final-2026-09-24/vo2-max.png",
+          "sourceSha256": "9416d8fe02df56d56045dd18f04fbee645b908432e5a5abf70263558e2ea8fe0",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         },
         {
           "id": "hyperbaric",
@@ -449,16 +451,30 @@
           "thumbnail": "assets/scenes/milanese/hyperbaric-thumb.webp",
           "width": 1600,
           "height": 900,
-          "alt": "Hyperbaric room - Navy Residence, Immortals Macau architectural concept",
-          "sha256": "0d830b584070e18311deedce2ec08b6380c979a9217b78efc3fcc5a1c425ec79",
-          "thumbnailSha256": "d35c8258e7298b6a70a595bcf0abe571f17b0fb3d47ca2ee40741271fe671301",
-          "sourceFile": "navy-residence/hyperbaric.png",
-          "sourceSha256": "53a3a6531c4cb7a456d6586093263b85d140b342703e0d2267d3dab5004b35e2",
+          "alt": "Hyperbaric room - Navy Residence with smoked-oak flooring, Immortals Macau architectural concept",
+          "sha256": "799f3cfcbf41dd37b4dcc0c67ec44de246c9fed1ed1a2116157c00ab070a87c5",
+          "thumbnailSha256": "44aab6457f9d72389546603efcd1d5bf1df50e19a66ed29283ea0ba5fff209fb",
+          "sourceFile": "navy-timber-final-2026-09-24/hyperbaric.png",
+          "sourceSha256": "eb3f5bca6d5313f05c166520f9d5d6f39487aa83edc9af95660b9de7787e4b0b",
           "sourceWidth": 1672,
-          "sourceHeight": 941
+          "sourceHeight": 941,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360
         }
       ],
-      "aspectRatio": "16:9"
+      "aspectRatio": "16:9",
+      "release": "2026-09-24-timber-floor",
+      "exportSettings": {
+        "quality": 96,
+        "thumbnailQuality": 92,
+        "sharpen": {
+          "sigma": 0.7,
+          "m1": 0.5,
+          "m2": 1.2
+        },
+        "mp4Crf": 17,
+        "webmCrf": 24
+      }
     }
   ],
   "motions": [
@@ -533,12 +549,12 @@
         {
           "src": "assets/scenes/motion/navy-residence-water-loop.webm",
           "type": "video/webm",
-          "sha256": "db8799c1ae23618c9f17d2574a6aa31f9fb2acabe64b0c3e92d15430a15b21ee"
+          "sha256": "e5b35b0926126675c0f517697e83580b672b0c6c3bbaf99888e0b8cf5d1a16a7"
         },
         {
           "src": "assets/scenes/motion/navy-residence-water-loop.mp4",
           "type": "video/mp4",
-          "sha256": "2c07bee9d7fe65b794c77d50409b6312d6d04000552d50def3f53ed654324173"
+          "sha256": "e4d0280cef6ea8702e00febdb650d6572b39c03243d2e17604b39837737f3e5b"
         }
       ]
     }
