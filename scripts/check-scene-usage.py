@@ -18,8 +18,9 @@ for style in manifest['styles']:
         dimensions[scene['src']] = (scene['width'], scene['height'])
         dimensions[scene['thumbnail']] = (scene.get('thumbnailWidth', 640), scene.get('thumbnailHeight', round(640 * scene['height'] / scene['width'])))
         expected[scene['thumbnail']] = scene['thumbnailSha256']
-for source in manifest['motion']['sources']:
-    expected[source['src']] = source['sha256']
+for motion in manifest['motions']:
+    for source in motion['sources']:
+        expected[source['src']] = source['sha256']
 for path, digest in expected.items():
     assert sha256((dist / path).read_bytes()).hexdigest() == digest, path
 
@@ -27,8 +28,16 @@ class Page(HTMLParser):
     def __init__(self):
         super().__init__()
         self.refs, self.selectors = [], []
+        self.videos = 0
+        self.water_controls = 0
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'video' and 'water-loop' in attrs.get('class', ''):
+            self.videos += 1
+            assert all(key in attrs for key in ['muted', 'loop', 'playsinline']), attrs
+            assert 'controls' not in attrs, attrs
+        if 'data-water-toggle' in attrs:
+            self.water_controls += 1
         for key in ['src', 'poster', 'data-lightbox']:
             if 'assets/scenes/' in attrs.get(key, ''):
                 self.refs.append(attrs[key])
@@ -55,6 +64,14 @@ for path in sorted(dist.rglob('*.html')):
     pages += 1
     coverage[path.relative_to(dist).as_posix()] = len(page.refs)
     assert sum('-thumb.webp' in ref for ref in page.refs) == 4, path
+    assert page.water_controls == 0, path
+    relative = path.relative_to(dist).as_posix()
+    if relative in ['index.html', 'interior-design/index.html']:
+        assert page.videos == 8, (path, page.videos)
+    elif relative.startswith('interior-design/'):
+        assert page.videos == 5, (path, page.videos)
+    else:
+        assert page.videos >= 4, (path, page.videos)
     for ref in page.refs + page.selectors:
         parsed = urlparse(ref)
         assert parsed.path.startswith(base), (path, ref)

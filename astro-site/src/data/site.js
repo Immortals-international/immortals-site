@@ -5,7 +5,7 @@ const sceneVersions = new Map([
   ...sceneManifest.styles.flatMap(style => style.images.flatMap(image => [
     [image.src, image.sha256], [image.thumbnail, image.thumbnailSha256],
   ])),
-  ...sceneManifest.motion.sources.map(source => [source.src, source.sha256]),
+  ...sceneManifest.motions.flatMap(motion => motion.sources.map(source => [source.src, source.sha256])),
 ]);
 // Every placement gets a fresh URL when an approved image or video changes.
 export const url = (path = '') => {
@@ -39,4 +39,5 @@ export const sceneDimensions = (style, room = 'main-entrance', thumb = false) =>
 export const roomNote = (style, room) => style.id === 'asian' && room.id === 'main-entrance'
   ? 'A hosted arrival around a planted reflecting pool, beneath a luminous lantern ceiling, with a coffee lounge alongside.'
   : room.note;
+export const sceneMotion = (style, room = 'main-entrance') => sceneManifest.motions.find(motion => motion.style === style && motion.scene === room);
 export const sceneImage = (style, room = 'main-entrance', thumb = false) => url(`assets/scenes/${style}/${room}${thumb ? '-thumb' : ''}.webp`);

@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "release": "2026-09-24",
   "layoutBasis": "Gallery",
   "assetBase": "assets/scenes/",
-  "pathNote": "Display paths are relative to the public directory. Master hashes identify the approved local scene rollout; web exports retain the complete composition.",
+  "pathNote": "Display paths are relative to the public directory. Source hashes identify original masters; sourceCrop records intentional 16:9 crops in source pixels.",
   "scenes": [
     {
       "id": "main-entrance",
@@ -41,15 +41,23 @@
           "label": "Public lobby",
           "src": "assets/scenes/futurism/main-entrance.webp",
           "thumbnail": "assets/scenes/futurism/main-entrance-thumb.webp",
-          "width": 1536,
-          "height": 1024,
+          "width": 1600,
+          "height": 900,
           "alt": "Public lobby - Sculptural Minimalism, Immortals Macau architectural concept",
-          "sha256": "295ceae8429b3259b4d2ff1d2af470f8514370c6bebcd85c4f95c2231fd26c14",
-          "thumbnailSha256": "5462f4dd54a0937236e6a5704b4ec0e2e6b3fb2628519676e2b297e199fef3d1",
+          "sha256": "076ee7d40b3bb3d089e804dc992961d92c4c168518979c18447da02209d76872",
+          "thumbnailSha256": "ec62b27f1f13c0aa10bcdb8d10965ea9efba1eba10cd62297195a5f6307c65c2",
           "sourceFile": "sculptural-minimalism/main-entrance.png",
           "sourceSha256": "33b467071ae8055ab95a231d005ee3ea7ff975c772451c185d3dd7ef853460e1",
           "sourceWidth": 1536,
-          "sourceHeight": 1024
+          "sourceHeight": 1024,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360,
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 1536,
+            "height": 864
+          }
         },
         {
           "id": "private-entrance",
@@ -126,7 +134,8 @@
           "sourceWidth": 1672,
           "sourceHeight": 941
         }
-      ]
+      ],
+      "aspectRatio": "16:9"
     },
     {
       "id": "asian",
@@ -249,15 +258,23 @@
           "label": "Public lobby",
           "src": "assets/scenes/aman/main-entrance.webp",
           "thumbnail": "assets/scenes/aman/main-entrance-thumb.webp",
-          "width": 1536,
-          "height": 1024,
+          "width": 1600,
+          "height": 900,
           "alt": "Public lobby - Blue Mineral, Immortals Macau architectural concept",
-          "sha256": "f5ba5542fbaf1d27ada86aeccb14f1892d2024e2ad1fcdc8ea1dc0a9d732b544",
-          "thumbnailSha256": "64a7de0ff1e70289c958b323b76685b5e2f2182a5deb8c910462a65345e26e96",
+          "sha256": "f7892fcf205b31bbcbc64d838db92f83c1dc80e80975fa9b010e17235ac35171",
+          "thumbnailSha256": "a1401111126742454ec70396bb8c4d8c2b6fecb53a1798d8f6b5460e40c0db7a",
           "sourceFile": "blue-mineral/main-entrance.png",
           "sourceSha256": "0d4362f0ee213af209d2f85220b25c4e7f7da688dab57178d68b748f3c61b350",
           "sourceWidth": 1536,
-          "sourceHeight": 1024
+          "sourceHeight": 1024,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360,
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 1536,
+            "height": 864
+          }
         },
         {
           "id": "private-entrance",
@@ -334,7 +351,8 @@
           "sourceWidth": 1672,
           "sourceHeight": 941
         }
-      ]
+      ],
+      "aspectRatio": "16:9"
     },
     {
       "id": "milanese",
@@ -346,15 +364,23 @@
           "label": "Public lobby",
           "src": "assets/scenes/milanese/main-entrance.webp",
           "thumbnail": "assets/scenes/milanese/main-entrance-thumb.webp",
-          "width": 1536,
-          "height": 1024,
+          "width": 1600,
+          "height": 900,
           "alt": "Public lobby - Navy Residence, Immortals Macau architectural concept",
-          "sha256": "e3a2c1fbf539ee0d2615599efe0cead6df54fefd84f56aec519f082cd560fb0b",
-          "thumbnailSha256": "a854ecccc66997a235a61d5a325bd86ea5bf7741f38c929cff3772d883721d5e",
+          "sha256": "96197b3d14568ad6ea4d3136c3ec834412c09135b47631129cfe290891edd3ae",
+          "thumbnailSha256": "9745f5ae4eb871df6a30d11c88ce32cb30ac94023c7ca9706e00e5e718b2b403",
           "sourceFile": "navy-residence/main-entrance.png",
           "sourceSha256": "bcfb3d108fb4bc4b3dd20f3a5bb9f1f9f83d8cdc99e048e83358e96997650d17",
           "sourceWidth": 1536,
-          "sourceHeight": 1024
+          "sourceHeight": 1024,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360,
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 1536,
+            "height": 864
+          }
         },
         {
           "id": "private-entrance",
@@ -431,23 +457,90 @@
           "sourceWidth": 1672,
           "sourceHeight": 941
         }
-      ]
+      ],
+      "aspectRatio": "16:9"
     }
   ],
-  "motion": {
-    "style": "aman",
-    "scene": "main-entrance",
-    "durationSeconds": 8,
-    "muted": true,
-    "sources": [
-      {
-        "src": "assets/scenes/motion/blue-mineral-water-loop.webm",
-        "sha256": "5cbb5f88dcb47c96963526ebc9cb21a06e1dfd840d7f2e4e1a5749bd375a6f00"
-      },
-      {
-        "src": "assets/scenes/motion/blue-mineral-water-loop.mp4",
-        "sha256": "1c64546e38883ef1667330cc4bfc6d00ea5aef216f4f832b15162663b6da7489"
-      }
-    ]
-  }
+  "motions": [
+    {
+      "style": "futurism",
+      "scene": "main-entrance",
+      "width": 1600,
+      "height": 900,
+      "durationSeconds": 8,
+      "muted": true,
+      "sources": [
+        {
+          "src": "assets/scenes/motion/sculptural-minimalism-water-loop.webm",
+          "type": "video/webm",
+          "sha256": "511dd716ef10ecb817e951159ea3826c51654ab062caa3b2557248276ff3fd45"
+        },
+        {
+          "src": "assets/scenes/motion/sculptural-minimalism-water-loop.mp4",
+          "type": "video/mp4",
+          "sha256": "2629df6e4b79c411053ce7cbfa66510583b30eaf2df8244a42d3ca0e496e56ae"
+        }
+      ]
+    },
+    {
+      "style": "asian",
+      "scene": "main-entrance",
+      "width": 1600,
+      "height": 900,
+      "durationSeconds": 8,
+      "muted": true,
+      "sources": [
+        {
+          "src": "assets/scenes/motion/shadow-and-timber-water-loop.webm",
+          "type": "video/webm",
+          "sha256": "43eb7d0fb4339099903e642e24251cd5faf2e980bc9bfe96b33dff2d6630350c"
+        },
+        {
+          "src": "assets/scenes/motion/shadow-and-timber-water-loop.mp4",
+          "type": "video/mp4",
+          "sha256": "2a3ce98a084ae7bbeac870e8a35f03ba62813c87063f1f5055ea459ca7cf5d67"
+        }
+      ]
+    },
+    {
+      "style": "aman",
+      "scene": "main-entrance",
+      "width": 1600,
+      "height": 900,
+      "durationSeconds": 8,
+      "muted": true,
+      "sources": [
+        {
+          "src": "assets/scenes/motion/blue-mineral-water-loop.webm",
+          "type": "video/webm",
+          "sha256": "19aa270ff36dcf6bb66a89d8e594ff763c7855127909c23105c0e887e439c2b2"
+        },
+        {
+          "src": "assets/scenes/motion/blue-mineral-water-loop.mp4",
+          "type": "video/mp4",
+          "sha256": "cfb3ef84c91b1b0268e508dc65c2aa0b5a3550e5feaa8640a12dda27f6341783"
+        }
+      ]
+    },
+    {
+      "style": "milanese",
+      "scene": "main-entrance",
+      "width": 1600,
+      "height": 900,
+      "durationSeconds": 8,
+      "muted": true,
+      "sources": [
+        {
+          "src": "assets/scenes/motion/navy-residence-water-loop.webm",
+          "type": "video/webm",
+          "sha256": "db8799c1ae23618c9f17d2574a6aa31f9fb2acabe64b0c3e92d15430a15b21ee"
+        },
+        {
+          "src": "assets/scenes/motion/navy-residence-water-loop.mp4",
+          "type": "video/mp4",
+          "sha256": "2c07bee9d7fe65b794c77d50409b6312d6d04000552d50def3f53ed654324173"
+        }
+      ]
+    }
+  ]
 }
