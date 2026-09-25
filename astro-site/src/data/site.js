@@ -21,6 +21,7 @@ export const rooms = [
   { id: 'dexa', name: 'DEXA room', note: 'Dedicated assessment space, with the scanner integrated into the room.' },
   { id: 'vo2-max', name: 'VO₂ testing room', note: 'A dedicated setting for a supervised exercise assessment.' },
   { id: 'hyperbaric', name: 'Hyperbaric room', note: 'A multiplace chamber concept within a dedicated treatment room.' },
+  { id: 'supplement-lab', name: 'Supplement lab', note: 'A staff-only workspace for personalised supplement preparation, visible through the mall-facing glass.' },
 ];
 // Stable asset IDs preserve existing room links; public names and routes follow the approved directions.
 export const styles = [

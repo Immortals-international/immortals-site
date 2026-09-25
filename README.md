@@ -23,7 +23,7 @@ The presentation links to the existing [team feedback form](https://immortals-ma
 
 ## Room scene galleries
 
-The approved September 2026 scene set contains six rooms across Sculptural Minimalism, Shadow & Timber, Blue Mineral and Navy Residence. Each direction has a room carousel; the overview compares the same room across all four. Full images open in a dialog without cropping. The lobby images are 3:2 and the remaining room images are 16:9. The previous direction URLs redirect to their current names.
+The approved September 2026 scene set contains seven rooms across Sculptural Minimalism, Shadow & Timber, Blue Mineral and Navy Residence. Each direction has a room carousel; the overview compares the same room across all four. Full images open in a dialog without cropping. The lobby images are 3:2 and the remaining room images are 16:9. The previous direction URLs redirect to their current names.
 
 The Blue Mineral lobby includes the approved eight-second silent water loop, with WebM and MP4 sources. It plays only while visible, pauses when switching rooms or hiding the page, and provides an explicit pause/play control. Reduced-motion users start with the still image. A video failure leaves the still usable.
 

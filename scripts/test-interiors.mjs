@@ -69,10 +69,10 @@ test('fast room switching recovers after an interrupted play request',async()=>{
   const h=harness({deferred:true});h.visible();h.room('dexa');h.room('main-entrance');await flush();
   assert.equal(h.video.calls,2);h.resolve();await flush();assert.equal(h.video.paused,false);
 });
-test('24 deployed images and thumbnails decode, match their manifest and preserve the intended source or crop proportions',async()=>{
+test('28 deployed images and thumbnails decode, match their manifest and preserve the intended source or crop proportions',async()=>{
   const publicRoot=new URL('../astro-site/public/',import.meta.url);
   const manifest=JSON.parse(await readFile(new URL('assets/scenes/manifest.json',publicRoot),'utf8'));
-  assert.equal(manifest.styles.length,4);assert.equal(manifest.scenes.length,6);
+  assert.equal(manifest.styles.length,4);assert.equal(manifest.scenes.length,7);
   assert.deepEqual(manifest.styles.map(s=>s.title),['Sculptural Minimalism','Shadow & Timber','Blue Mineral','Navy Residence']);
   for(const style of manifest.styles){
     assert.deepEqual(style.images.map(i=>i.id),manifest.scenes.map(s=>s.id));
@@ -98,11 +98,11 @@ test('24 deployed images and thumbnails decode, match their manifest and preserv
   }
 });
 
-test('All four directions use one 16:9 format across 24 scenes and thumbnails',async()=>{
+test('All four directions use one 16:9 format across 28 scenes and thumbnails',async()=>{
   const publicRoot=new URL('../astro-site/public/',import.meta.url);
   const manifest=JSON.parse(await readFile(new URL('assets/scenes/manifest.json',publicRoot),'utf8'));
   const images=manifest.styles.flatMap(s=>s.images);
-  assert.equal(images.length,24);
+  assert.equal(images.length,28);
   for(const image of images){
     for(const [file,width,height] of [[image.src,1600,900],[image.thumbnail,640,360]]){
       const meta=await sharp(await readFile(new URL(file,publicRoot))).metadata();

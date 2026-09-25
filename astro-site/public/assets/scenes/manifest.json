@@ -28,6 +28,10 @@
     {
       "id": "hyperbaric",
       "label": "Hyperbaric room"
+    },
+    {
+      "id": "supplement-lab",
+      "label": "Supplement lab"
     }
   ],
   "styles": [
@@ -131,6 +135,23 @@
           "thumbnailSha256": "44a4979b984a830d1a72c3802be892c5f01f85d3c08f980d59fe68f9d8a9e373",
           "sourceFile": "sculptural-minimalism/hyperbaric.webp",
           "sourceSha256": "4e4d04b478fe3d7a334d43fa9c317adbc892aa279b7169a31aee7a54ed136a01",
+          "sourceWidth": 1672,
+          "sourceHeight": 941
+        },
+        {
+          "id": "supplement-lab",
+          "label": "Supplement lab",
+          "src": "assets/scenes/futurism/supplement-lab.webp",
+          "thumbnail": "assets/scenes/futurism/supplement-lab-thumb.webp",
+          "width": 1600,
+          "height": 900,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360,
+          "alt": "Supplement lab - Sculptural Minimalism, Immortals Macau architectural concept",
+          "sha256": "b6c4cae4caf74a9152bd2dee2f6ae3241a7b591e38976fdb82c6a665ebc33832",
+          "thumbnailSha256": "80f9fa4118d5a1957bb8ad21f400a238cd49e2a1a35263ee41c60df7a3960429",
+          "sourceFile": "supplement-lab-four-styles-2026-09-25/sculptural-minimalism.png",
+          "sourceSha256": "3093c7818ba07925884a37466cb216496d95630e460fa168e38e96a1e9ddeb1b",
           "sourceWidth": 1672,
           "sourceHeight": 941
         }
@@ -243,6 +264,23 @@
           "sourceHeight": 941,
           "thumbnailWidth": 640,
           "thumbnailHeight": 360
+        },
+        {
+          "id": "supplement-lab",
+          "label": "Supplement lab",
+          "src": "assets/scenes/asian/supplement-lab.webp",
+          "thumbnail": "assets/scenes/asian/supplement-lab-thumb.webp",
+          "width": 1600,
+          "height": 900,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360,
+          "alt": "Supplement lab - Shadow & Timber, Immortals Macau architectural concept",
+          "sha256": "5bace47748cc840afa755e2d23a7a359a3ed847e6e1358e1c87214e241a166ea",
+          "thumbnailSha256": "a789ee3e8b2b335de031b49406361ba4280a0f842eb8905ec7efe33973179360",
+          "sourceFile": "supplement-lab-four-styles-2026-09-25/shadow-and-timber.png",
+          "sourceSha256": "69edc7ea4acc7c65f49ed2b30fe97d79d3f19867f38c191002fae739c430e9d6",
+          "sourceWidth": 1672,
+          "sourceHeight": 941
         }
       ],
       "release": "2026-09-24",
@@ -348,6 +386,23 @@
           "thumbnailSha256": "cfd71873374ba33c8b5e449e7b17856a80a5c912ca3b0615df3e49aff492ac69",
           "sourceFile": "blue-mineral/hyperbaric.png",
           "sourceSha256": "8314a32008f6a9bc829afd89fce2af2bde2780a0a59580d5bf8a94fa5cdeb827",
+          "sourceWidth": 1672,
+          "sourceHeight": 941
+        },
+        {
+          "id": "supplement-lab",
+          "label": "Supplement lab",
+          "src": "assets/scenes/aman/supplement-lab.webp",
+          "thumbnail": "assets/scenes/aman/supplement-lab-thumb.webp",
+          "width": 1600,
+          "height": 900,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360,
+          "alt": "Supplement lab - Blue Mineral, Immortals Macau architectural concept",
+          "sha256": "a040f6827be559852afdd2df3b8b05daf71e913e5204411b132767a1ab15555e",
+          "thumbnailSha256": "19ba4e8d89ce7acc763884b51dfc8708508fe38966be7de51987b6561cf266e7",
+          "sourceFile": "supplement-lab-four-styles-2026-09-25/blue-mineral.png",
+          "sourceSha256": "9cb44d41f2249868e761faf335d80965c77dbd609cf3847934128f4f02595d4d",
           "sourceWidth": 1672,
           "sourceHeight": 941
         }
@@ -460,6 +515,23 @@
           "sourceHeight": 941,
           "thumbnailWidth": 640,
           "thumbnailHeight": 360
+        },
+        {
+          "id": "supplement-lab",
+          "label": "Supplement lab",
+          "src": "assets/scenes/milanese/supplement-lab.webp",
+          "thumbnail": "assets/scenes/milanese/supplement-lab-thumb.webp",
+          "width": 1600,
+          "height": 900,
+          "thumbnailWidth": 640,
+          "thumbnailHeight": 360,
+          "alt": "Supplement lab - Navy Residence, Immortals Macau architectural concept",
+          "sha256": "bb08bcc73ce38bb230453cfd8c7c8d5d8a37fc55ce88988ff27d288d20fecb31",
+          "thumbnailSha256": "b0a3bc0ab0eaf69b73f12c60caaed799031cd5cf5a9e8c3a481d85e9ddb77b47",
+          "sourceFile": "supplement-lab-four-styles-2026-09-25/navy-residence.png",
+          "sourceSha256": "b5507e5e30fe28ff2d746f3dc208ae216513f44aa63018f07078fe6718be3e57",
+          "sourceWidth": 1672,
+          "sourceHeight": 941
         }
       ],
       "aspectRatio": "16:9",
