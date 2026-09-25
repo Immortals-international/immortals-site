@@ -4,22 +4,22 @@
     {
       "id": "windowfront",
       "file": "plan-windowfront.svg",
-      "sha256": "2d8d8a8144a44504fb13f6e7627c3e8643ad40a5059046243b59837f9f79768e"
+      "sha256": "90f274f1cbe7fdb5041be2f2f9caa440e5a56212f6cb58ac657078212804fd9d"
     },
     {
       "id": "shared-club",
       "file": "plan-shared-club.svg",
-      "sha256": "6fd6c6666fa0480105e40fcdb130c6d1b5f675dbbdc8797d0c6bc96781398045"
+      "sha256": "d992adf1801d2d51998a15f0d27bcceffbb956728c558406b47d0a6e03f4788b"
     },
     {
       "id": "two-destinations",
       "file": "plan-two-destinations.svg",
-      "sha256": "09216ec63639598691c46b528a810e52b762f37077a5f290b9526bec1bf5d86c"
+      "sha256": "f3e5bd24f6f605b02b05054374415d8a6136d52c008bf9fdfb453fab3ca7c3e5"
     },
     {
       "id": "patient-houses",
       "file": "plan-patient-houses.svg",
-      "sha256": "9ade742000884ae4edde005ceb85126d21aa340cec1d1a2f9b645136c6ad63b6"
+      "sha256": "5e572dd2ab7a52c8549f6a7064326167fd79b24d900cacff429ceb8d1c2d88d1"
     }
   ]
 }

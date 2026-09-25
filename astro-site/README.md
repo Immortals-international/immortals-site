@@ -4,7 +4,7 @@ Astro port of the existing Immortals Macau presentation. All four architectural 
 
 ## Floor plans
 
-Gallery now includes the September 25 corner-frontage revision: a lab in the left shopfront triangle, aligned salon and skin/data walls, internal guest toilets and an open lounge at the busy bottom mall junction. Its clinical rooms and four window suites are retained. Public windowfront, Shared window club, Two destinations and Two patient houses remain earlier studies pending the same corner review. All five share the homepage preview, layout comparison and enlarged viewer.
+All five plans now include the September 25 corner-frontage revision. Gallery retains its visible lab, aligned salon walls, internal guest toilets and open corner lounge. The four other concepts each have a distinct public corner: discovery lounge, social salon, public forum and neighbourhood living room. Their toilets and support rooms move inward, with revised circulation and equipment placement. All five share the homepage preview, layout comparison and enlarged viewer.
 
 Run `python3 scripts/floor-plans/build_gallery.py` from the repository root to regenerate Gallery and refresh its cache hash. The supplied baseline is preserved in `scripts/floor-plans/gallery-source.svg`. The revised drawing deliberately omits obsolete area allocations; corner glazing and lab services remain proposals.
 

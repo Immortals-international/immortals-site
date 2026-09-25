@@ -7,7 +7,7 @@ const image = id => {
   return `assets/plan-${id}.svg?v=${version.slice(0, 12)}`;
 };
 
-// Gallery includes the corner-frontage revision. Other concepts await that redesign.
+// Every concept activates the busy mall corner and moves support inward.
 export const layouts = [
   {
     id: 'gallery', name: 'Gallery', title: 'An open discovery floor',
@@ -18,30 +18,30 @@ export const layouts = [
   },
   {
     id: 'windowfront', name: 'Public windowfront', title: 'The public gets the view',
-    description: 'Discovery and a working café follow the curved window frontage. Four private suites move into an internal clinical cluster, reached through a discreet branch from the shared arrival.',
+    description: 'A discovery lounge brings demonstrations to the busy mall corner. A public promenade leads to the window café and glazed experience rooms, while four internal suites sit behind a separate clinical branch. Support moves beside the retained escape.',
     frontage: 'Public discovery and café', suites: 'Four internal suites', arrivals: 'One shared entrance with an internal split',
-    benefit: 'The best frontage attracts and engages visitors.',
-    tradeoff: 'Patients give up an exclusive window suite. The internal retreat needs to feel compelling during longer visits.',
+    benefit: 'Two public attractions connect the mall corner to the window frontage.',
+    tradeoff: 'Patients give up an exclusive window suite. The long public route needs clear hosting, and the compact support core needs a measured fit test.',
   },
   {
     id: 'shared-club', name: 'Shared window club', title: 'The view becomes a shared amenity',
-    description: 'A public entrance on the left leads through discovery toward the window living room. Patients arrive on the right and enter the private suite cluster. Hospitality is shared; support occupies the lower tip.',
+    description: 'The left entrance opens into a social salon across the whole lower tip. A discovery route leads to the shared window living room. Patients retain their right-hand arrival and internal suite cluster; toilets and support move into the upper clinical core.',
     frontage: 'Shared lounge, coffee and hosting', suites: 'Four internal suites', arrivals: 'Separate public and patient entrances',
-    benefit: 'An exceptional shared space gives people a reason to return.',
-    tradeoff: 'Access to the window club needs a clear policy, with hosted thresholds between public activity and patient care.',
+    benefit: 'A lively corner salon and a quieter window club offer two reasons to stay.',
+    tradeoff: 'Access to the window club needs a clear policy. Hosting and acoustic separation must protect the nearby patient suites.',
   },
   {
     id: 'two-destinations', name: 'Two destinations', title: 'A public destination and a private retreat',
-    description: 'Public and clinical wings each receive a stretch of window frontage. Two entrances connect through a hosted arrival hall, with separate public and patient routes into the wings.',
+    description: 'The bottom corner becomes a public forum for talks, demonstrations and small events. Behind it, a hosted hall links both entrances and branches into public and clinical wings. Toilets and support move into a central block; each wing keeps a share of the view.',
     frontage: 'Public café and private suites', suites: 'Two window suites and two internal suites', arrivals: 'Two entrances linked by a hosted hall',
-    benefit: 'Both sides have their own arrival and a share of the view.',
-    tradeoff: 'The two suite settings create an uneven offer. The right-hand assessment strip needs particular attention in a measured fit test.',
+    benefit: 'A visible public forum gives the two wings a common meeting place.',
+    tradeoff: 'Events need acoustic separation from care. The two suite settings remain different, and the right-hand assessment strip needs a measured fit test.',
   },
   {
     id: 'patient-houses', name: 'Two patient houses', title: 'Care feels smaller and more personal',
-    description: 'Two pairs of suites sit around local lounges and preparation spaces. A public window café occupies the frontage between them, while dedicated assessments and HBOT remain shared.',
-    frontage: 'Patient houses around a public café', suites: 'Two pairs with local lounge and preparation', arrivals: 'One hosted entrance with separate internal routes',
-    benefit: 'Patients belong to a smaller, more personal care setting.',
-    tradeoff: 'Visits still require trips to shared assessment and treatment rooms. Local care must do enough to make each house meaningful.',
+    description: 'A neighbourhood living room with coffee occupies the mall corner, with the salons opening onto it. The public spine continues to a quiet window room between two care houses. Each suite pair keeps its local lounge and preparation space; support sits inside the care spine.',
+    frontage: 'Patient houses around a public window room', suites: 'Two pairs with local lounge and preparation', arrivals: 'One hosted entrance with separate internal routes',
+    benefit: 'A communal living room welcomes visitors while each patient belongs to a smaller care house.',
+    tradeoff: 'Patients still travel to shared tests and treatment. The public spine needs clear boundaries around the two care houses.',
   },
 ].map(plan => ({ ...plan, image: image(plan.id) }));
