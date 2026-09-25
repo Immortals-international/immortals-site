@@ -45,3 +45,10 @@ From the repository root, `node scripts/prepare-tour.mjs /path/to/Immortals-Six-
 The homepage hero uses the approved 32-second revision-3.1 clinic experience film, with the enclosed mall entrance. The existing headline, description and destination links remain unchanged. `HeroFilm.astro` supplies the background media and pause/play control; `hero-film.js` handles visible-only silent playback and a bounded scroll parallax. Reduced-motion and data-saving visitors see the poster until they choose Play video. Video errors leave the poster visible.
 
 Assets live in `public/assets/films/`. The desktop MP4 is the approved web export. The lighter 540 x 960 phone version preserves the 32-second edit and reframes each existing shot to keep the person or detail visible. Versioned filenames allow a later approved film to replace these assets without stale caches.
+
+
+## Presentation password screen
+
+All presentation routes, including the standalone tour and Beat the Dealer page, show a shared password screen. A successful entry is remembered in sessionStorage for the current tab. The password is checked against the SHA-256 digest in `src/components/PresentationAccess.astro`; update that digest to rotate it and invalidate older stored access. Do not commit the plain-text password.
+
+This is the agreed convenience screen for casual visitors, not server-side access control. GitHub Pages still serves the page source, images and other assets publicly, and the GitHub repository remains public. The external feedback service retains its existing authentication.
