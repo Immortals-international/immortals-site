@@ -108,6 +108,17 @@ class Draw:
   elif id in ['A1','H1']:self.couch(-34,yb,45);self.circle(25,yb+10,10)
   else:self.rect(-34,yb+6,68,18)
   self.raw('</g>')
+ def lab(self,z,spec):
+  x,y,w,h=spec['bench'];lx,ly=spec['label']
+  self.raw('<g data-symbol="visible-working-lab">')
+  self.rect(x,y,w,h,'#d6e1dc','#81998e',1.3,0)
+  self.basin(x+5,y+5)
+  for px in [x+w*.45,x+w*.75]:
+   self.rect(px,y+3,18,h-6,'#f8faf7','#81998e',.8,1)
+   self.circle(px+9,y+h/2,4,'#b5ccc7')
+  self.text(lx,ly,['L1','VISIBLE LAB'],12,weight=700)
+  self.text(lx,ly+32,'STAFF ACCESS',8,weight=400)
+  self.raw('</g>')
  def coffee(self,z,avoid=()):
   g=z['geometry'];loc=spot(g,285,115,avoid=avoid);scale=1
   if not loc:loc=spot(g,228,92,avoid=avoid);scale=.8
@@ -185,7 +196,7 @@ class Draw:
    for x,y in [(780,1210),(1000,1210)]:
     self.rect(x,y,44,24);self.text(x+22,y+39,'EXPLORE',8,weight=400)
   elif kind=='lounge':
-   self.couch(735,1110,78);self.couch(735,1175,78);self.circle(774,1150,17)
+   self.couch(847,1182,60)
    self.circle(976,1135,33)
    for x,y in [(963,1081),(963,1174),(921,1122),(1018,1122)]:self.rect(x,y,25,25,'#dce4d5',rx=4)
    self.text(969,1220,'CONVERSATION / SHARED TABLE',10,weight=400)
@@ -215,9 +226,9 @@ reference_shell=DATA[0]['shell'];manifest=[]
 for model in DATA:
  d=Draw();key=model['key'];slug=IDS[key];title=model['title'];zones=model['zones'];byid={z['id']:z for z in zones}
  d.raw('<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1800" viewBox="0 0 2200 1800">')
- d.raw(f'<title>{html.escape(title)} / Immortals Macau concept floor plan</title><desc>Four suites, three assessments, conventional HBOT, public experiences and support. Original shell retained. Furniture illustrative; dimensions and equipment fit unverified.</desc>')
+ d.raw(f'<title>{html.escape(title)} / Immortals Macau concept floor plan</title><desc>Four suites, a visible working lab, three assessments, conventional HBOT, public experiences and support. Original shell retained. Furniture illustrative; dimensions and equipment fit unverified.</desc>')
  d.rect(0,0,2200,1800,BG,'none',0,0);d.text(65,66,'IMMORTALS / MACAU',24,'start',700);d.text(65,119,title,39,'start',700)
- d.text(65,158,'Four private suites · active public corner · internal support · connected circulation',23,'start',400)
+ d.text(65,158,'Four private suites · visible working lab · active public corner · connected circulation',23,'start',400)
  d.raw('<g id="architectural-plan" transform="translate(15 155) scale(1.03)">')
  d.line('M205 832L651 1362L907 1489L1250 1599','#c6cbc2',1.2);d.line('M1507 509L1344 772L1329 1164L1131 1416L1472 1515','#c6cbc2',1.2)
  d.raw(f'<path d="{reference_shell}" fill="{BG}" stroke="{WALL}" stroke-width="4.5"/>')
@@ -230,12 +241,19 @@ for model in DATA:
  for id in model.get('glazedRooms',[]):
   x0,y0,x1,y1=bbox(byid[id]['geometry'])
   d.line(f'M{x0} {y0}H{x1}',BG,7);d.line(f'M{x0} {y0}H{x1}','#6c98a1',2,'5 3');d.line(f'M{x0+4} {y0+5}H{x1-4}','#6c98a1',.9,'5 3')
+ for x1,y1,x2,y2 in model['lab']['glass']:
+  length=math.hypot(x2-x1,y2-y1);nx=-(y2-y1)/length*5;ny=(x2-x1)/length*5
+  if not inside(byid['L1']['geometry'],((x1+x2)/2+nx,(y1+y2)/2+ny)):nx=-nx;ny=-ny
+  d.line(f'M{x1} {y1}L{x2} {y2}',BG,7)
+  d.line(f'M{x1} {y1}L{x2} {y2}','#6c98a1',2,'5 3')
+  d.line(f'M{x1+nx} {y1+ny}L{x2+nx} {y2+ny}','#6c98a1',.9,'5 3')
  for door in model['doors']:d.door(byid[door['room']],*door['door'])
  for z in zones:
   id=z['id'];rid='room-'+id;d.raw(f'<defs><clipPath id="{rid}"><path d="{path(z["geometry"])}" fill-rule="evenodd"/></clipPath></defs><g clip-path="url(#{rid})">')
   if id=='E':d.raw(E.tostring(escape,encoding='unicode'))
   elif id=='R':pass
   elif id=='K':d.corner(z)
+  elif id=='L1':d.lab(z,model['lab'])
   elif id.startswith('S'):d.suite(z)
   elif z['open']:d.public(z)
   else:d.equipment(z)
@@ -282,9 +300,9 @@ for model in DATA:
  d.text(sx,1020,'ACTIVE MALL CORNER',23,'start',700)
  d.text(sx,1064,model['frontage']['lines'],20,'start',400)
  d.text(sx,1190,'CLINICAL + SUPPORT',23,'start',700)
- d.text(sx,1230,['D1 DEXA / D2 balance / D3 VO₂ max.','T1 HBOT / T2 technical / C1 team / '+('local prep.' if key=='houses' else 'C2 prep.'),'E1 salon / E2 skin-data / B1-B5 support.','W1 accessible WC / W2 WC; retained escape.'],18,'start',400)
+ d.text(sx,1230,['D1 DEXA / D2 balance / D3 VO₂ max.','T1 HBOT / T2 technical / C1 team / '+('local prep.' if key=='houses' else 'C2 prep.'),'L1 visible lab / E1 salon / E2 skin-data.','B1-B5 support / W1 accessible WC / W2 WC.'],18,'start',400)
  d.text(sx,1330,'CIRCULATION + DRAWING STATUS',23,'start',700)
- d.text(sx,1374,['Main guest corridors: 2.4 m clear design target.','Widths and equipment fit require a survey.','Internal drainage routes remain unconfirmed.','Corner glazing and furniture are proposals.'],20,'start',400)
+ d.text(sx,1374,['Main guest corridors: 2.4 m clear design target.','Widths and equipment fit require a survey.','Lab services and drainage remain unconfirmed.','Corner glazing and furniture are proposals.'],20,'start',400)
  d.line('M65 1625H2135','#b4c0b2',1.5);d.text(65,1670,'MACAU CLINIC · REPORTED AREA 1,100 m²',22,'start',700);d.text(2135,1670,title.upper(),22,'end',700)
  d.text(65,1710,'Source: supplied footprint. All floor area is assigned to rooms, public space or connected circulation.',20,'start',400)
  d.text(65,1740,'Concept drawing only: structure, drainage, fire strategy, equipment and measured dimensions remain for the appointed design team.',20,'start',400)

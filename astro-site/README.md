@@ -4,11 +4,11 @@ Astro port of the existing Immortals Macau presentation. All four architectural 
 
 ## Floor plans
 
-All five plans now include the September 25 corner-frontage revision. Gallery retains its visible lab, aligned salon walls, internal guest toilets and open corner lounge. The four other concepts each have a distinct public corner: discovery lounge, social salon, public forum and neighbourhood living room. Their toilets and support rooms move inward, with revised circulation and equipment placement. All five share the homepage preview, layout comparison and enlarged viewer.
+All five plans now include the September 25 corner-frontage revision. Gallery retains its visible lab, aligned salon walls, internal guest toilets and open corner lounge. The four other concepts each have a distinct public corner: discovery lounge, social salon, public forum and neighbourhood living room. Each now includes an enclosed working lab visible from public space. Two destinations retains the guest lecture forum, with its experience rooms beside the window café and a wider route around the internal support block. Their toilets and support rooms move inward, with revised circulation and equipment placement. All five share the homepage preview, layout comparison and enlarged viewer.
 
 Run `python3 scripts/floor-plans/build_gallery.py` from the repository root to regenerate Gallery and refresh its cache hash. The supplied baseline is preserved in `scripts/floor-plans/gallery-source.svg`. The revised drawing deliberately omits obsolete area allocations; corner glazing and lab services remain proposals.
 
-The four concept geometries are in `../scripts/floor-plans/concepts.json`. From the repository root, run `python3 scripts/floor-plans/build.py` to regenerate their SVGs and cache manifest. This renderer reads Gallery's reference symbols but never writes Gallery. The drawings illustrate the agreed program; measured areas, dimensions, new entrances and equipment fit remain unverified.
+The four concept geometries are in `../scripts/floor-plans/concepts.json`. From the repository root, run `python3 scripts/floor-plans/build.py` to regenerate their SVGs and cache manifest. This renderer reads Gallery's reference symbols but never writes Gallery. With Shapely 2.x installed, run `python3 scripts/floor-plans/validate.py` to check coverage, overlaps, room doors, public lab glazing and circulation. The drawings illustrate the agreed program; measured areas, dimensions, new entrances and equipment fit remain unverified.
 
 ## Development
 
@@ -39,7 +39,6 @@ All six rooms now load. Hyperbaric, patient suite and DEXA use newly generated r
 Room data is in `src/data/clinic-tour.js` and viewer logic in `src/scripts/clinic-tour.js`. Cubes use +X, -X, +Y, -Y, +Z, -Z ordering (right, left, up, down, front, back). `HBOT_REVISION.md` records this generated preview's mapping and limitations. The original handoff revision was missing. Never substitute or convert the obsolete spherical hyperbaric image.
 
 From the repository root, `node scripts/prepare-tour.mjs /path/to/Immortals-Six-Room-360` preserves the five original display assets. `node scripts/prepare-tour-cubes.mjs /path/to/input.json` prepares generated images; the input maps room IDs to front/back/left/right/up/down source paths. Final faces and their manifest are in `public/assets/clinic-tour/cube-v2/`; prompts are in `TOUR_IMAGE_PROMPTS.md`. Run `npm run test:tour` from `astro-site/` for state, gesture, field-of-view and production-asset checks.
-
 
 ## Homepage clinic film
 
