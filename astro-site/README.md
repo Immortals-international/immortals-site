@@ -4,7 +4,9 @@ Astro port of the existing Immortals Macau presentation. All four architectural 
 
 ## Floor plans
 
-Gallery is the unchanged reference. Public windowfront, Shared window club, Two destinations and Two patient houses replace the former Club and Salon options. All five share the homepage preview, layout comparison and enlarged viewer.
+Gallery now includes the September 25 corner-frontage revision: a lab in the left shopfront triangle, aligned salon and skin/data walls, internal guest toilets and an open lounge at the busy bottom mall junction. Its clinical rooms and four window suites are retained. Public windowfront, Shared window club, Two destinations and Two patient houses remain earlier studies pending the same corner review. All five share the homepage preview, layout comparison and enlarged viewer.
+
+Run `python3 scripts/floor-plans/build_gallery.py` from the repository root to regenerate Gallery and refresh its cache hash. The supplied baseline is preserved in `scripts/floor-plans/gallery-source.svg`. The revised drawing deliberately omits obsolete area allocations; corner glazing and lab services remain proposals.
 
 The four concept geometries are in `../scripts/floor-plans/concepts.json`. From the repository root, run `python3 scripts/floor-plans/build.py` to regenerate their SVGs and cache manifest. This renderer reads Gallery's reference symbols but never writes Gallery. The drawings illustrate the agreed program; measured areas, dimensions, new entrances and equipment fit remain unverified.
 

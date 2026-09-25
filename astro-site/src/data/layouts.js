@@ -7,15 +7,14 @@ const image = id => {
   return `assets/plan-${id}.svg?v=${version.slice(0, 12)}`;
 };
 
-// Gallery stays as the original reference. New concepts reopen frontage and arrival choices.
+// Gallery includes the corner-frontage revision. Other concepts await that redesign.
 export const layouts = [
   {
     id: 'gallery', name: 'Gallery', title: 'An open discovery floor',
-    description: 'Visitors enter directly into the gallery. More of the public floor is available for demonstrations and changing displays, with open coffee seating beyond.',
+    description: 'A visible lab occupies the left shopfront triangle. An open discovery gallery leads to coffee and lounge seating at the busy bottom corner, with guest toilets moved behind an internal lobby.',
     frontage: 'Four private suites', suites: 'Four window suites', arrivals: 'Separate public and patient entrances',
-    benefit: 'Discovery leads into private care.',
-    tradeoff: 'The window frontage is reserved for private care; public discovery and hospitality occupy the shopfront side.',
-    areas: [168, 64, 55],
+    benefit: 'A visible lab attracts attention; the busiest corner becomes a public lounge.',
+    tradeoff: 'Four suites keep the window frontage. Lab services, internal toilet access and the proposed corner glazing need detailed coordination.',
   },
   {
     id: 'windowfront', name: 'Public windowfront', title: 'The public gets the view',
