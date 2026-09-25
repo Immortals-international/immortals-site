@@ -118,7 +118,17 @@ class Draw:
    self.circle(px+9,y+h/2,4,'#b5ccc7')
   self.text(lx,ly,['L1','VISIBLE LAB'],12,weight=700)
   self.text(lx,ly+32,'STAFF ACCESS',8,weight=400)
+  if spec.get('displayBench'):
+   bx,by,bw,bh=spec['displayBench'];self.rect(bx,by,bw,bh,'#d6e1dc','#81998e',1.3,0)
+   self.text(bx+bw/2,by+bh/2+3,'WORK / DISPLAY',8,weight=400)
   self.raw('</g>')
+ def glazing(self,g,segments):
+  for x1,y1,x2,y2 in segments:
+   length=math.hypot(x2-x1,y2-y1);nx=-(y2-y1)/length*5;ny=(x2-x1)/length*5
+   if not inside(g,((x1+x2)/2+nx,(y1+y2)/2+ny)):nx=-nx;ny=-ny
+   self.line(f'M{x1} {y1}L{x2} {y2}',BG,7)
+   self.line(f'M{x1} {y1}L{x2} {y2}','#6c98a1',2,'5 3')
+   self.line(f'M{x1+nx} {y1+ny}L{x2+nx} {y2+ny}','#6c98a1',.9,'5 3')
  def coffee(self,z,avoid=()):
   g=z['geometry'];loc=spot(g,285,115,avoid=avoid);scale=1
   if not loc:loc=spot(g,228,92,avoid=avoid);scale=.8
@@ -228,7 +238,7 @@ for model in DATA:
  d.raw('<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1800" viewBox="0 0 2200 1800">')
  d.raw(f'<title>{html.escape(title)} / Immortals Macau concept floor plan</title><desc>Four suites, a visible working lab, three assessments, conventional HBOT, public experiences and support. Original shell retained. Furniture illustrative; dimensions and equipment fit unverified.</desc>')
  d.rect(0,0,2200,1800,BG,'none',0,0);d.text(65,66,'IMMORTALS / MACAU',24,'start',700);d.text(65,119,title,39,'start',700)
- d.text(65,158,'Four private suites · visible working lab · active public corner · connected circulation',23,'start',400)
+ d.text(65,158,'Four private suites · walkway-visible lab · active mall frontage · connected circulation',23,'start',400)
  d.raw('<g id="architectural-plan" transform="translate(15 155) scale(1.03)">')
  d.line('M205 832L651 1362L907 1489L1250 1599','#c6cbc2',1.2);d.line('M1507 509L1344 772L1329 1164L1131 1416L1472 1515','#c6cbc2',1.2)
  d.raw(f'<path d="{reference_shell}" fill="{BG}" stroke="{WALL}" stroke-width="4.5"/>')
@@ -241,18 +251,13 @@ for model in DATA:
  for id in model.get('glazedRooms',[]):
   x0,y0,x1,y1=bbox(byid[id]['geometry'])
   d.line(f'M{x0} {y0}H{x1}',BG,7);d.line(f'M{x0} {y0}H{x1}','#6c98a1',2,'5 3');d.line(f'M{x0+4} {y0+5}H{x1-4}','#6c98a1',.9,'5 3')
- for x1,y1,x2,y2 in model['lab']['glass']:
-  length=math.hypot(x2-x1,y2-y1);nx=-(y2-y1)/length*5;ny=(x2-x1)/length*5
-  if not inside(byid['L1']['geometry'],((x1+x2)/2+nx,(y1+y2)/2+ny)):nx=-nx;ny=-ny
-  d.line(f'M{x1} {y1}L{x2} {y2}',BG,7)
-  d.line(f'M{x1} {y1}L{x2} {y2}','#6c98a1',2,'5 3')
-  d.line(f'M{x1+nx} {y1+ny}L{x2+nx} {y2+ny}','#6c98a1',.9,'5 3')
+ d.glazing(byid['L1']['geometry'],model['lab']['glass'])
  for door in model['doors']:d.door(byid[door['room']],*door['door'])
  for z in zones:
   id=z['id'];rid='room-'+id;d.raw(f'<defs><clipPath id="{rid}"><path d="{path(z["geometry"])}" fill-rule="evenodd"/></clipPath></defs><g clip-path="url(#{rid})">')
   if id=='E':d.raw(E.tostring(escape,encoding='unicode'))
   elif id=='R':pass
-  elif id=='K':d.corner(z)
+  elif id=='K' and z['kind']!='arrival':d.corner(z)
   elif id=='L1':d.lab(z,model['lab'])
   elif id.startswith('S'):d.suite(z)
   elif z['open']:d.public(z)
@@ -265,12 +270,16 @@ for model in DATA:
  for x,y,angle,public in [(1149,982,103,False)]+([(600,1053,53,True)] if key in ['club','wings'] else []):
   d.raw(f'<g transform="translate({x} {y}) rotate({angle})">');d.line('M-22 0H22',BG,9);d.line('M-22 0V44',WALL,1.3);d.line('M-22 44A44 44 0 0 0 22 0','#9ba59b',1);d.raw('</g>')
   d.text(315 if public else 1234,1110 if public else 966,['PUBLIC ENTRY','PROPOSED SHOPFRONT DOOR'] if public else ['PATIENT ENTRY' if key in ['club','wings'] else 'SHARED ENTRY','EXISTING OPENING'],15 if public else 16,'middle' if public else 'start',700)
- # Prime mall frontage is public in every option, with proposed glazing explicit.
- d.line('M760 1260L975 1365L1133 1137',BG,7)
- d.line('M760 1260L975 1365L1133 1137','#6c98a1',3,'7 4')
- d.line('M766 1255L973 1356L1127 1134','#6c98a1',1,'7 4')
+ # The lab's exterior windows face only mall/shopfront edges of the footprint.
+ d.glazing(byid['L1']['geometry'],model['lab']['exteriorGlass'])
+ if key=='wings':
+  d.line('M760 1260L975 1365L1133 1137',BG,7)
+  d.line('M760 1260L975 1365L1133 1137','#6c98a1',3,'7 4')
+  d.line('M766 1255L973 1356L1127 1134','#6c98a1',1,'7 4')
+  d.line('M465 902L330 990H285','#9aab9d',1)
+  d.text(275,981,['LAB WINDOW','VISIBLE FROM MALL'],12,'end',600)
  d.line('M1045 1281L1150 1340H1190','#9aab9d',1)
- d.text(1206,1336,['HIGH-FOOTFALL CORNER','PROPOSED PUBLIC GLAZING'],13,'start',600)
+ d.text(1206,1336,['HIGH-FOOTFALL CORNER','PUBLIC FORUM GLAZING' if key=='wings' else 'LAB WINDOWS TO MALL'],13,'start',600)
  if key=='club':
   loc=spot(byid['R']['geometry'],130,38,(1165,580))
   if loc:d.text(loc[0],loc[1]-5,['PATIENT','CIRCULATION'],12,weight=400)

@@ -37,3 +37,14 @@ Gallery remains byte-for-byte unchanged. Each alternative now includes an enclos
 - Two patient houses: the lab sits on the window frontage within the public room between the care houses, with routes maintained along both sides and behind it.
 
 Polygon coordinates use one consistent precision grid so shared boundaries meet exactly. Validation checks complete footprint coverage, overlaps, door access, connected public circulation, lab glazing, retained internal support and the public corner. Furniture and labels are reviewed in the generated drawings. Lab fit-out, measured clearances and services still require detailed design.
+
+## Correction: visible directly from the exterior mall walkway
+
+Visibility means an exterior lab window on the mall-facing shopfront or bottom corner, not visibility only from an internal corridor or the curved Macau Strip frontage. Gallery is unchanged.
+
+- Public windowfront: the lab replaces the lower discovery lounge; the former promenade lab returns to open circulation. The window café remains the main public lounge.
+- Shared window club: the larger lab replaces the lower social salon. The two entrances and a clear public foyer remain outside it; hospitality stays in the window club.
+- Two destinations: retain the lecture forum and lab in the left shopfront triangle, and explicitly draw its exterior window to the mall.
+- Two patient houses: move the lab from the window frontage to the bottom corner, replacing the living room. Keep a separate foyer in front of both salon doors. The restored window room hosts public coffee and seating.
+
+The validator now requires exterior lab glazing to lie on the lab boundary, original perimeter and permitted mall/shopfront edges. It retains coverage, door-width, circulation and internal-support checks.
