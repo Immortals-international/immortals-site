@@ -1,9 +1,10 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
+import PresentationAccess from '../components/PresentationAccess.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ImageLightbox from '../components/ImageLightbox.astro';
 import { url } from '../data/site';
 import '../styles/site.css';
 const { title, description, active='', bodyClass='' } = Astro.props;
 ---
-<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="robots" content="noindex,nofollow" /><meta name="theme-color" content="#0c1220" /><title>{title} | Immortals Macau</title><meta name="description" content={description} /><link rel="icon" href={url('assets/favicon.png')} /><link rel="preload" href={url('assets/mori-regular.woff2')} as="font" type="font/woff2" crossorigin /><style is:inline set:html={`@font-face{font-family:Mori;src:url('${url('assets/mori-regular.woff2')}') format('woff2');font-weight:400;font-display:swap}@font-face{font-family:Mori;src:url('${url('assets/mori-semibold.woff2')}') format('woff2');font-weight:600;font-display:swap}`} /></head><body class:list={['macau-site',bodyClass]} id="top"><SiteHeader active={active} /><main id="main-content"><slot /></main><SiteFooter /><ImageLightbox /></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="robots" content="noindex,nofollow" /><meta name="theme-color" content="#0c1220" /><title>{title} | Immortals Macau</title><meta name="description" content={description} /><link rel="icon" href={url('assets/favicon.png')} /><link rel="preload" href={url('assets/mori-regular.woff2')} as="font" type="font/woff2" crossorigin /><style is:inline set:html={`@font-face{font-family:Mori;src:url('${url('assets/mori-regular.woff2')}') format('woff2');font-weight:400;font-display:swap}@font-face{font-family:Mori;src:url('${url('assets/mori-semibold.woff2')}') format('woff2');font-weight:600;font-display:swap}`} /></head><body class:list={['macau-site',bodyClass]} id="top"><PresentationAccess /><SiteHeader active={active} /><main id="main-content"><slot /></main><SiteFooter /><ImageLightbox /></body></html>
