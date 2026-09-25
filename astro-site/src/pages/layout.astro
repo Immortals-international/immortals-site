@@ -49,7 +49,7 @@ import { layouts } from '../data/layouts';
           </tbody>
         </table>
         </div>
-        <p class="layout-footnote">Concept layouts within the reported 1,100 m² footprint. Gallery retains its original indicative area allocation; the four new concepts await a measured area and equipment fit test. Proposed shopfront entrances require feasibility confirmation.</p>
+        <p class="layout-footnote">Concept layouts within the reported 1,100 m² footprint. Gallery includes the latest corner-frontage revision; the other four concepts await the same review. Areas and equipment fit require measured verification. Proposed entrances and corner glazing require feasibility confirmation.</p>
       </div>
     </div>
   </section>
@@ -59,16 +59,16 @@ import { layouts } from '../data/layouts';
       <div class="section-heading"><h2 id="shared-title">One shared brief.<br />Different priorities.</h2><p>All five retain four private suites, dedicated assessments and clinical support. Suite locations, window access and the number of arrivals are deliberate choices.</p></div>
       <figure>
         <svg class="annotated-plan" viewBox="180 265 1320 1330" role="img" aria-labelledby="framework-title framework-description">
-          <title id="framework-title">Gallery, the retained reference plan</title>
+          <title id="framework-title">Gallery, the revised reference plan</title>
           <desc id="framework-description">Marker 1 locates the public entrance on the lower left shopfront. Marker 2 locates the separate patient entrance on the right. Markers 3 identify four suites along the curved window frontage at the top.</desc>
-          <image href={url('assets/plan-gallery.svg')} width="2200" height="1800" />
+          <image href={url(layouts[0].image)} width="2200" height="1800" />
           <g class="plan-markers" transform="translate(15 155) scale(1.03)" aria-hidden="true">
             <g transform="translate(600 1053)"><circle r="32" /><text y="1">1</text></g>
             <g transform="translate(1149 982)"><circle r="32" /><text y="1">2</text></g>
             {[{x:507,y:288},{x:699,y:291},{x:877,y:327},{x:1064,y:414}].map(p => <g transform={`translate(${p.x} ${p.y})`}><circle r="27" /><text y="1">3</text></g>)}
           </g>
         </svg>
-        <figcaption>Gallery is shown unchanged as the reference. Its two arrivals and four window suites are not fixed requirements for the other concepts.</figcaption>
+        <figcaption>Gallery now gives the mall-facing triangle to a visible lab and the bottom corner to a public lounge. Its two arrivals and four window suites are not fixed requirements for the other concepts.</figcaption>
       </figure>
       <div class="framework-notes">
         <article><span class="feature-marker" aria-hidden="true">1</span><div><h3>The public welcome</h3><p>Gallery uses a proposed shopfront entrance. The new concepts test separate arrivals or one hosted entrance that branches inside.</p></div></article>
