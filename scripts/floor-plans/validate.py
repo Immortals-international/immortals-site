@@ -22,7 +22,7 @@ for model in models:
     numbers = list(map(float, re.findall(r'-?\d+(?:\.\d+)?', model['shell'])))
     shell = set_precision(Polygon(list(zip(numbers[::2], numbers[1::2]))), .001)
     zones = {z['id']: shape(z['geometry']) for z in model['zones']}
-    required = {'S1', 'S2', 'S3', 'S4', 'D1', 'D2', 'D3', 'T1', 'T2', 'E', 'E1', 'E2', 'L1', 'B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'W1', 'W2', 'K', 'R'}
+    required = {'S1', 'S2', 'S3', 'S4', 'D1', 'D2', 'D3', 'T1', 'T2', 'E', 'E1', 'E2', 'L1', 'B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'W1', 'W2', 'R'}
     assert required <= zones.keys(), label
     assert shell.symmetric_difference(unary_union(list(zones.values()))).area < .1, (label, 'coverage')
     for i, (id, room) in enumerate(zones.items()):
@@ -36,7 +36,8 @@ for model in models:
     # Erosion rejects corridors connected only at a point or through tiny slits.
     clear = walk.buffer(-15)
     assert clear.geom_type == 'Polygon', (label, 'pinched circulation')
-    assert zones['K'].buffer(.002).covers(shell.intersection(box(0, 1255, 1500, 1500))), (label, 'public tip')
+    tip = zones['K'] if model['key'] == 'wings' else zones['L1']
+    assert tip.buffer(.002).covers(shell.intersection(box(0, 1255, 1500, 1500))), (label, 'active tip')
     for id in ['B1', 'B2', 'B3', 'B4', 'B5', 'W1', 'W2']:
         assert zones[id].distance(shell.boundary) > 1, (label, id, 'perimeter support')
     doors = {d['room']: d['door'] for d in model['doors']}
@@ -58,11 +59,32 @@ for model in models:
                 assert edge.buffer(.01).covers(opening), (label, id, 'door beyond wall')
                 assert adjacent.buffer(.01).covers(opening), (label, id, 'door width blocked')
                 assert clear.distance(p) < 27, (label, id, 'cramped door approach')
+                if id == 'L1':
+                    nx, ny = -uy, ux
+                    if not room.contains(Point(p.x + nx, p.y + ny)):
+                        nx, ny = -nx, -ny
+                    ends = list(opening.coords)
+                    swing = Polygon([ends[0], ends[1], (ends[1][0]+nx*width, ends[1][1]+ny*width), (ends[0][0]+nx*width, ends[0][1]+ny*width)])
+                    assert room.buffer(.01).covers(swing), (label, 'lab door swing leaves room')
+                    for name in ['bench', 'displayBench']:
+                        if name in model['lab']:
+                            x, y, w, h = model['lab'][name]
+                            bench = box(x, y, x+w, y+h)
+                            assert room.covers(bench), (label, 'lab bench outside room')
+                            assert swing.intersection(bench).area < .01, (label, 'lab bench blocks door')
                 break
     for x1, y1, x2, y2 in model['lab']['glass']:
         glass = LineString([(x1, y1), (x2, y2)])
         assert zones['L1'].boundary.buffer(.01).covers(glass), (label, 'lab glazing off wall')
         assert public.buffer(.01).covers(glass), (label, 'lab not visible from public floor')
+    mall = LineString([(405,635),(305,735),(555,995),(760,1260),(975,1365),(1133,1137),(1133,1049.5),(1165,910.5),(1165,750),(1335,445)])
+    exterior = model['lab']['exteriorGlass']
+    assert exterior, (label, 'outside lab window missing')
+    for x1, y1, x2, y2 in exterior:
+        glass = LineString([(x1,y1),(x2,y2)])
+        assert zones['L1'].boundary.buffer(.01).covers(glass), (label, 'outside glazing off lab')
+        assert mall.buffer(.01).covers(glass), (label, 'lab glazing is not mall-facing')
+        assert shell.boundary.buffer(.01).covers(glass), (label, 'lab glazing is not exterior')
     x, y, w, h = model['lab']['bench']
     assert zones['L1'].covers(box(x, y, x + w, y + h)), (label, 'lab bench outside room')
     for entry in [(1140, 982)] + ([(610, 1053)] if model['key'] in ['club', 'wings'] else []):
