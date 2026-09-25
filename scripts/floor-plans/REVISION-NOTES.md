@@ -26,3 +26,14 @@ The other four concepts now apply the active corner principle. Gallery is unchan
 All B1-B5 support rooms and both guest toilets sit away from the external perimeter in the four revised concepts. Every room has a door to the connected circulation or internal support lobby; the whole bottom tip is public. The SVGs use the same shell, wall weights, furnishings and proposed-glazing language as Gallery.
 
 Validation covers polygon validity, complete shell coverage, overlaps, room-door connectivity and both entrance arrangements. These are spatial studies, not measured construction plans. Corridor clearances, equipment envelopes, accessibility, acoustic separation and relocated plumbing still need the appointed design team's fit test.
+
+## Visible labs in all four alternatives
+
+Gallery remains byte-for-byte unchanged. Each alternative now includes an enclosed L1 working lab with a bench, public-facing glazing and a dedicated staff door:
+
+- Public windowfront: the lab sits on the right public promenade between the arrival and window café.
+- Shared window club: the lab faces both the mall and the lower social salon.
+- Two destinations: the lab fills the left shopfront triangle beside the public arrival. The lecture forum and linked arrivals remain. The flexible salon and skin/data move beside the window café; the support core shifts inward to remove the cramped route at the shell notch and the narrow strip below the toilets.
+- Two patient houses: the lab sits on the window frontage within the public room between the care houses, with routes maintained along both sides and behind it.
+
+Polygon coordinates use one consistent precision grid so shared boundaries meet exactly. Validation checks complete footprint coverage, overlaps, door access, connected public circulation, lab glazing, retained internal support and the public corner. Furniture and labels are reviewed in the generated drawings. Lab fit-out, measured clearances and services still require detailed design.
