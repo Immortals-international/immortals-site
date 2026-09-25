@@ -1,0 +1,49 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { url } from '../../data/site';
+import { supplementLab as lab } from '../../data/supplement-lab';
+---
+<SiteLayout title="Supplement lab" description="A first look at the proposed Immortals Macau supplement lab: personalised preparation, visible through the mall-facing glass." active="interior-design">
+  <section class="wrap page-heading lab-heading">
+    <div class="breadcrumb"><a href={url()}>Macau flagship</a><span>/</span><a href={url('interior-design/')}>Interior Design</a><span>/</span><span>Supplement lab</span></div>
+    <p class="eyebrow">The window lab</p>
+    <h1>Personalised care,<br /><span>made visible.</span></h1>
+    <p class="lab-intro">A dedicated lab for preparing and packaging personalised supplements, visible through the glass along the mall frontage.</p>
+  </section>
+  <figure class="wrap lab-visual">
+    <button type="button" class="image-button" data-lightbox={lab.image} data-caption="Personalised supplement lab · Gallery concept" aria-label="Enlarge the supplement lab concept">
+      <img src={lab.image} alt={lab.alt} width={lab.width} height={lab.height} loading="eager" fetchpriority="high" />
+      <span>View full image <span aria-hidden="true">↗</span></span>
+    </button>
+    <figcaption>Gallery concept · Warm ivory, oak and bronze · Viewed from the mall</figcaption>
+  </figure>
+  <section class="wrap lab-details" aria-labelledby="lab-details-title">
+    <div><p class="eyebrow">A working part of the clinic</p><h2 id="lab-details-title">Preparation becomes<br />part of the experience.</h2></div>
+    <div class="lab-description">
+      <p>The proposed lab brings activity to the shopfront. Staff prepare and package individual supplement orders while visitors can see the work from outside.</p>
+      <p>An L-shaped counter combines preparation space and ingredient storage with a separate sink return. Warm ivory surfaces, oak cabinetry and restrained bronze details connect the lab to the clinic’s interior.</p>
+      <p>The workspace is reserved for staff, with access from inside the clinic. Guests view it through the glazing.</p>
+      <p class="lab-note">Concept visualisation based on the Gallery lab arrangement. Final equipment, finishes and proportions remain subject to detailed design.</p>
+    </div>
+  </section>
+  <section class="cream"><nav class="wrap lab-next" aria-label="Continue exploring"><a class="text-link" href={url('interior-design/')}>Compare the interiors <span aria-hidden="true">↗</span></a><a class="text-link" href={url('tour/#main-entrance')}>Explore the clinic in 360° <span aria-hidden="true">↗</span></a></nav></section>
+</SiteLayout>
+<style>
+  .lab-heading{padding-top:32px;padding-bottom:36px}
+  .lab-heading .breadcrumb{margin-bottom:30px}
+  .lab-heading>.eyebrow{margin-bottom:18px}
+  .lab-heading h1{font-size:clamp(42px,6.1vw,88px);line-height:1.02}
+  .lab-heading h1 span{color:var(--muted)}
+  .lab-intro{max-width:640px;font-size:15px;line-height:1.7;color:var(--muted);margin-top:24px}
+  .lab-visual{margin-top:0;margin-bottom:0}
+  .lab-visual img{display:block;width:100%;height:auto}
+  .lab-visual figcaption{font-size:12px;line-height:1.6;color:var(--muted);margin-top:16px}
+  .lab-details{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px);padding-top:64px;padding-bottom:72px}
+  .lab-details .eyebrow{margin-bottom:22px}
+  .lab-details h2{font-size:clamp(32px,3.5vw,48px);line-height:1.1}
+  .lab-description>p{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:20px}
+  .lab-description>.lab-note{font-size:11px;line-height:1.7;border-top:1px solid var(--line);padding-top:20px;margin-bottom:0}
+  .lab-next{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:36px;padding-bottom:36px}
+  .lab-next a{display:inline-flex;align-items:center;gap:24px;min-height:44px}
+  @media(max-width:700px){.lab-heading{padding-top:24px;padding-bottom:26px}.lab-heading .breadcrumb{margin-bottom:24px}.lab-heading h1{font-size:clamp(37px,10vw,58px)}.lab-intro{font-size:14px}.lab-visual figcaption{font-size:10px}.lab-details{grid-template-columns:1fr;gap:26px;padding-top:42px;padding-bottom:44px}.lab-description>p{font-size:14px}.lab-next{flex-direction:column;align-items:flex-start;gap:12px;padding-top:24px;padding-bottom:24px}}
+</style>

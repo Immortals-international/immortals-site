@@ -2,6 +2,7 @@
 import '../styles/clinic-tour.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import { scenes } from '../data/clinic-tour';
+import { url } from '../data/site';
 const base = import.meta.env.BASE_URL;
 ---
 <!doctype html>
@@ -23,7 +24,7 @@ const base = import.meta.env.BASE_URL;
       <canvas id="tour-canvas" tabindex="0" aria-label="360 degree clinic view. Drag or swipe to look around. Arrow keys look around, plus and minus zoom, Home resets." aria-describedby="tour-help"></canvas>
       <div class="tour-heading">
         <div class="tour-room-title"><p class="tour-eyebrow"><span id="scene-count">01 / 06</span> <span>SCULPTURAL MINIMALISM</span></p><h1 id="room-name">Main entrance</h1></div>
-        <div class="tour-picker"><label for="room-select">EXPLORE THE CLINIC</label><select id="room-select">{scenes.map((scene, i) => <option value={i}>{String(i + 1).padStart(2, '0')} · {scene.name}</option>)}</select></div>
+        <div class="tour-picker"><label for="room-select">EXPLORE THE CLINIC</label><select id="room-select">{scenes.map((scene, i) => <option value={i}>{String(i + 1).padStart(2, '0')} · {scene.name}</option>)}</select><a class="tour-lab-link" href={url('interior-design/supplement-lab/')}>Supplement lab <span>Still view ↗</span></a></div>
       </div>
       <button id="next-marker" class="tour-marker" hidden><span class="tour-disc" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m7 21 9-10 9 10M7 28l9-10 9 10" /></svg></span><span class="tour-marker-label"><small>Jump to</small><span id="next-name"></span></span></button>
       <button id="back-marker" class="tour-marker" hidden><span class="tour-disc" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m7 21 9-10 9 10M7 28l9-10 9 10" /></svg></span><span class="tour-marker-label"><small>Back to</small><span id="back-name"></span></span></button>
@@ -42,3 +43,10 @@ const base = import.meta.env.BASE_URL;
     <script>import '../scripts/clinic-tour.js';</script>
   </body>
 </html>
+<style>
+  .tour-lab-link{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:8px 10px;background:#0c1220d9;border:1px solid #f7f5ec40;border-radius:4px;font-size:11px;color:var(--bone);text-decoration:none}
+  .tour-lab-link span{font-size:9px;color:#d9c3a2}
+  .tour-lab-link:hover{border-color:#f7f5ec99}
+  .tour-lab-link:focus-visible{outline:2px solid #8ae0ed;outline-offset:3px}
+  @media(max-width:700px){.tour-lab-link{gap:6px;padding:8px 6px;font-size:10px}.tour-lab-link span{font-size:8px}}
+</style>
