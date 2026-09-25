@@ -14,6 +14,15 @@ The bottom point faces the junction of multiple mall walkways and is expected to
 
 The public-space area figures from the previous Gallery are withdrawn. Measured room dimensions, accessible toilet clearances, equipment fit, lab services, drainage and corner glazing need coordination in the next design stage.
 
-## Next round
+## Four-concept redesign
 
-Rework Public windowfront, Shared window club, Two destinations and Two patient houses around the same active corner principle, retaining their distinct approaches to the window frontage and patient suites. Do not simply move the toilet labels: redraw the internal support, circulation and public frontage together.
+The other four concepts now apply the active corner principle. Gallery is unchanged in this round.
+
+- Public windowfront: a corner discovery lounge connects to the window café and glazed experience rooms through the right public promenade. The support core moves beside the escape; HBOT moves behind the corner lounge. Four suites remain internal, with one shared external entrance.
+- Shared window club: the former service tail becomes a large public social salon. A wider discovery walk links the left arrival to the shared window club, while patients retain the right arrival. Support moves into the upper clinical core; HBOT occupies the left wing. Skin/data is enlarged beyond the former narrow wedge.
+- Two destinations: a public forum occupies the tip, with the connecting arrival hall behind it. The two entrances and split window allocation remain. An internal support and toilet block replaces part of the central discovery area, releasing the whole lower floor for the hall and forum.
+- Two patient houses: a corner coffee living room sits in front of the aligned salons. A public window room remains between the two care houses. Support moves into the inside of the care spine; HBOT and its technical room are reshaped. The houses keep paired suites, local lounges and preparation rooms.
+
+All B1-B5 support rooms and both guest toilets sit away from the external perimeter in the four revised concepts. Every room has a door to the connected circulation or internal support lobby; the whole bottom tip is public. The SVGs use the same shell, wall weights, furnishings and proposed-glazing language as Gallery.
+
+Validation covers polygon validity, complete shell coverage, overlaps, room-door connectivity and both entrance arrangements. These are spatial studies, not measured construction plans. Corridor clearances, equipment envelopes, accessibility, acoustic separation and relocated plumbing still need the appointed design team's fit test.
