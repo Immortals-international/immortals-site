@@ -1,0 +1,25 @@
+---
+import { url } from '../data/site';
+const asset = 'assets/films/clinic-experience-v3-1';
+---
+<div class="hero-film" data-hero-film>
+  <picture>
+    <source media="(max-width: 700px)" srcset={url(`${asset}-mobile-poster.webp`)} />
+    <img src={url(`${asset}-poster.webp`)} alt="" width="1920" height="1080" fetchpriority="high" />
+  </picture>
+  <video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture data-desktop-src={url(`${asset}.mp4`)} data-mobile-src={url(`${asset}-mobile.mp4`)}></video>
+</div>
+<button class="hero-film-toggle" data-hero-film-toggle type="button" hidden>Play video</button>
+<script>import '../scripts/hero-film.js';</script>
+<style>
+  .hero-film{position:absolute;inset:-72px 0;z-index:-2;pointer-events:none;transform:translate3d(0,var(--hero-offset,0px),0);will-change:transform}
+  .hero-film picture,.hero-film img,.hero-film video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+  .hero-film video{opacity:0;transition:opacity .4s ease}
+  .hero-film[data-ready] video{opacity:1}
+  .hero-film-toggle{position:absolute;right:5vw;bottom:26px;z-index:2;min-height:44px;padding:10px 15px;border:1px solid #ffffff60;border-radius:3px;background:#080e1970;color:#f7f5ec;font:inherit;font-size:12px;line-height:1.4;backdrop-filter:blur(8px);cursor:pointer}
+  .hero-film-toggle[hidden]{display:none}
+  .hero-film-toggle:hover{background:#080e19bb;border-color:#ffffffb0}
+  .hero-film-toggle:focus-visible{outline:2px solid #f7f5ec;outline-offset:4px}
+  @media(max-width:700px){.hero-film{inset:-40px 0}.hero-film-toggle{right:20px;bottom:20px}}
+  @media(prefers-reduced-motion:reduce){.hero-film{transform:none;will-change:auto}.hero-film video{transition:none}}
+</style>

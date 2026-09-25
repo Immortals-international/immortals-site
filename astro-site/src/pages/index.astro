@@ -1,5 +1,6 @@
 ---
 import WaterLoop from '../components/WaterLoop.astro';
+import HeroFilm from '../components/HeroFilm.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import GuestJourney from '../components/GuestJourney.astro';
 import LabPreview from '../components/LabPreview.astro';
@@ -8,6 +9,7 @@ import { layouts as layoutPreviews } from '../data/layouts';
 ---
 <SiteLayout title="Macau flagship" description="Explore the vision for Immortals Macau: the spatial plan, four interior directions and a new kind of guest experience.">
 <section class="home-intro" aria-labelledby="home-intro-title">
+  <HeroFilm />
   <div class="home-intro-content">
     <h1 id="home-intro-title">A longevity clinic.<br /><span>A flagship destination.</span></h1>
     <div class="home-intro-bottom">
@@ -86,17 +88,19 @@ import { layouts as layoutPreviews } from '../data/layouts';
 </SiteLayout>
 
 <style>
-.home-intro{min-height:calc(100svh - 88px);display:flex;align-items:center;padding:100px 5vw 120px;background:radial-gradient(ellipse at 85% 80%,#263c5a 0,rgba(17,28,53,.2) 50%,transparent 80%),#080e19;color:#f7f5ec}
-.home-intro-content{width:100%;max-width:1600px;margin:0 auto}
+.home-intro{position:relative;isolation:isolate;overflow:hidden;min-height:calc(100svh - 88px);display:flex;align-items:center;padding:100px 5vw 120px;background:radial-gradient(ellipse at 85% 80%,#263c5a 0,rgba(17,28,53,.2) 50%,transparent 80%),#080e19;color:#f7f5ec}
+.home-intro::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,10,17,.78),rgba(5,10,17,.46) 58%,rgba(5,10,17,.16)),linear-gradient(0deg,rgba(5,10,17,.52),transparent 65%);pointer-events:none}
+.home-intro-content{width:100%;max-width:1600px;margin:0 auto;position:relative}
+.home-intro h1,.home-intro-bottom>p{text-shadow:0 2px 24px #0005}
 .home-intro h1{font-size:clamp(62px,7.2vw,116px);line-height:1.04;letter-spacing:-.055em;font-weight:400}
-.home-intro h1 span{color:#bbc6d6}
+.home-intro h1 span{color:#e1e5e8}
 .home-intro-bottom{display:flex;flex-direction:column;align-items:flex-start;gap:26px;margin-top:46px}
-.home-intro-bottom>p{font-size:17px;line-height:1.6;color:#bbc6d6;max-width:350px}
+.home-intro-bottom>p{font-size:17px;line-height:1.6;color:#e1e5e8;max-width:350px}
 .home-intro-links{display:flex;align-items:center;gap:14px}
 .home-intro-tour,.home-intro-vision{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;padding:15px 22px;min-height:54px;border:1px solid #bbc6d6;border-radius:3px;font-size:14px;line-height:1.5;white-space:nowrap;transition:background .15s,color .15s}
 .home-intro-tour{background:#f7f5ec;color:#0c1220}
 .home-intro-tour:hover{background:#dce4ee;border-color:#dce4ee}
-.home-intro-vision{background:transparent;color:#f7f5ec}
+.home-intro-vision{background:#080e1938;color:#f7f5ec}
 .home-intro-vision:hover{background:#ffffff12;border-color:#f7f5ec}
 .home-intro-tour>span,.home-intro-vision>span{font-size:18px;line-height:1}
 @media(max-width:1000px){.home-intro{min-height:calc(100svh - 72px);padding:85px 24px 100px}.home-intro h1{font-size:clamp(58px,7.6vw,90px)}.home-intro-bottom{align-items:flex-start;gap:32px}.home-intro-links{align-items:stretch;flex-direction:column;gap:12px}.home-intro-bottom>p{font-size:15px;max-width:290px}}

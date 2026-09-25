@@ -39,3 +39,10 @@ All six rooms now load. Hyperbaric, patient suite and DEXA use newly generated r
 Room data is in `src/data/clinic-tour.js` and viewer logic in `src/scripts/clinic-tour.js`. Cubes use +X, -X, +Y, -Y, +Z, -Z ordering (right, left, up, down, front, back). `HBOT_REVISION.md` records this generated preview's mapping and limitations. The original handoff revision was missing. Never substitute or convert the obsolete spherical hyperbaric image.
 
 From the repository root, `node scripts/prepare-tour.mjs /path/to/Immortals-Six-Room-360` preserves the five original display assets. `node scripts/prepare-tour-cubes.mjs /path/to/input.json` prepares generated images; the input maps room IDs to front/back/left/right/up/down source paths. Final faces and their manifest are in `public/assets/clinic-tour/cube-v2/`; prompts are in `TOUR_IMAGE_PROMPTS.md`. Run `npm run test:tour` from `astro-site/` for state, gesture, field-of-view and production-asset checks.
+
+
+## Homepage clinic film
+
+The homepage hero uses the approved 32-second revision-3.1 clinic experience film, with the enclosed mall entrance. The existing headline, description and destination links remain unchanged. `HeroFilm.astro` supplies the background media and pause/play control; `hero-film.js` handles visible-only silent playback and a bounded scroll parallax. Reduced-motion and data-saving visitors see the poster until they choose Play video. Video errors leave the poster visible.
+
+Assets live in `public/assets/films/`. The desktop MP4 is the approved web export. The lighter 540 x 960 phone version preserves the 32-second edit and reframes each existing shot to keep the person or detail visible. Versioned filenames allow a later approved film to replace these assets without stale caches.
