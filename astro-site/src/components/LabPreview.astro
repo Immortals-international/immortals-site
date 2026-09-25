@@ -1,0 +1,24 @@
+---
+import { supplementLab as lab } from '../data/supplement-lab';
+---
+<section class="wrap lab-preview" id="supplement-lab" aria-labelledby="lab-preview-title">
+  <a class="lab-preview-image" href={lab.href} aria-label="View the supplement lab concept">
+    <img src={lab.preview} width={lab.thumbnailWidth} height={lab.thumbnailHeight} alt={lab.alt} loading="lazy" />
+  </a>
+  <div>
+    <p class="eyebrow">The window lab</p>
+    <h2 id="lab-preview-title">Personalised care,<br />made visible.</h2>
+    <p>A working supplement lab along the mall frontage. Watch preparations take shape through the glass, in a space designed around precision and calm.</p>
+    <a class="text-link" href={lab.href}>Explore the supplement lab <span aria-hidden="true">↗</span></a>
+  </div>
+</section>
+<style>
+  .lab-preview{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center;padding-top:64px;padding-bottom:72px;border-top:1px solid var(--line)}
+  .lab-preview-image{display:block;min-width:0}
+  .lab-preview-image img{display:block;width:100%;height:auto}
+  .lab-preview .eyebrow{margin-bottom:20px}
+  .lab-preview h2{font-size:clamp(32px,3.8vw,54px);line-height:1.08}
+  .lab-preview p:not(.eyebrow){font-size:14px;line-height:1.7;color:var(--muted);margin:22px 0;max-width:440px}
+  .lab-preview .text-link{display:inline-flex;align-items:center;gap:24px;min-height:44px}
+  @media(max-width:700px){.lab-preview{grid-template-columns:1fr;padding-top:40px;padding-bottom:44px;gap:28px}.lab-preview h2{font-size:36px}.lab-preview .eyebrow{margin-bottom:14px}}
+</style>

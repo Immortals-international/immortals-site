@@ -1,6 +1,7 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import SceneMedia from '../../components/SceneMedia.astro';
+import LabPreview from '../../components/LabPreview.astro';
 import { url, styles, rooms, sceneImage, sceneDimensions, feedback } from '../../data/site';
 ---
 <SiteLayout title="Interior Design" description="Compare four design directions for Immortals Macau across the same six clinic spaces." active="interior-design">
@@ -26,6 +27,8 @@ import { url, styles, rooms, sceneImage, sceneDimensions, feedback } from '../..
     </div>
     <p class="fine comparison-note">Concept visualisations illustrate atmosphere, material and design intent. Room proportions, equipment clearances and final arrangements need architectural and technical coordination.</p>
   </section>
+
+  <LabPreview />
 
   <section class="cream">
     <div class="wrap design-feedback">
