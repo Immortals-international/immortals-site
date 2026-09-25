@@ -14,7 +14,7 @@ const firstSize = sceneDimensions(direction.id, rooms[0].id);
     <div class="room-caption"><h2 id="carousel-room-name">{rooms[0].name}</h2><p id="carousel-room-note">{roomNote(direction, rooms[0])}</p></div>
     <div class="carousel-controls" role="group" aria-label="Browse rooms">
       <button type="button" data-previous-room aria-label="Previous room" aria-controls="direction-slides"><span aria-hidden="true">←</span></button>
-      <span class="carousel-count" aria-hidden="true"><span id="carousel-position">01</span> / 06</span>
+      <span class="carousel-count" aria-hidden="true"><span id="carousel-position">01</span> / {String(rooms.length).padStart(2, '0')}</span>
       <button type="button" data-next-room aria-label="Next room" aria-controls="direction-slides"><span aria-hidden="true">→</span></button>
     </div>
   </div>

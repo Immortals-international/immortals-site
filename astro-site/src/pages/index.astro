@@ -3,7 +3,6 @@ import WaterLoop from '../components/WaterLoop.astro';
 import HeroFilm from '../components/HeroFilm.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import GuestJourney from '../components/GuestJourney.astro';
-import LabPreview from '../components/LabPreview.astro';
 import { url, styles, sceneImage, sceneDimensions, feedback } from '../data/site';
 import { layouts as layoutPreviews } from '../data/layouts';
 ---
@@ -65,8 +64,6 @@ import { layouts as layoutPreviews } from '../data/layouts';
     <a class="home-link" href={url('experiences/')}>Explore the experiences <span aria-hidden="true">↗</span></a>
   </div>
 </section>
-
-<LabPreview />
 
 <section class="home-tour" id="tour" aria-labelledby="tour-title">
   <img src={sceneImage('futurism','private-entrance')} loading="lazy" alt="The proposed private entrance, with sculptural architecture and a view into the clinic." width="1672" height="941" />
